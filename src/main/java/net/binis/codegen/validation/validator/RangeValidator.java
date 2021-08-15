@@ -1,0 +1,56 @@
+package net.binis.codegen.validation.validator;
+
+/*-
+ * #%L
+ * code-generator-validation
+ * %%
+ * Copyright (C) 2021 Binis Belev
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+import net.binis.codegen.exception.ValidationException;
+import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.validation.Validator;
+
+import java.math.BigDecimal;
+
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+
+public class RangeValidator implements Validator {
+
+    private static final RangeValidator instance = new RangeValidator();
+
+    {
+        CodeFactory.registerType(RangeValidator.class, () -> instance, null);
+    }
+
+    @Override
+    public void validate(Object value, String message, Object... params) {
+        if (nonNull(value) && value instanceof Number && params.length > 1) {
+            var val = BigDecimal.valueOf(((Number) value).doubleValue());
+            var min = params[0] instanceof String ? BigDecimal.valueOf(Double.parseDouble((String) params[0])) : BigDecimal.valueOf(((Number) params[0]).doubleValue());
+            var max = params[1] instanceof String ? BigDecimal.valueOf(Double.parseDouble((String) params[1])) : BigDecimal.valueOf(((Number) params[1]).doubleValue());
+            if (val.compareTo(min) < 0 || val.compareTo(max) > 0 ) {
+                if (isNull(message)) {
+                    message = "%f is not in range [%f, %f]";
+                }
+                throw new ValidationException(String.format(message, val, min, max));
+            }
+        } else {
+            throw new ValidationException("Invalid parameters!");
+        }
+    }
+}

@@ -32,9 +32,9 @@ public class ReplaceSanitizer implements Sanitizer {
     }
 
     @Override
-    public <T> T sanitize(T value, String... params) {
+    public <T> T sanitize(T value, Object... params) {
         if (value instanceof String) {
-            return (T) ((String) value).replaceAll(params[0], params[1]);
+            return (T) ((String) value).replaceAll((String) params[0], (String) params[1]);
         }
         return value;
     }

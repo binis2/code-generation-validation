@@ -32,6 +32,9 @@ public interface TestPrototype {
     @ValidateRegEx(message = "Test", expression = "^$")
     Set<Long> set();
 
+    @ValidateRange(min = 0, max = 10)
+    int amount();
+
     @Data
     abstract class ClassAnnotations {
 

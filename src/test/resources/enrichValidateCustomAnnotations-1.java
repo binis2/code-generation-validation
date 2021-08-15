@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface Test {
 
+    int getAmount();
+
     String getEmail();
 
     List<Long> getList();
@@ -15,6 +17,8 @@ public interface Test {
     Set<Long> getSet();
 
     String getTitle();
+
+    void setAmount(int amount);
 
     void setEmail(String email);
 
@@ -27,6 +31,8 @@ public interface Test {
     Test.Modify with();
 
     interface Fields<T> {
+
+        T amount(int amount);
 
         T email(String email);
 

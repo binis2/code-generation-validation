@@ -35,7 +35,7 @@ public class NullValidator implements Validator {
     }
 
     @Override
-    public void validate(Object value, String message, String... params) {
+    public void validate(Object value, String message, Object... params) {
         if (isNull(value)) {
             throw new ValidationException(message);
         }

@@ -41,13 +41,14 @@ public class RegExValidator implements Validator {
     }
 
     @Override
-    public void validate(Object value, String message, String... params) {
+    public void validate(Object value, String message, Object... params) {
         if (nonNull(value)) {
-            var pattern = cache.get(params[0]);
+            var regex = (String) params[0];
+            var pattern = cache.get(regex);
 
             if (isNull(pattern)) {
-                pattern = Pattern.compile(params[0]);
-                cache.put(params[0], pattern);
+                pattern = Pattern.compile(regex);
+                cache.put(regex, pattern);
             }
 
             if (!pattern.matcher(value.toString()).matches()) {

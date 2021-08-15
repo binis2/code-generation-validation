@@ -23,7 +23,6 @@ package net.binis.codegen.validation.annotation;
 import net.binis.codegen.annotation.CodeAnnotation;
 import net.binis.codegen.annotation.validation.AliasFor;
 import net.binis.codegen.annotation.validation.Validate;
-import net.binis.codegen.validation.validator.NullValidator;
 import net.binis.codegen.validation.validator.RegExValidator;
 
 import java.lang.annotation.ElementType;

@@ -2,6 +2,7 @@
 package net.binis.codegen;
 
 import net.binis.codegen.validation.validator.RegExValidator;
+import net.binis.codegen.validation.validator.RangeValidator;
 import net.binis.codegen.validation.validator.NullValidator;
 import net.binis.codegen.validation.sanitizer.TrimSanitizer;
 import net.binis.codegen.validation.sanitizer.ReplaceSanitizer;
@@ -19,6 +20,8 @@ import java.util.List;
 @Data
 public class TestImpl implements Test, Modifiable<Test.Modify> {
 
+    protected int amount;
+
     protected String email;
 
     protected List<Long> list;
@@ -28,6 +31,10 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     protected String title;
 
     public TestImpl() {
+    }
+
+    public int getAmount() {
+        return amount;
     }
 
     public String getEmail() {
@@ -46,14 +53,19 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         return title;
     }
 
+    public void setAmount(int amount) {
+        validate(amount, RangeValidator.class, "%f is not in range [%f, %f]", 0, 10);
+        this.amount = amount;
+    }
+
     public void setEmail(String email) {
         email = sanitize(email, ReplaceSanitizer.class, "\\s+", "_");
-        validate(email, RegExValidator.class, null, "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
+        validate(email, RegExValidator.class, "Invalid Email!", "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
         this.email = email;
     }
 
     public void setList(List<Long> list) {
-        validate(list, NullValidator.class, null);
+        validate(list, NullValidator.class, "Value cannot be null");
         this.list = list;
     }
 
@@ -74,19 +86,25 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     protected class TestModifyImpl implements Test.Modify {
 
+        public Test.Modify amount(int amount) {
+            validate(amount, RangeValidator.class, "%f is not in range [%f, %f]", 0, 10);
+            TestImpl.this.amount = amount;
+            return this;
+        }
+
         public Test done() {
             return TestImpl.this;
         }
 
         public Test.Modify email(String email) {
             email = sanitize(email, ReplaceSanitizer.class, "\\s+", "_");
-            validate(email, RegExValidator.class, null, "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
+            validate(email, RegExValidator.class, "Invalid Email!", "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
             TestImpl.this.email = email;
             return this;
         }
 
         public Test.Modify list(List<Long> list) {
-            validate(list, NullValidator.class, null);
+            validate(list, NullValidator.class, "Value cannot be null");
             TestImpl.this.list = list;
             return this;
         }

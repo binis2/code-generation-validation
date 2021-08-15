@@ -33,7 +33,7 @@ public class TrimSanitizer implements Sanitizer {
     }
 
     @Override
-    public <T> T sanitize(T value, String... params) {
+    public <T> T sanitize(T value, Object... params) {
         if (value instanceof String) {
             return (T) ((String) value).trim();
         }
