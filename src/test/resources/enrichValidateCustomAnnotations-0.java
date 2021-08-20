@@ -14,9 +14,11 @@ import net.binis.codegen.collection.CodeSet;
 import net.binis.codegen.collection.CodeListImpl;
 import net.binis.codegen.collection.CodeList;
 import lombok.Data;
+import javax.annotation.processing.Generated;
 import java.util.Set;
 import java.util.List;
 
+@Generated(value = "TestPrototype", comments = "Test")
 @Data
 public class TestImpl implements Test, Modifiable<Test.Modify> {
 

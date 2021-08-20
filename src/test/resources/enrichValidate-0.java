@@ -12,10 +12,12 @@ import net.binis.codegen.collection.CodeMapImpl;
 import net.binis.codegen.collection.CodeMap;
 import net.binis.codegen.collection.CodeListImpl;
 import net.binis.codegen.collection.CodeList;
+import javax.annotation.processing.Generated;
 import java.util.Set;
 import java.util.Map;
 import java.util.List;
 
+@Generated(value = "TestPrototype", comments = "Test")
 public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     protected List<Long> list;

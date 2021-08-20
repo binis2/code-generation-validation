@@ -4,10 +4,12 @@ package net.binis.codegen;
 import net.binis.codegen.collection.CodeSet;
 import net.binis.codegen.collection.CodeMap;
 import net.binis.codegen.collection.CodeList;
+import javax.annotation.processing.Generated;
 import java.util.Set;
 import java.util.Map;
 import java.util.List;
 
+@Generated(value = "TestPrototype", comments = "TestImpl")
 public interface Test {
 
     List<Long> getList();
