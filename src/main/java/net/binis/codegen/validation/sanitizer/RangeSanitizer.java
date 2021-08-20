@@ -20,13 +20,11 @@ package net.binis.codegen.validation.sanitizer;
  * #L%
  */
 
-import net.binis.codegen.exception.ValidationException;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.validation.Sanitizer;
 
 import java.math.BigDecimal;
 
-import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 public class RangeSanitizer implements Sanitizer {

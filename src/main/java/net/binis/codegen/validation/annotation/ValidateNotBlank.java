@@ -21,8 +21,10 @@ package net.binis.codegen.validation.annotation;
  */
 
 import net.binis.codegen.annotation.CodeAnnotation;
+import net.binis.codegen.annotation.validation.AliasFor;
+import net.binis.codegen.annotation.validation.AsCode;
 import net.binis.codegen.annotation.validation.Validate;
-import net.binis.codegen.validation.validator.NullValidator;
+import net.binis.codegen.validation.validator.LambdaValidator;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -32,7 +34,10 @@ import java.lang.annotation.Target;
 @CodeAnnotation
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@Validate(NullValidator.class)
-public @interface ValidateNull {
-    String message() default "Value can't be null";
+@Validate(LambdaValidator.class)
+public @interface ValidateNotBlank {
+    @AsCode
+    @AliasFor("params")
+    String value() default "org.apache.commons.lang3.StringUtils::isNotBlank";
+    String message() default "Value can't be blank!";
 }

@@ -1,4 +1,4 @@
-package net.binis.codegen.validation.sanitizer;
+package net.binis.codegen.validation.validator;
 
 /*-
  * #%L
@@ -20,23 +20,27 @@ package net.binis.codegen.validation.sanitizer;
  * #L%
  */
 
+import net.binis.codegen.annotation.validation.AsCode;
+import net.binis.codegen.exception.ValidationException;
 import net.binis.codegen.factory.CodeFactory;
-import net.binis.codegen.validation.Sanitizer;
+import net.binis.codegen.validation.Validator;
 
-public class TrimSanitizer implements Sanitizer {
+import java.util.function.Predicate;
 
-    private static final TrimSanitizer instance = new TrimSanitizer();
+@AsCode("((java.util.function.Predicate<{type}>) %s)")
+public class LambdaValidator implements Validator {
+
+    private static final LambdaValidator instance = new LambdaValidator();
 
     {
-        CodeFactory.registerType(TrimSanitizer.class, () -> instance, null);
+        CodeFactory.registerType(LambdaValidator.class, () -> instance, null);
     }
 
     @Override
-    public <T> T sanitize(T value, Object... params) {
-        if (value instanceof String) {
-            return (T) ((String) value).trim();
+    public void validate(Object value, String message, Object... params) {
+        if (params.length > 0 && params[0] instanceof Predicate && !((Predicate) params[0]).test(value)) {
+            throw new ValidationException(message);
         }
-        return value;
     }
 
 }

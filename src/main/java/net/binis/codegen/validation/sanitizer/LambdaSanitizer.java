@@ -20,21 +20,25 @@ package net.binis.codegen.validation.sanitizer;
  * #L%
  */
 
+import net.binis.codegen.annotation.validation.AsCode;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.validation.Sanitizer;
 
-public class TrimSanitizer implements Sanitizer {
+import java.util.function.Function;
 
-    private static final TrimSanitizer instance = new TrimSanitizer();
+@AsCode("((java.util.function.Function<{type}, {type}>) %s)")
+public class LambdaSanitizer implements Sanitizer {
+
+    private static final LambdaSanitizer instance = new LambdaSanitizer();
 
     {
-        CodeFactory.registerType(TrimSanitizer.class, () -> instance, null);
+        CodeFactory.registerType(LambdaSanitizer.class, () -> instance, null);
     }
 
     @Override
     public <T> T sanitize(T value, Object... params) {
-        if (value instanceof String) {
-            return (T) ((String) value).trim();
+        if (params.length > 0 && params[0] instanceof Function) {
+            return (T) ((Function) params[0]).apply(value);
         }
         return value;
     }

@@ -4,8 +4,10 @@ package net.binis.codegen;
 import net.binis.codegen.validation.validator.RegExValidator;
 import net.binis.codegen.validation.validator.RangeValidator;
 import net.binis.codegen.validation.validator.NullValidator;
+import net.binis.codegen.validation.validator.LambdaValidator;
 import net.binis.codegen.validation.sanitizer.TrimSanitizer;
 import net.binis.codegen.validation.sanitizer.ReplaceSanitizer;
+import net.binis.codegen.validation.sanitizer.LambdaSanitizer;
 import net.binis.codegen.modifier.Modifiable;
 import static net.binis.codegen.factory.CodeFactory.validate;
 import static net.binis.codegen.factory.CodeFactory.sanitize;
@@ -26,6 +28,8 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     protected String email;
 
+    protected String field;
+
     protected List<Long> list;
 
     protected Set<Long> set;
@@ -41,6 +45,10 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getField() {
+        return field;
     }
 
     public List<Long> getList() {
@@ -66,8 +74,15 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         this.email = email;
     }
 
+    public void setField(String field) {
+        validate(field, LambdaValidator.class, "Value can't be blank!", ((java.util.function.Predicate<String>) org.apache.commons.lang3.StringUtils::isNotBlank));
+        field = sanitize(field, LambdaSanitizer.class, ((java.util.function.Function<String, String>) String::toLowerCase));
+        field = sanitize(field, LambdaSanitizer.class, ((java.util.function.Function<String, String>) String::toUpperCase));
+        this.field = field;
+    }
+
     public void setList(List<Long> list) {
-        validate(list, NullValidator.class, "Value cannot be null");
+        validate(list, NullValidator.class, "Value can't be null");
         this.list = list;
     }
 
@@ -105,8 +120,16 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return this;
         }
 
+        public Test.Modify field(String field) {
+            validate(field, LambdaValidator.class, "Value can't be blank!", ((java.util.function.Predicate<String>) org.apache.commons.lang3.StringUtils::isNotBlank));
+            field = sanitize(field, LambdaSanitizer.class, ((java.util.function.Function<String, String>) String::toLowerCase));
+            field = sanitize(field, LambdaSanitizer.class, ((java.util.function.Function<String, String>) String::toUpperCase));
+            TestImpl.this.field = field;
+            return this;
+        }
+
         public Test.Modify list(List<Long> list) {
-            validate(list, NullValidator.class, "Value cannot be null");
+            validate(list, NullValidator.class, "Value can't be null");
             TestImpl.this.list = list;
             return this;
         }

@@ -35,6 +35,12 @@ public interface TestPrototype {
     @ValidateRange(min = 0, max = 10)
     int amount();
 
+    @ValidateNotBlank
+    @SanitizeLowerCase
+    @SanitizeUpperCase
+    String field();
+
+
     @Data
     abstract class ClassAnnotations {
 
