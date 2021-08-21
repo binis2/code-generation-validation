@@ -40,6 +40,9 @@ public interface TestPrototype {
     @SanitizeUpperCase
     String field();
 
+    @ValidateLambda("v -> true")
+    @SanitizeLambda("v -> v")
+    String field1();
 
     @Data
     abstract class ClassAnnotations {

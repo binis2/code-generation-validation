@@ -30,6 +30,8 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     protected String field;
 
+    protected String field1;
+
     protected List<Long> list;
 
     protected Set<Long> set;
@@ -49,6 +51,10 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     public String getField() {
         return field;
+    }
+
+    public String getField1() {
+        return field1;
     }
 
     public List<Long> getList() {
@@ -79,6 +85,12 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         field = sanitize(field, LambdaSanitizer.class, ((java.util.function.Function<String, String>) String::toLowerCase));
         field = sanitize(field, LambdaSanitizer.class, ((java.util.function.Function<String, String>) String::toUpperCase));
         this.field = field;
+    }
+
+    public void setField1(String field1) {
+        validate(field1, LambdaValidator.class, "Invalid value!", ((java.util.function.Predicate<String>) v -> true));
+        field1 = sanitize(field1, LambdaSanitizer.class, ((java.util.function.Function<String, String>) v -> v));
+        this.field1 = field1;
     }
 
     public void setList(List<Long> list) {
@@ -125,6 +137,13 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             field = sanitize(field, LambdaSanitizer.class, ((java.util.function.Function<String, String>) String::toLowerCase));
             field = sanitize(field, LambdaSanitizer.class, ((java.util.function.Function<String, String>) String::toUpperCase));
             TestImpl.this.field = field;
+            return this;
+        }
+
+        public Test.Modify field1(String field1) {
+            validate(field1, LambdaValidator.class, "Invalid value!", ((java.util.function.Predicate<String>) v -> true));
+            field1 = sanitize(field1, LambdaSanitizer.class, ((java.util.function.Function<String, String>) v -> v));
+            TestImpl.this.field1 = field1;
             return this;
         }
 

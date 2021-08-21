@@ -16,6 +16,8 @@ public interface Test {
 
     String getField();
 
+    String getField1();
+
     List<Long> getList();
 
     Set<Long> getSet();
@@ -27,6 +29,8 @@ public interface Test {
     void setEmail(String email);
 
     void setField(String field);
+
+    void setField1(String field1);
 
     void setList(List<Long> list);
 
@@ -43,6 +47,8 @@ public interface Test {
         T email(String email);
 
         T field(String field);
+
+        T field1(String field1);
 
         T title(String title);
     }
