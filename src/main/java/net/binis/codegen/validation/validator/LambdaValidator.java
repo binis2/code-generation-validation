@@ -21,7 +21,6 @@ package net.binis.codegen.validation.validator;
  */
 
 import net.binis.codegen.annotation.validation.AsCode;
-import net.binis.codegen.exception.ValidationException;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.validation.Validator;
 
@@ -37,10 +36,8 @@ public class LambdaValidator implements Validator {
     }
 
     @Override
-    public void validate(Object value, String message, Object... params) {
-        if (params.length > 0 && params[0] instanceof Predicate && !((Predicate) params[0]).test(value)) {
-            throw new ValidationException(message);
-        }
+    public boolean validate(Object value, Object... params) {
+        return params.length > 0 && params[0] instanceof Predicate && ((Predicate) params[0]).test(value);
     }
 
 }

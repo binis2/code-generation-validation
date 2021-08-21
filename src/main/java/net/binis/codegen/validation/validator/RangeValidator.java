@@ -38,19 +38,14 @@ public class RangeValidator implements Validator {
     }
 
     @Override
-    public void validate(Object value, String message, Object... params) {
+    public boolean validate(Object value, Object... params) {
         if (nonNull(value) && value instanceof Number && params.length > 1) {
             var val = BigDecimal.valueOf(((Number) value).doubleValue());
             var min = params[0] instanceof String ? BigDecimal.valueOf(Double.parseDouble((String) params[0])) : BigDecimal.valueOf(((Number) params[0]).doubleValue());
             var max = params[1] instanceof String ? BigDecimal.valueOf(Double.parseDouble((String) params[1])) : BigDecimal.valueOf(((Number) params[1]).doubleValue());
-            if (val.compareTo(min) < 0 || val.compareTo(max) > 0 ) {
-                if (isNull(message)) {
-                    message = "%f is not in range [%f, %f]";
-                }
-                throw new ValidationException(String.format(message, val, min, max));
-            }
+            return val.compareTo(min) >= 0 && val.compareTo(max) <= 0;
         } else {
-            throw new ValidationException("Invalid parameters!");
+            return false;
         }
     }
 }

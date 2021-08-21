@@ -20,11 +20,10 @@ package net.binis.codegen.validation.validator;
  * #L%
  */
 
-import net.binis.codegen.exception.ValidationException;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.validation.Validator;
 
-import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 public class NullValidator implements Validator {
 
@@ -35,9 +34,7 @@ public class NullValidator implements Validator {
     }
 
     @Override
-    public void validate(Object value, String message, Object... params) {
-        if (isNull(value)) {
-            throw new ValidationException(message);
-        }
+    public boolean validate(Object value, Object... params) {
+        return nonNull(value);
     }
 }

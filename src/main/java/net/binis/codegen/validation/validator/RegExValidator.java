@@ -41,7 +41,7 @@ public class RegExValidator implements Validator {
     }
 
     @Override
-    public void validate(Object value, String message, Object... params) {
+    public boolean validate(Object value, Object... params) {
         if (nonNull(value)) {
             var regex = (String) params[0];
             var pattern = cache.get(regex);
@@ -51,9 +51,8 @@ public class RegExValidator implements Validator {
                 cache.put(regex, pattern);
             }
 
-            if (!pattern.matcher(value.toString()).matches()) {
-                throw new ValidationException(message);
-            }
+            return pattern.matcher(value.toString()).matches();
         }
+        return true;
     }
 }
