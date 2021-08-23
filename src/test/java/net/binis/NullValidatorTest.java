@@ -26,6 +26,8 @@ import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.mock.exception.QueryNotMockedException;
 import net.binis.codegen.test.BaseTest;
+import net.binis.codegen.validation.flow.Validation;
+import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
 import net.binis.codegen.validation.validator.NullValidator;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,10 +46,12 @@ public class NullValidatorTest extends BaseTest {
     @Test
     public void test() {
         mockCreate(NullValidator.class);
+        mockCreate(DefaultValidationFlow.class);
 
-        assertThrows(ValidationException.class, () -> CodeFactory.validate(null, NullValidator.class, null));
-        assertThrows(ValidationException.class, () -> CodeFactory.validate(null, NullValidator.class, "test"), "test");
-        assertDoesNotThrow(() -> CodeFactory.validate(this, NullValidator.class, null));
+        var validation = Validation.start("test", null);
+        assertThrows(ValidationException.class, () -> validation.validate(NullValidator.class, null));
+        assertThrows(ValidationException.class, () -> validation.validate(NullValidator.class, "test"), "Validation failed for field: test!");
+        assertDoesNotThrow(() -> Validation.start("test", this).validate(NullValidator.class, null));
     }
 
 

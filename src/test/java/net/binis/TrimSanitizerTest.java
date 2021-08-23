@@ -24,6 +24,8 @@ import net.binis.codegen.exception.ValidationException;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
+import net.binis.codegen.validation.flow.Validation;
+import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
 import net.binis.codegen.validation.sanitizer.TrimSanitizer;
 import net.binis.codegen.validation.validator.NullValidator;
 import org.junit.Before;
@@ -42,10 +44,11 @@ public class TrimSanitizerTest extends BaseTest {
     @Test
     public void test() {
         mockCreate(TrimSanitizer.class);
+        mockCreate(DefaultValidationFlow.class);
 
-        assertEquals("test", CodeFactory.sanitize(" test  ", TrimSanitizer.class));
-        assertEquals("test", CodeFactory.sanitize("test", TrimSanitizer.class));
-        assertEquals(this, CodeFactory.sanitize(this, TrimSanitizer.class));
+        Validation.start("test", " test  ").sanitize(TrimSanitizer.class).perform(v -> assertEquals("test", v));
+        Validation.start("test", "test").sanitize(TrimSanitizer.class).perform(v -> assertEquals("test", v));
+        Validation.start("test", this).sanitize(TrimSanitizer.class).perform(v -> assertEquals(this, v));
     }
 
 

@@ -24,6 +24,8 @@ import net.binis.codegen.exception.ValidationException;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
+import net.binis.codegen.validation.flow.Validation;
+import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
 import net.binis.codegen.validation.validator.NullValidator;
 import net.binis.codegen.validation.validator.RangeValidator;
 import org.junit.Before;
@@ -43,14 +45,15 @@ public class RangeValidatorTest extends BaseTest {
     @Test
     public void test() {
         mockCreate(RangeValidator.class);
+        mockCreate(DefaultValidationFlow.class);
 
-        assertThrows(ValidationException.class, () -> CodeFactory.validate(null, RangeValidator.class, null));
-        assertThrows(ValidationException.class, () -> CodeFactory.validate(null, RangeValidator.class, "test"), "test");
-        assertThrows(ValidationException.class, () -> CodeFactory.validate(5, RangeValidator.class, null));
-        assertDoesNotThrow(() -> CodeFactory.validate(5, RangeValidator.class, null, "5", "6"));
-        assertDoesNotThrow(() -> CodeFactory.validate(6, RangeValidator.class, null, "5", "6"));
-        assertThrows(ValidationException.class, () -> CodeFactory.validate(4.99, RangeValidator.class, null, 5, 7));
-        assertThrows(ValidationException.class, () -> CodeFactory.validate(7.0001, RangeValidator.class, null, "5", "7"));
+        assertThrows(ValidationException.class, () -> Validation.start("test", null).validate(RangeValidator.class, null));
+        assertThrows(ValidationException.class, () -> Validation.start("test", null).validate(RangeValidator.class, "test"), "test");
+        assertThrows(ValidationException.class, () -> Validation.start("test", 5).validate(RangeValidator.class, null));
+        assertDoesNotThrow(() -> Validation.start("test", 5).validate(RangeValidator.class, null, "5", "6"));
+        assertDoesNotThrow(() -> Validation.start("test", 6).validate(RangeValidator.class, null, "5", "6"));
+        assertThrows(ValidationException.class, () -> Validation.start("test", 4.99).validate(RangeValidator.class, null, 5, 7));
+        assertThrows(ValidationException.class, () -> Validation.start("test", 7.0001).validate(RangeValidator.class, null, "5", "7"));
     }
 
 

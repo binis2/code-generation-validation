@@ -20,20 +20,18 @@ package net.binis;
  * #L%
  */
 
-import net.binis.codegen.exception.ValidationException;
-import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
+import net.binis.codegen.validation.flow.Validation;
+import net.binis.codegen.validation.flow.ValidationStart;
+import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
 import net.binis.codegen.validation.sanitizer.LambdaSanitizer;
-import net.binis.codegen.validation.sanitizer.RangeSanitizer;
-import net.binis.codegen.validation.validator.NullValidator;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.function.Function;
 
 import static net.binis.codegen.mock.CodeGenMock.mockCreate;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LambdaSanitizerTest extends BaseTest {
@@ -46,8 +44,11 @@ public class LambdaSanitizerTest extends BaseTest {
     @Test
     public void test() {
         mockCreate(LambdaSanitizer.class);
+        mockCreate(DefaultValidationFlow.class);
 
-        assertEquals("TEST", CodeFactory.sanitize("test", LambdaSanitizer.class, ((Function<String, String>) String::toUpperCase)));
+        Validation.start("test", "test")
+                .sanitize(LambdaSanitizer.class, ((Function<String, String>) String::toUpperCase))
+                .perform(v -> assertEquals("TEST", v));
     }
 
 

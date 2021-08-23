@@ -24,6 +24,8 @@ import net.binis.codegen.exception.ValidationException;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
+import net.binis.codegen.validation.flow.Validation;
+import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
 import net.binis.codegen.validation.sanitizer.RangeSanitizer;
 import net.binis.codegen.validation.sanitizer.TrimSanitizer;
 import net.binis.codegen.validation.validator.RangeValidator;
@@ -44,12 +46,13 @@ public class RangeSanitizerTest extends BaseTest {
     @Test
     public void test() {
         mockCreate(RangeSanitizer.class);
+        mockCreate(DefaultValidationFlow.class);
 
-        assertEquals(5, CodeFactory.sanitize(5, RangeSanitizer.class, "5", "6"));
-        assertEquals(5.0, CodeFactory.sanitize(5.0, RangeSanitizer.class, "5", "6"));
-        assertEquals(5, CodeFactory.sanitize(5, RangeSanitizer.class, 5.0, 6));
-        assertEquals(6, CodeFactory.sanitize(5, RangeSanitizer.class, 6, "7"));
-        assertEquals(7.0, CodeFactory.sanitize(8.0, RangeSanitizer.class, 6, 7));
+        Validation.start("test", 5).sanitize(RangeSanitizer.class, "5", "6").perform(v -> assertEquals(5, v));
+        Validation.start("test", 5.0).sanitize(RangeSanitizer.class, "5", "6").perform(v -> assertEquals(5.0, v));
+        Validation.start("test", 5).sanitize(RangeSanitizer.class, 5.0, 6).perform(v -> assertEquals(5, v));
+        Validation.start("test", 5).sanitize(RangeSanitizer.class, 6, "7").perform(v -> assertEquals(6, v));
+        Validation.start("test", 8.0).sanitize(RangeSanitizer.class, 6, 7).perform(v -> assertEquals(7.0, v));
     }
 
 

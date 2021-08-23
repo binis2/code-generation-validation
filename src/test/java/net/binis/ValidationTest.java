@@ -22,8 +22,11 @@ package net.binis;
 
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
+import org.apache.commons.lang3.tuple.Triple;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
 
 public class ValidationTest extends BaseTest {
 
@@ -36,6 +39,15 @@ public class ValidationTest extends BaseTest {
     public void enrichValidate() {
         testSingle("enrichValidate.java", "enrichValidate-0.java", "enrichValidate-1.java");
     }
+
+    @Test
+    public void enrichValidateModify() {
+        testMulti(List.of(
+                Triple.of("enrichModifySub.java", "enrichModifySub-0.java", "enrichModifySub-1.java"),
+                Triple.of("enrichModify.java", "enrichModify-0.java", "enrichModify-1.java")
+        ));
+    }
+
 
     @Test
     public void enrichValidateCustomAnnotations() {

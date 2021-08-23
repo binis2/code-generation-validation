@@ -3,9 +3,8 @@ package net.binis.codegen;
 
 import net.binis.codegen.validation.validator.NullValidator;
 import net.binis.codegen.validation.sanitizer.TrimSanitizer;
+import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.modifier.Modifiable;
-import static net.binis.codegen.factory.CodeFactory.validate;
-import static net.binis.codegen.factory.CodeFactory.sanitize;
 import net.binis.codegen.collection.CodeSetImpl;
 import net.binis.codegen.collection.CodeSet;
 import net.binis.codegen.collection.CodeMapImpl;
@@ -48,23 +47,19 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     }
 
     public void setList(List<Long> list) {
-        validate(list, NullValidator.class, null);
-        this.list = list;
+        Validation.start("list", list).validate(NullValidator.class, null).perform(v -> this.list = v);
     }
 
     public void setMap(Map<Long, String> map) {
-        validate(map, NullValidator.class, "test");
-        this.map = map;
+        Validation.start("map", map).validate(NullValidator.class, "test").perform(v -> this.map = v);
     }
 
     public void setSet(Set<Long> set) {
-        validate(set, NullValidator.class, "test", "asd", "fgh");
-        this.set = set;
+        Validation.start("set", set).validate(NullValidator.class, "test", "asd", "fgh").perform(v -> this.set = v);
     }
 
     public void setTitle(String title) {
-        title = sanitize(title, TrimSanitizer.class);
-        this.title = title;
+        Validation.start("title", title).sanitize(TrimSanitizer.class, null).perform(v -> this.title = v);
     }
 
     public Test.Modify with() {
@@ -78,8 +73,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify list(List<Long> list) {
-            validate(list, NullValidator.class, null);
-            TestImpl.this.list = list;
+            Validation.start("list", list).validate(NullValidator.class, null).perform(v -> TestImpl.this.list = v);
             return this;
         }
 
@@ -91,8 +85,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify map(Map<Long, String> map) {
-            validate(map, NullValidator.class, "test");
-            TestImpl.this.map = map;
+            Validation.start("map", map).validate(NullValidator.class, "test").perform(v -> TestImpl.this.map = v);
             return this;
         }
 
@@ -104,8 +97,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify set(Set<Long> set) {
-            validate(set, NullValidator.class, "test", "asd", "fgh");
-            TestImpl.this.set = set;
+            Validation.start("set", set).validate(NullValidator.class, "test", "asd", "fgh").perform(v -> TestImpl.this.set = v);
             return this;
         }
 
@@ -117,8 +109,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify title(String title) {
-            title = sanitize(title, TrimSanitizer.class);
-            TestImpl.this.title = title;
+            Validation.start("title", title).sanitize(TrimSanitizer.class, null).perform(v -> TestImpl.this.title = v);
             return this;
         }
     }

@@ -23,6 +23,8 @@ package net.binis;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
+import net.binis.codegen.validation.flow.Validation;
+import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
 import net.binis.codegen.validation.sanitizer.ReplaceSanitizer;
 import net.binis.codegen.validation.sanitizer.TrimSanitizer;
 import org.junit.Before;
@@ -41,9 +43,10 @@ public class ReplaceSanitizerTest extends BaseTest {
     @Test
     public void test() {
         mockCreate(ReplaceSanitizer.class);
+        mockCreate(DefaultValidationFlow.class);
 
-        assertEquals("test", CodeFactory.sanitize(" test  ", ReplaceSanitizer.class, "\\s+", ""));
-        assertEquals("test+test", CodeFactory.sanitize("test-test", ReplaceSanitizer.class, "-", "+"));
+        Validation.start("test", " test  ").sanitize(ReplaceSanitizer.class, "\\s+", "").perform(v -> assertEquals("test", v));
+        Validation.start("test", "test-test").sanitize(ReplaceSanitizer.class, "-", "+").perform(v -> assertEquals("test+test", v));
     }
 
 

@@ -25,6 +25,8 @@ import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
 import net.binis.codegen.validation.annotation.ValidateEmail;
+import net.binis.codegen.validation.flow.Validation;
+import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
 import net.binis.codegen.validation.validator.NullValidator;
 import net.binis.codegen.validation.validator.RegExValidator;
 import org.junit.Before;
@@ -44,9 +46,10 @@ public class RegExValidatorTest extends BaseTest {
     @Test
     public void test() {
         mockCreate(RegExValidator.class);
+        mockCreate(DefaultValidationFlow.class);
 
-        assertThrows(ValidationException.class, () -> CodeFactory.validate("asd", RegExValidator.class, null, ValidateEmail.REGEX));
-        assertDoesNotThrow(() -> CodeFactory.validate("codegen@binis.net", RegExValidator.class, "", ValidateEmail.REGEX));
+        assertThrows(ValidationException.class, () -> Validation.start("test", "asd").validate(RegExValidator.class, null, ValidateEmail.REGEX));
+        assertDoesNotThrow(() -> Validation.start("test", "codegen@binis.net").validate(RegExValidator.class, "", ValidateEmail.REGEX));
     }
 
 

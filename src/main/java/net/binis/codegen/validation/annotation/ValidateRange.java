@@ -35,7 +35,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Validate(RangeValidator.class)
 public @interface ValidateRange {
-    String message() default "%f is not in range [%f, %f]";
+    String message() default "(%s) Value %f is not in range [%f, %f]";
     @AliasFor("params")
     double min();
     @AliasFor("params")

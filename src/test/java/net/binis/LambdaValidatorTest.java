@@ -24,6 +24,8 @@ import net.binis.codegen.exception.ValidationException;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
+import net.binis.codegen.validation.flow.Validation;
+import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
 import net.binis.codegen.validation.validator.LambdaValidator;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,9 +46,10 @@ public class LambdaValidatorTest extends BaseTest {
     @Test
     public void test() {
         mockCreate(LambdaValidator.class);
+        mockCreate(DefaultValidationFlow.class);
 
-        assertThrows(ValidationException.class, () -> CodeFactory.validate(null, LambdaValidator.class, null, ((Predicate<String>) s -> false)));
-        assertDoesNotThrow(() -> CodeFactory.validate(this, LambdaValidator.class, null, ((Predicate<LambdaValidatorTest>) s -> true)));
+        assertThrows(ValidationException.class, () -> Validation.start("test", null).validate(LambdaValidator.class, null, ((Predicate<String>) s -> false)));
+        assertDoesNotThrow(() -> Validation.start("test", null).validate(LambdaValidator.class, null, ((Predicate<LambdaValidatorTest>) s -> true)));
     }
 
 

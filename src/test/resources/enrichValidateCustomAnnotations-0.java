@@ -8,9 +8,8 @@ import net.binis.codegen.validation.validator.LambdaValidator;
 import net.binis.codegen.validation.sanitizer.TrimSanitizer;
 import net.binis.codegen.validation.sanitizer.ReplaceSanitizer;
 import net.binis.codegen.validation.sanitizer.LambdaSanitizer;
+import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.modifier.Modifiable;
-import static net.binis.codegen.factory.CodeFactory.validate;
-import static net.binis.codegen.factory.CodeFactory.sanitize;
 import net.binis.codegen.collection.CodeSetImpl;
 import net.binis.codegen.collection.CodeSet;
 import net.binis.codegen.collection.CodeListImpl;
@@ -70,43 +69,31 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     }
 
     public void setAmount(int amount) {
-        validate(amount, RangeValidator.class, "%f is not in range [%f, %f]", 0, 10);
-        this.amount = amount;
+        Validation.start("amount", amount).validate(RangeValidator.class, "(%s) Value %f is not in range [%f, %f]", 0, 10).perform(v -> this.amount = v);
     }
 
     public void setEmail(String email) {
-        email = sanitize(email, ReplaceSanitizer.class, "\\s+", "_");
-        validate(email, RegExValidator.class, "Invalid Email!", "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
-        this.email = email;
+        Validation.start("email", email).sanitize(ReplaceSanitizer.class, null).validate(RegExValidator.class, "Invalid Email!", "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$").perform(v -> this.email = v);
     }
 
     public void setField(String field) {
-        validate(field, LambdaValidator.class, "Value can't be blank!", ((java.util.function.Predicate<String>) org.apache.commons.lang3.StringUtils::isNotBlank));
-        field = sanitize(field, LambdaSanitizer.class, ((java.util.function.Function<String, String>) String::toLowerCase));
-        field = sanitize(field, LambdaSanitizer.class, ((java.util.function.Function<String, String>) String::toUpperCase));
-        this.field = field;
+        Validation.start("field", field).validate(LambdaValidator.class, "Value can't be blank!", ((java.util.function.Predicate<String>) org.apache.commons.lang3.StringUtils::isNotBlank)).sanitize(LambdaSanitizer.class, null, ((java.util.function.Function<String, String>) String::toLowerCase)).sanitize(LambdaSanitizer.class, null, ((java.util.function.Function<String, String>) String::toUpperCase)).perform(v -> this.field = v);
     }
 
     public void setField1(String field1) {
-        validate(field1, LambdaValidator.class, "Invalid value!", ((java.util.function.Predicate<String>) v -> true));
-        field1 = sanitize(field1, LambdaSanitizer.class, ((java.util.function.Function<String, String>) v -> v));
-        this.field1 = field1;
+        Validation.start("field1", field1).validate(LambdaValidator.class, "Invalid value!", ((java.util.function.Predicate<String>) v -> true)).sanitize(LambdaSanitizer.class, null, ((java.util.function.Function<String, String>) v -> v)).perform(v -> this.field1 = v);
     }
 
     public void setList(List<Long> list) {
-        validate(list, NullValidator.class, "Value can't be null");
-        this.list = list;
+        Validation.start("list", list).validate(NullValidator.class, "Value can't be null").perform(v -> this.list = v);
     }
 
     public void setSet(Set<Long> set) {
-        validate(set, RegExValidator.class, "Test", "^$");
-        this.set = set;
+        Validation.start("set", set).validate(RegExValidator.class, "Test", "^$").perform(v -> this.set = v);
     }
 
     public void setTitle(String title) {
-        title = sanitize(title, ReplaceSanitizer.class, "\\s+", "");
-        title = sanitize(title, TrimSanitizer.class);
-        this.title = title;
+        Validation.start("title", title).sanitize(ReplaceSanitizer.class, null).sanitize(TrimSanitizer.class, null).perform(v -> this.title = v);
     }
 
     public Test.Modify with() {
@@ -116,8 +103,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     protected class TestModifyImpl implements Test.Modify {
 
         public Test.Modify amount(int amount) {
-            validate(amount, RangeValidator.class, "%f is not in range [%f, %f]", 0, 10);
-            TestImpl.this.amount = amount;
+            Validation.start("amount", amount).validate(RangeValidator.class, "(%s) Value %f is not in range [%f, %f]", 0, 10).perform(v -> TestImpl.this.amount = v);
             return this;
         }
 
@@ -126,30 +112,22 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify email(String email) {
-            email = sanitize(email, ReplaceSanitizer.class, "\\s+", "_");
-            validate(email, RegExValidator.class, "Invalid Email!", "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
-            TestImpl.this.email = email;
+            Validation.start("email", email).sanitize(ReplaceSanitizer.class, null).validate(RegExValidator.class, "Invalid Email!", "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$").perform(v -> TestImpl.this.email = v);
             return this;
         }
 
         public Test.Modify field(String field) {
-            validate(field, LambdaValidator.class, "Value can't be blank!", ((java.util.function.Predicate<String>) org.apache.commons.lang3.StringUtils::isNotBlank));
-            field = sanitize(field, LambdaSanitizer.class, ((java.util.function.Function<String, String>) String::toLowerCase));
-            field = sanitize(field, LambdaSanitizer.class, ((java.util.function.Function<String, String>) String::toUpperCase));
-            TestImpl.this.field = field;
+            Validation.start("field", field).validate(LambdaValidator.class, "Value can't be blank!", ((java.util.function.Predicate<String>) org.apache.commons.lang3.StringUtils::isNotBlank)).sanitize(LambdaSanitizer.class, null, ((java.util.function.Function<String, String>) String::toLowerCase)).sanitize(LambdaSanitizer.class, null, ((java.util.function.Function<String, String>) String::toUpperCase)).perform(v -> TestImpl.this.field = v);
             return this;
         }
 
         public Test.Modify field1(String field1) {
-            validate(field1, LambdaValidator.class, "Invalid value!", ((java.util.function.Predicate<String>) v -> true));
-            field1 = sanitize(field1, LambdaSanitizer.class, ((java.util.function.Function<String, String>) v -> v));
-            TestImpl.this.field1 = field1;
+            Validation.start("field1", field1).validate(LambdaValidator.class, "Invalid value!", ((java.util.function.Predicate<String>) v -> true)).sanitize(LambdaSanitizer.class, null, ((java.util.function.Function<String, String>) v -> v)).perform(v -> TestImpl.this.field1 = v);
             return this;
         }
 
         public Test.Modify list(List<Long> list) {
-            validate(list, NullValidator.class, "Value can't be null");
-            TestImpl.this.list = list;
+            Validation.start("list", list).validate(NullValidator.class, "Value can't be null").perform(v -> TestImpl.this.list = v);
             return this;
         }
 
@@ -161,8 +139,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify set(Set<Long> set) {
-            validate(set, RegExValidator.class, "Test", "^$");
-            TestImpl.this.set = set;
+            Validation.start("set", set).validate(RegExValidator.class, "Test", "^$").perform(v -> TestImpl.this.set = v);
             return this;
         }
 
@@ -174,9 +151,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify title(String title) {
-            title = sanitize(title, ReplaceSanitizer.class, "\\s+", "");
-            title = sanitize(title, TrimSanitizer.class);
-            TestImpl.this.title = title;
+            Validation.start("title", title).sanitize(ReplaceSanitizer.class, null).sanitize(TrimSanitizer.class, null).perform(v -> TestImpl.this.title = v);
             return this;
         }
     }
