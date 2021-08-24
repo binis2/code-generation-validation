@@ -31,7 +31,7 @@ public interface Validation<T> {
     void perform(Consumer<T> operation);
 
     static <T> Validation<T> start(String field, T value) {
-        return CodeFactory.create(ValidationStart.class).start(field, value);
+        return CodeFactory.create(ValidationStart.class, "net.binis.codegen.validation.flow.impl.DefaultValidationFlow").start(field, value);
     }
 
 }

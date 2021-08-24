@@ -29,7 +29,9 @@ import net.binis.codegen.validation.flow.ValidationStart;
 
 import java.util.function.Consumer;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static net.binis.codegen.tools.Reflection.instantiate;
 
 public abstract class BaseValidationFlow implements Validation, ValidationStart {
 
@@ -39,15 +41,15 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
     @Override
     public Validation validate(Class intf, String message, Object... params) {
         var entry = CodeFactory.lookup(intf);
+        if (isNull(entry) && !intf.isInterface()) {
+            instantiate(intf);
+            entry = CodeFactory.lookup(intf);
+        }
         if (nonNull(entry)) {
             var obj = CodeFactory.create(intf);
             if (obj instanceof Validator) {
                 if (!((Validator) obj).validate(value, params)) {
                     handleValidationError(field, value, message, params);
-//                    if (isNull(message)) {
-//                        message = "Validation failed!";
-//                    }
-//                    throw new ValidationException(String.format(message, params));
                 }
             } else {
                 throw new ValidationException(intf.getCanonicalName() + " is not validator!");
@@ -62,6 +64,10 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
     @Override
     public Validation sanitize(Class intf, Object... params) {
         var entry = CodeFactory.lookup(intf);
+        if (isNull(entry) && !intf.isInterface()) {
+            instantiate(intf);
+            entry = CodeFactory.lookup(intf);
+        }
         if (nonNull(entry)) {
             var obj = CodeFactory.create(intf);
             if (obj instanceof Sanitizer) {
