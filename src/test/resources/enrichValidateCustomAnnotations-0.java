@@ -73,7 +73,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     }
 
     public void setEmail(String email) {
-        Validation.start("email", email).sanitize(ReplaceSanitizer.class, null).validate(RegExValidator.class, "Invalid Email!", "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$").perform(v -> this.email = v);
+        Validation.start("email", email).sanitize(ReplaceSanitizer.class, "\\s+", "_").validate(RegExValidator.class, "Invalid Email!", "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$").perform(v -> this.email = v);
     }
 
     public void setField(String field) {
@@ -93,7 +93,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     }
 
     public void setTitle(String title) {
-        Validation.start("title", title).sanitize(ReplaceSanitizer.class, null).sanitize(TrimSanitizer.class, null).perform(v -> this.title = v);
+        Validation.start("title", title).sanitize(ReplaceSanitizer.class, "\\s+", "").sanitize(TrimSanitizer.class, null).perform(v -> this.title = v);
     }
 
     public Test.Modify with() {
@@ -112,7 +112,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify email(String email) {
-            Validation.start("email", email).sanitize(ReplaceSanitizer.class, null).validate(RegExValidator.class, "Invalid Email!", "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$").perform(v -> TestImpl.this.email = v);
+            Validation.start("email", email).sanitize(ReplaceSanitizer.class, "\\s+", "_").validate(RegExValidator.class, "Invalid Email!", "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$").perform(v -> TestImpl.this.email = v);
             return this;
         }
 
@@ -151,7 +151,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify title(String title) {
-            Validation.start("title", title).sanitize(ReplaceSanitizer.class, null).sanitize(TrimSanitizer.class, null).perform(v -> TestImpl.this.title = v);
+            Validation.start("title", title).sanitize(ReplaceSanitizer.class, "\\s+", "").sanitize(TrimSanitizer.class, null).perform(v -> TestImpl.this.title = v);
             return this;
         }
     }

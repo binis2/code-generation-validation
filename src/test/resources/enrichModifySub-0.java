@@ -37,7 +37,7 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
     }
 
     public void setSubtitle(String subtitle) {
-        Validation.start("subtitle", subtitle).sanitize(TrimSanitizer.class, null).perform(v -> this.subtitle = v);
+        Validation.start("subtitle", subtitle).sanitize(TrimSanitizer.class).perform(v -> this.subtitle = v);
     }
 
     public SubModify.Modify with() {
@@ -70,7 +70,7 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
         }
 
         public SubModify.EmbeddedModify<T> subtitle(String subtitle) {
-            Validation.start("subtitle", subtitle).sanitize(TrimSanitizer.class, null).perform(v -> entity.subtitle = v);
+            Validation.start("subtitle", subtitle).sanitize(TrimSanitizer.class).perform(v -> entity.subtitle = v);
             return this;
         }
     }
@@ -92,7 +92,7 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
         }
 
         public SubModify.Modify subtitle(String subtitle) {
-            Validation.start("subtitle", subtitle).sanitize(TrimSanitizer.class, null).perform(v -> SubModifyImpl.this.subtitle = v);
+            Validation.start("subtitle", subtitle).sanitize(TrimSanitizer.class).perform(v -> SubModifyImpl.this.subtitle = v);
             return this;
         }
     }

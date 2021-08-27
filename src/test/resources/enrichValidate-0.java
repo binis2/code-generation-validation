@@ -59,7 +59,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     }
 
     public void setTitle(String title) {
-        Validation.start("title", title).sanitize(TrimSanitizer.class, null).perform(v -> this.title = v);
+        Validation.start("title", title).sanitize(TrimSanitizer.class).perform(v -> this.title = v);
     }
 
     public Test.Modify with() {
@@ -109,7 +109,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify title(String title) {
-            Validation.start("title", title).sanitize(TrimSanitizer.class, null).perform(v -> TestImpl.this.title = v);
+            Validation.start("title", title).sanitize(TrimSanitizer.class).perform(v -> TestImpl.this.title = v);
             return this;
         }
     }
