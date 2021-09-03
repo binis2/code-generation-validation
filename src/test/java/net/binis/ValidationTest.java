@@ -54,5 +54,10 @@ public class ValidationTest extends BaseTest {
         testSingle("enrichValidateCustomAnnotations.java", "enrichValidateCustomAnnotations-0.java", "enrichValidateCustomAnnotations-1.java");
     }
 
+    @Test
+    public void enrichFluentWithValidate() {
+        testSingle("enrichFluentWithValidate.java", "enrichFluentWithValidate-0.java", "enrichFluentWithValidate-1.java");
+    }
+
 
 }
