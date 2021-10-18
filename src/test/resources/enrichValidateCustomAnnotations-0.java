@@ -9,6 +9,7 @@ import net.binis.codegen.validation.sanitizer.TrimSanitizer;
 import net.binis.codegen.validation.sanitizer.ReplaceSanitizer;
 import net.binis.codegen.validation.sanitizer.LambdaSanitizer;
 import net.binis.codegen.validation.flow.Validation;
+import net.binis.codegen.validation.executor.LambdaExecutor;
 import net.binis.codegen.modifier.Modifiable;
 import net.binis.codegen.collection.CodeSetImpl;
 import net.binis.codegen.collection.CodeSet;
@@ -81,7 +82,8 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     }
 
     public void setField1(String field1) {
-        Validation.start("field1", field1).validate(LambdaValidator.class, "Invalid value!", ((java.util.function.Predicate<String>) v -> true)).sanitize(LambdaSanitizer.class, null, ((java.util.function.Function<String, String>) v -> v)).perform(v -> this.field1 = v);
+        Validation.start("field1", field1).validate(LambdaValidator.class, "Invalid value!", ((java.util.function.Predicate<String>) v -> true)).sanitize(LambdaSanitizer.class, null, ((java.util.function.Function<String, String>) v -> v)).execute(LambdaExecutor.class, "Invalid value!", ((java.util.function.Consumer<String>) v -> {
+        })).perform(v -> this.field1 = v);
     }
 
     public void setList(List<Long> list) {
@@ -122,7 +124,8 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify field1(String field1) {
-            Validation.start("field1", field1).validate(LambdaValidator.class, "Invalid value!", ((java.util.function.Predicate<String>) v -> true)).sanitize(LambdaSanitizer.class, null, ((java.util.function.Function<String, String>) v -> v)).perform(v -> TestImpl.this.field1 = v);
+            Validation.start("field1", field1).validate(LambdaValidator.class, "Invalid value!", ((java.util.function.Predicate<String>) v -> true)).sanitize(LambdaSanitizer.class, null, ((java.util.function.Function<String, String>) v -> v)).execute(LambdaExecutor.class, "Invalid value!", ((java.util.function.Consumer<String>) v -> {
+            })).perform(v -> TestImpl.this.field1 = v);
             return this;
         }
 

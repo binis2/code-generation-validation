@@ -37,6 +37,7 @@ public interface TestPrototype {
 
     @ValidateLambda("v -> true")
     @SanitizeLambda("v -> v")
+    @ExecuteLambda("v -> {}")
     String field1();
 
     @Data

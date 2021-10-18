@@ -22,6 +22,7 @@ package net.binis.codegen.validation.flow.impl.base;
 
 import net.binis.codegen.exception.ValidationException;
 import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.validation.Executor;
 import net.binis.codegen.validation.Sanitizer;
 import net.binis.codegen.validation.Validator;
 import net.binis.codegen.validation.flow.Validation;
@@ -80,6 +81,30 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
         }
         return this;
     }
+
+    @Override
+    public Validation execute(Class intf, String message, Object... params) {
+        var entry = CodeFactory.lookup(intf);
+        if (isNull(entry) && !intf.isInterface()) {
+            instantiate(intf);
+            entry = CodeFactory.lookup(intf);
+        }
+        if (nonNull(entry)) {
+            var obj = CodeFactory.create(intf);
+            if (obj instanceof Executor) {
+                if (!((Executor) obj).execute(value, params)) {
+                    handleValidationError(field, value, message, params);
+                }
+            } else {
+                throw new ValidationException(intf.getCanonicalName() + " is not executor!");
+            }
+        } else {
+            throw new ValidationException(intf.getCanonicalName() + " is not registered!");
+        }
+
+        return this;
+    }
+
 
     public <T> Validation<T> start(String field, T value) {
         this.field = field;

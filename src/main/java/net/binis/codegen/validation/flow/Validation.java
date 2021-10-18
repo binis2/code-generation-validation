@@ -27,6 +27,7 @@ import java.util.function.Consumer;
 public interface Validation<T> {
 
     Validation<T> validate(Class intf, String message, Object... params);
+    Validation<T> execute(Class intf, String message, Object... params);
     Validation<T> sanitize(Class intf, Object... params);
     void perform(Consumer<T> operation);
 
