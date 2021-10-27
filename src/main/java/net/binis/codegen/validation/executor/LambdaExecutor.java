@@ -39,12 +39,12 @@ public class LambdaExecutor implements Executor {
 
     @Override
     public boolean execute(Object value, Object... params) {
-        return params.length > 0 && params[0] instanceof Consumer && executeInternal(params[0]);
+        return params.length > 0 && params[0] instanceof Consumer && executeInternal(value, params[0]);
     }
 
-    private boolean executeInternal(Object value) {
+    private boolean executeInternal(Object value, Object consumer) {
         try {
-            ((Consumer) value).accept(value);
+            ((Consumer) consumer).accept(value);
             return true;
         } catch (Exception e) {
             log.warn("Execution failed!", e);
