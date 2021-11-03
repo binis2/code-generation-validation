@@ -21,8 +21,9 @@ package net.binis.codegen.validation.annotation;
  */
 
 import net.binis.codegen.annotation.CodeAnnotation;
-import net.binis.codegen.annotation.validation.Sanitize;
-import net.binis.codegen.validation.sanitizer.TrimSanitizer;
+import net.binis.codegen.annotation.validation.AliasFor;
+import net.binis.codegen.annotation.validation.Validate;
+import net.binis.codegen.validation.validator.LengthValidator;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -32,6 +33,9 @@ import java.lang.annotation.Target;
 @CodeAnnotation
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@Sanitize(TrimSanitizer.class)
-public @interface SanitizeTrim {
+@Validate(LengthValidator.class)
+public @interface ValidateLength {
+    @AliasFor("params")
+    int value() default 255;
+    String message() default "Value for filed '%s' is longer than %3$d!";
 }
