@@ -26,6 +26,8 @@ import net.binis.codegen.validation.Sanitizer;
 
 import java.util.function.Function;
 
+import static java.util.Objects.nonNull;
+
 @AsCode("((java.util.function.Function<{type}, {type}>) %s)")
 public class LambdaSanitizer implements Sanitizer {
 
@@ -37,7 +39,7 @@ public class LambdaSanitizer implements Sanitizer {
 
     @Override
     public <T> T sanitize(T value, Object... params) {
-        if (params.length > 0 && params[0] instanceof Function) {
+        if (nonNull(value) && params.length > 0 && params[0] instanceof Function) {
             return (T) ((Function) params[0]).apply(value);
         }
         return value;
