@@ -25,6 +25,7 @@ import net.binis.codegen.annotation.validation.AliasFor;
 import net.binis.codegen.annotation.validation.AsCode;
 import net.binis.codegen.annotation.validation.Sanitize;
 import net.binis.codegen.validation.sanitizer.LambdaSanitizer;
+import net.binis.codegen.validation.sanitizer.NullAwareLambdaSanitizer;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -34,7 +35,7 @@ import java.lang.annotation.Target;
 @CodeAnnotation
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@Sanitize(LambdaSanitizer.class)
+@Sanitize(NullAwareLambdaSanitizer.class)
 public @interface SanitizeUpperCase {
     @AsCode
     @AliasFor("params")
