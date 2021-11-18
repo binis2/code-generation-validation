@@ -23,11 +23,13 @@ package net.binis;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
 import net.binis.codegen.validation.flow.Validation;
-import net.binis.codegen.validation.flow.ValidationStart;
 import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
 import net.binis.codegen.validation.sanitizer.LambdaSanitizer;
+import net.binis.codegen.validation.sanitizer.OnlyNotNullsLambdaSanitizer;
+import net.binis.codegen.validation.sanitizer.OnlyNullsLambdaSanitizer;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.util.function.Function;
 
@@ -50,6 +52,36 @@ public class LambdaSanitizerTest extends BaseTest {
                 .sanitize(LambdaSanitizer.class, ((Function<String, String>) String::toUpperCase))
                 .perform(v -> assertEquals("TEST", v));
     }
+
+    @Test
+    public void testOnlyNulls() {
+        mockCreate(OnlyNullsLambdaSanitizer.class);
+        mockCreate(DefaultValidationFlow.class);
+
+        Validation.start("test", "test")
+                .sanitize(OnlyNullsLambdaSanitizer.class, ((Function<String, String>) s -> "default"))
+                .perform(v -> assertEquals("test", v));
+
+        Validation.start("test", null)
+                .sanitize(OnlyNullsLambdaSanitizer.class, ((Function<String, String>) s -> "default"))
+                .perform(v -> assertEquals("default", v));
+
+    }
+
+    @Test
+    public void testOnlyNotNulls() {
+        mockCreate(OnlyNotNullsLambdaSanitizer.class);
+        mockCreate(DefaultValidationFlow.class);
+
+        Validation.start("test", "test")
+                .sanitize(OnlyNotNullsLambdaSanitizer.class, ((Function<String, String>) String::toUpperCase))
+                .perform(v -> assertEquals("TEST", v));
+
+        Validation.start("test", null)
+                .sanitize(OnlyNotNullsLambdaSanitizer.class, ((Function<String, String>) String::toUpperCase))
+                .perform(Assertions::assertNull);
+    }
+
 
 
 }

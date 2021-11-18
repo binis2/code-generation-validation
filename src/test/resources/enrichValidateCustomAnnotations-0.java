@@ -7,6 +7,7 @@ import net.binis.codegen.validation.validator.NullValidator;
 import net.binis.codegen.validation.validator.LambdaValidator;
 import net.binis.codegen.validation.sanitizer.TrimSanitizer;
 import net.binis.codegen.validation.sanitizer.ReplaceSanitizer;
+import net.binis.codegen.validation.sanitizer.OnlyNotNullsLambdaSanitizer;
 import net.binis.codegen.validation.sanitizer.LambdaSanitizer;
 import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.executor.LambdaExecutor;
@@ -78,7 +79,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     }
 
     public void setField(String field) {
-        Validation.start("field", field).validate(LambdaValidator.class, "Value can't be blank!", ((java.util.function.Predicate<String>) org.apache.commons.lang3.StringUtils::isNotBlank)).sanitize(LambdaSanitizer.class, null, ((java.util.function.Function<String, String>) String::toLowerCase)).sanitize(LambdaSanitizer.class, null, ((java.util.function.Function<String, String>) String::toUpperCase)).perform(v -> this.field = v);
+        Validation.start("field", field).validate(LambdaValidator.class, "Value can't be blank!", ((java.util.function.Predicate<String>) org.apache.commons.lang3.StringUtils::isNotBlank)).sanitize(OnlyNotNullsLambdaSanitizer.class, null, ((java.util.function.Function<String, String>) String::toLowerCase)).sanitize(OnlyNotNullsLambdaSanitizer.class, null, ((java.util.function.Function<String, String>) String::toUpperCase)).perform(v -> this.field = v);
     }
 
     public void setField1(String field1) {
@@ -119,7 +120,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify field(String field) {
-            Validation.start("field", field).validate(LambdaValidator.class, "Value can't be blank!", ((java.util.function.Predicate<String>) org.apache.commons.lang3.StringUtils::isNotBlank)).sanitize(LambdaSanitizer.class, null, ((java.util.function.Function<String, String>) String::toLowerCase)).sanitize(LambdaSanitizer.class, null, ((java.util.function.Function<String, String>) String::toUpperCase)).perform(v -> TestImpl.this.field = v);
+            Validation.start("field", field).validate(LambdaValidator.class, "Value can't be blank!", ((java.util.function.Predicate<String>) org.apache.commons.lang3.StringUtils::isNotBlank)).sanitize(OnlyNotNullsLambdaSanitizer.class, null, ((java.util.function.Function<String, String>) String::toLowerCase)).sanitize(OnlyNotNullsLambdaSanitizer.class, null, ((java.util.function.Function<String, String>) String::toUpperCase)).perform(v -> TestImpl.this.field = v);
             return this;
         }
 

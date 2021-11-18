@@ -35,8 +35,8 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Sanitize(OnlyNotNullsLambdaSanitizer.class)
-public @interface SanitizeLowerCase {
+public @interface SanitizeOnlyNotNullsLambda {
     @AsCode
     @AliasFor("params")
-    String value() default "String::toLowerCase";
+    String value();
 }
