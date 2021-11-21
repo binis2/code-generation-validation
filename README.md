@@ -4,6 +4,15 @@ Validation and Sanitization extension for Binis CodeGen Library.
 
 For usage examples please see [https://github.com/binis2/code-generation]
 
+### Maven Dependency
+```xml
+    <dependency>
+        <groupId>dev.binis</groupId>
+        <artifactId>code-generator-validation</artifactId>
+        <version>0.1.0</version>
+    </dependency>
+```
+
 ### Other modules of the suite
 
 Core - [https://github.com/binis2/code-generation-core]   
