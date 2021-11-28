@@ -34,5 +34,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Validate(NullValidator.class)
 public @interface ValidateNull {
-    String message() default "Value can't be null";
+    String message() default "(%s) Value can't be null";
 }

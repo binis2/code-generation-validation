@@ -39,5 +39,5 @@ public @interface ValidateNotBlank {
     @AsCode
     @AliasFor("params")
     String value() default "org.apache.commons.lang3.StringUtils::isNotBlank";
-    String message() default "Value can't be blank!";
+    String message() default "(%s) Value can't be blank!";
 }

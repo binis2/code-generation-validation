@@ -37,5 +37,5 @@ import java.lang.annotation.Target;
 public @interface ValidateRegEx {
     @AliasFor("params")
     String expression() default "";
-    String message() default "Value doesn't match the pattern!";
+    String message() default "(%s) Value doesn't match the pattern!";
 }

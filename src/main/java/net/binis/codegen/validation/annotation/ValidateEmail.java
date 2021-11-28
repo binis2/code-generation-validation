@@ -35,5 +35,5 @@ import java.lang.annotation.Target;
 @Validate(value = RegExValidator.class, params = ValidateEmail.REGEX)
 public @interface ValidateEmail {
     String REGEX = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-    String message() default "Invalid Email!";
+    String message() default "(%s) Invalid Email!";
 }
