@@ -31,6 +31,7 @@ public class LengthSanitizer implements Sanitizer {
         CodeFactory.registerType(LengthSanitizer.class, () -> instance, null);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <T> T sanitize(T value, Object... params) {
         if (value instanceof String && params.length == 1 && params[0] instanceof Integer && (((String) value).length() > (int) params[0])) {

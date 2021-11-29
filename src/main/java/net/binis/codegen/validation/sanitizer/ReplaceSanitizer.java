@@ -31,6 +31,7 @@ public class ReplaceSanitizer implements Sanitizer {
         CodeFactory.registerType(ReplaceSanitizer.class, () -> instance, null);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <T> T sanitize(T value, Object... params) {
         if (value instanceof String) {

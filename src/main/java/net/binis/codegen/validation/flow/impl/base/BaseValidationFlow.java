@@ -39,6 +39,7 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
     protected Object value;
     protected String field;
 
+    @SuppressWarnings("unchecked")
     @Override
     public Validation validate(Class intf, String message, Object... params) {
         var entry = CodeFactory.lookup(intf);
@@ -62,6 +63,7 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
         return this;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Validation sanitize(Class intf, Object... params) {
         var entry = CodeFactory.lookup(intf);
@@ -82,6 +84,7 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
         return this;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Validation execute(Class intf, String message, Object... params) {
         var entry = CodeFactory.lookup(intf);
@@ -105,7 +108,7 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
         return this;
     }
 
-
+    @SuppressWarnings("unchecked")
     public <T> Validation<T> start(String field, T value) {
         this.field = field;
         this.value = value;

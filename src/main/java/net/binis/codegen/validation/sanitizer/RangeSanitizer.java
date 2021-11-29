@@ -50,6 +50,7 @@ public class RangeSanitizer implements Sanitizer {
         return value;
     }
 
+    @SuppressWarnings("unchecked")
     private <T> T convert(T value, BigDecimal val) {
         if (value instanceof Integer) {
             return (T) (Object) val.intValue();

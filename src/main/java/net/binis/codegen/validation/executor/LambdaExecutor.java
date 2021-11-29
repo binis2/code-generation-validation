@@ -42,6 +42,7 @@ public class LambdaExecutor implements Executor {
         return params.length > 0 && params[0] instanceof Consumer && executeInternal(value, params[0]);
     }
 
+    @SuppressWarnings("unchecked")
     private boolean executeInternal(Object value, Object consumer) {
         try {
             ((Consumer) consumer).accept(value);

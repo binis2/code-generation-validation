@@ -35,6 +35,7 @@ public class LambdaValidator implements Validator {
         CodeFactory.registerType(LambdaValidator.class, () -> instance, null);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public boolean validate(Object value, Object... params) {
         return params.length > 0 && params[0] instanceof Predicate && ((Predicate) params[0]).test(value);

@@ -35,6 +35,7 @@ public class LambdaSanitizer implements Sanitizer {
         CodeFactory.registerType(LambdaSanitizer.class, () -> instance, null);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <T> T sanitize(T value, Object... params) {
         if (params.length > 0 && params[0] instanceof Function) {
