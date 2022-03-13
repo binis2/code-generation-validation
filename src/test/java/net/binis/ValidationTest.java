@@ -59,5 +59,9 @@ public class ValidationTest extends BaseTest {
         testSingle("enrichFluentWithValidate.java", "enrichFluentWithValidate-0.java", "enrichFluentWithValidate-1.java");
     }
 
+    @Test
+    public void enrichValidateExecute() {
+        testSingleExecute("enrichValidateExecute.java", "enrichValidateExecute-0.java", "enrichValidateExecute-1.java", "enrichValidateExecute-2.java");
+    }
 
 }
