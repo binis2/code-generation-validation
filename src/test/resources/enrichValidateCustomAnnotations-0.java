@@ -79,11 +79,11 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     }
 
     public void setField(String field) {
-        Validation.start("field", field).validate(LambdaValidator.class, "(%s) Value can't be blank!", ((java.util.function.Predicate<String>) org.apache.commons.lang3.StringUtils::isNotBlank)).sanitize(OnlyNotNullsLambdaSanitizer.class, null, ((java.util.function.Function<String, String>) String::toLowerCase)).sanitize(OnlyNotNullsLambdaSanitizer.class, null, ((java.util.function.Function<String, String>) String::toUpperCase)).perform(v -> this.field = v);
+        Validation.start("field", field).validate(LambdaValidator.class, "(%s) Value can't be blank!", ((java.util.function.Predicate<String>) org.apache.commons.lang3.StringUtils::isNotBlank)).sanitize(OnlyNotNullsLambdaSanitizer.class, ((java.util.function.Function<String, String>) String::toLowerCase)).sanitize(OnlyNotNullsLambdaSanitizer.class, ((java.util.function.Function<String, String>) String::toUpperCase)).perform(v -> this.field = v);
     }
 
     public void setField1(String field1) {
-        Validation.start("field1", field1).validate(LambdaValidator.class, "(%s) Invalid value!", ((java.util.function.Predicate<String>) v -> true)).sanitize(LambdaSanitizer.class, null, ((java.util.function.Function<String, String>) v -> v)).execute(LambdaExecutor.class, "(%s) Invalid value!", ((java.util.function.Consumer<String>) v -> {
+        Validation.start("field1", field1).validate(LambdaValidator.class, "(%s) Invalid value!", ((java.util.function.Predicate<String>) v -> true)).sanitize(LambdaSanitizer.class, ((java.util.function.Function<String, String>) v -> v)).execute(LambdaExecutor.class, "(%s) Invalid value!", ((java.util.function.Consumer<String>) v -> {
         })).perform(v -> this.field1 = v);
     }
 
@@ -96,7 +96,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     }
 
     public void setTitle(String title) {
-        Validation.start("title", title).sanitize(ReplaceSanitizer.class, "\\s+", "").sanitize(TrimSanitizer.class, null).perform(v -> this.title = v);
+        Validation.start("title", title).sanitize(ReplaceSanitizer.class, "\\s+", "").sanitize(TrimSanitizer.class).perform(v -> this.title = v);
     }
 
     public Test.Modify with() {
@@ -120,12 +120,12 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify field(String field) {
-            Validation.start("field", field).validate(LambdaValidator.class, "(%s) Value can't be blank!", ((java.util.function.Predicate<String>) org.apache.commons.lang3.StringUtils::isNotBlank)).sanitize(OnlyNotNullsLambdaSanitizer.class, null, ((java.util.function.Function<String, String>) String::toLowerCase)).sanitize(OnlyNotNullsLambdaSanitizer.class, null, ((java.util.function.Function<String, String>) String::toUpperCase)).perform(v -> TestImpl.this.field = v);
+            Validation.start("field", field).validate(LambdaValidator.class, "(%s) Value can't be blank!", ((java.util.function.Predicate<String>) org.apache.commons.lang3.StringUtils::isNotBlank)).sanitize(OnlyNotNullsLambdaSanitizer.class, ((java.util.function.Function<String, String>) String::toLowerCase)).sanitize(OnlyNotNullsLambdaSanitizer.class, ((java.util.function.Function<String, String>) String::toUpperCase)).perform(v -> TestImpl.this.field = v);
             return this;
         }
 
         public Test.Modify field1(String field1) {
-            Validation.start("field1", field1).validate(LambdaValidator.class, "(%s) Invalid value!", ((java.util.function.Predicate<String>) v -> true)).sanitize(LambdaSanitizer.class, null, ((java.util.function.Function<String, String>) v -> v)).execute(LambdaExecutor.class, "(%s) Invalid value!", ((java.util.function.Consumer<String>) v -> {
+            Validation.start("field1", field1).validate(LambdaValidator.class, "(%s) Invalid value!", ((java.util.function.Predicate<String>) v -> true)).sanitize(LambdaSanitizer.class, ((java.util.function.Function<String, String>) v -> v)).execute(LambdaExecutor.class, "(%s) Invalid value!", ((java.util.function.Consumer<String>) v -> {
             })).perform(v -> TestImpl.this.field1 = v);
             return this;
         }
@@ -155,7 +155,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify title(String title) {
-            Validation.start("title", title).sanitize(ReplaceSanitizer.class, "\\s+", "").sanitize(TrimSanitizer.class, null).perform(v -> TestImpl.this.title = v);
+            Validation.start("title", title).sanitize(ReplaceSanitizer.class, "\\s+", "").sanitize(TrimSanitizer.class).perform(v -> TestImpl.this.title = v);
             return this;
         }
     }
