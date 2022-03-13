@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>dev.binis</groupId>
     <artifactId>code-generator-validation</artifactId>
-    <version>0.1.13</version>
+    <version>0.1.14</version>
     <name>code-generator-validation</name>
     <description>Validation and Sanitization extension for Binis Code Generation library</description>
     <url>https://github.com/binis2/code-generation</url>
@@ -64,18 +64,18 @@
         <dependency>
             <groupId>dev.binis</groupId>
             <artifactId>code-generator-core</artifactId>
-            <version>0.1.13</version>
+            <version>0.1.14</version>
         </dependency>
         <dependency>
             <groupId>dev.binis</groupId>
             <artifactId>code-generator</artifactId>
-            <version>0.1.13</version>
+            <version>0.1.14</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>dev.binis</groupId>
             <artifactId>code-generation-test</artifactId>
-            <version>0.1.13</version>
+            <version>0.1.14</version>
             <scope>test</scope>
         </dependency>
         <dependency>
