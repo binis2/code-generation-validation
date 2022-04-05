@@ -25,6 +25,7 @@ import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.validation.Executor;
 import net.binis.codegen.validation.Sanitizer;
 import net.binis.codegen.validation.Validator;
+import net.binis.codegen.validation.ValidatorWithMessages;
 import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.flow.ValidationStart;
 
@@ -62,6 +63,32 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
 
         return this;
     }
+
+    @Override
+    public Validation validateWithMessages(Class intf, String[] messages, Object... params) {
+        var entry = CodeFactory.lookup(intf);
+        if (isNull(entry) && !intf.isInterface()) {
+            instantiate(intf);
+            entry = CodeFactory.lookup(intf);
+        }
+        if (nonNull(entry)) {
+            var obj = CodeFactory.create(intf);
+            if (obj instanceof ValidatorWithMessages) {
+                var validator = (ValidatorWithMessages) obj;
+                var result = validator.validate(value, params);
+                if (!result.result()) {
+                    handleValidationError(field, value, messages[result.error()], params);
+                }
+            } else {
+                throw new ValidationException(intf.getCanonicalName() + " is not validator!");
+            }
+        } else {
+            throw new ValidationException(intf.getCanonicalName() + " is not registered!");
+        }
+
+        return this;
+    }
+
 
     @SuppressWarnings("unchecked")
     @Override

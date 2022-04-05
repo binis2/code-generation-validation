@@ -9,9 +9,9 @@ package net.binis.codegen.validation.annotation;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,7 +35,17 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Validate(LengthValidator.class)
 public @interface ValidateLength {
+
     @AliasFor("params")
     int value() default 255;
-    String message() default "Value for filed '%s' is longer than %3$d!";
+
+    @AliasFor("params")
+    int min() default -1;
+
+    @AliasFor("messages")
+    String minMessage() default "Value for field '%s' is shorter than %4$d!";
+
+    @AliasFor("messages")
+    String maxMessage() default "Value for field '%s' is longer than %3$d!";
+
 }
