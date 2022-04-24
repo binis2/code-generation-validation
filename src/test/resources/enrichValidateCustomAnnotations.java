@@ -1,6 +1,7 @@
 package net.binis.codegen;
 
 import lombok.Data;
+import net.binis.codegen.annotation.CodeClassAnnotations;
 import net.binis.codegen.annotation.CodePrototype;
 import net.binis.codegen.enrich.ModifierEnricher;
 import net.binis.codegen.enrich.ValidationEnricher;
@@ -40,6 +41,7 @@ public interface TestPrototype {
     @ExecuteLambda("v -> {}")
     String field1();
 
+    @CodeClassAnnotations
     @Data
     abstract class ClassAnnotations {
 
