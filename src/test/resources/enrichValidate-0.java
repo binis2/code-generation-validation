@@ -5,6 +5,7 @@ import net.binis.codegen.validation.validator.NullValidator;
 import net.binis.codegen.validation.validator.LengthValidator;
 import net.binis.codegen.validation.sanitizer.TrimSanitizer;
 import net.binis.codegen.validation.flow.Validation;
+import net.binis.codegen.modifier.impl.BaseModifierImpl;
 import net.binis.codegen.modifier.Modifiable;
 import net.binis.codegen.collection.CodeSetImpl;
 import net.binis.codegen.collection.CodeSet;
@@ -64,10 +65,14 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     }
 
     public Test.Modify with() {
-        return new TestModifyImpl();
+        return new TestModifyImpl(this);
     }
 
-    protected class TestModifyImpl implements Test.Modify {
+    protected class TestModifyImpl extends BaseModifierImpl<Test.Modify, Test> implements Test.Modify {
+
+        protected TestModifyImpl(Test parent) {
+            super(parent);
+        }
 
         public Test done() {
             return TestImpl.this;
@@ -78,7 +83,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return this;
         }
 
-        public CodeList<Long, Test.Modify> list() {
+        public CodeList list() {
             if (TestImpl.this.list == null) {
                 TestImpl.this.list = new java.util.ArrayList<>();
             }
@@ -90,7 +95,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return this;
         }
 
-        public CodeMap<Long, String, Test.Modify> map() {
+        public CodeMap map() {
             if (TestImpl.this.map == null) {
                 TestImpl.this.map = new java.util.HashMap<>();
             }
@@ -102,7 +107,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return this;
         }
 
-        public CodeSet<Long, Test.Modify> set() {
+        public CodeSet set() {
             if (TestImpl.this.set == null) {
                 TestImpl.this.set = new java.util.HashSet<>();
             }

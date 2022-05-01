@@ -1,6 +1,7 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen;
 
+import net.binis.codegen.modifier.impl.BaseModifierImpl;
 import net.binis.codegen.modifier.Modifiable;
 import net.binis.codegen.collection.EmbeddedCodeSetImpl;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
@@ -63,10 +64,14 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
     }
 
     public TestModify.Modify with() {
-        return new TestModifyModifyImpl();
+        return new TestModifyModifyImpl(this);
     }
 
-    protected class TestModifyModifyImpl implements TestModify.Modify {
+    protected class TestModifyModifyImpl extends BaseModifierImpl<TestModify.Modify, TestModify> implements TestModify.Modify {
+
+        protected TestModifyModifyImpl(TestModify parent) {
+            super(parent);
+        }
 
         public TestModify.Modify amount(double amount) {
             TestModifyImpl.this.amount = amount;
@@ -82,7 +87,7 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
             return this;
         }
 
-        public CodeList<Long, TestModify.Modify> items() {
+        public CodeList items() {
             if (TestModifyImpl.this.items == null) {
                 TestModifyImpl.this.items = new java.util.ArrayList<>();
             }
@@ -99,7 +104,7 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
             return this;
         }
 
-        public EmbeddedCodeCollection<SubModify.EmbeddedModify<SubModify.Modify>, SubModify, TestModify.Modify> subs() {
+        public EmbeddedCodeCollection subs() {
             if (TestModifyImpl.this.subs == null) {
                 TestModifyImpl.this.subs = new java.util.HashSet<>();
             }

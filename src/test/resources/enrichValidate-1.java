@@ -1,6 +1,7 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen;
 
+import net.binis.codegen.modifier.BaseModifier;
 import net.binis.codegen.collection.CodeSet;
 import net.binis.codegen.collection.CodeMap;
 import net.binis.codegen.collection.CodeList;
@@ -27,14 +28,13 @@ public interface Test {
         T title(String title);
     }
 
-    interface Modify extends Test.Fields<Test.Modify> {
-        Test done();
+    interface Modify extends Test.Fields<Test.Modify>, BaseModifier<Test.Modify, Test> {
         Modify list(List<Long> list);
-        CodeList<Long, Modify> list();
+        CodeList<Long, Test.Modify> list();
         Modify map(Map<Long, String> map);
-        CodeMap<Long, String, Modify> map();
+        CodeMap<Long, String, Test.Modify> map();
 
         Modify set(Set<Long> set);
-        CodeSet<Long, Modify> set();
+        CodeSet<Long, Test.Modify> set();
     }
 }
