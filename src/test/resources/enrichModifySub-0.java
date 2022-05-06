@@ -72,7 +72,7 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
         }
 
         public T subtitle(String subtitle) {
-            Validation.start("subtitle", subtitle).sanitize(TrimSanitizer.class).sanitize(TrimSanitizer.class).perform(v -> SubModifyImpl.this.subtitle = v);
+            Validation.start("subtitle", subtitle).sanitize(TrimSanitizer.class).perform(v -> SubModifyImpl.this.subtitle = v);
             return (T) this;
         }
     }
