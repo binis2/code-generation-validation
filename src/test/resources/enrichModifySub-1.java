@@ -1,6 +1,7 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen;
 
+import net.binis.codegen.modifier.BaseModifier;
 import net.binis.codegen.intf.Prototypable;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import javax.annotation.processing.Generated;
@@ -15,8 +16,11 @@ public interface SubModify extends Prototypable<SubModify> {
 
     SubModify.Modify with();
 
-    interface EmbeddedModify<T> extends SubModify.Fields<SubModify.EmbeddedModify<T>> {
-        EmbeddedCodeCollection<EmbeddedModify<T>, SubModify, T> and();
+    interface EmbeddedCollectionModify<R> extends SubModify.EmbeddedModify<SubModify.EmbeddedCollectionModify<R>, R> {
+        EmbeddedCodeCollection<SubModify.EmbeddedCollectionModify<R>, SubModify, R> _and();
+    }
+
+    interface EmbeddedModify<T, R> extends BaseModifier<T, R>, SubModify.Fields<T> {
     }
 
     interface Fields<T> {
@@ -25,7 +29,6 @@ public interface SubModify extends Prototypable<SubModify> {
         T subtitle(String subtitle);
     }
 
-    interface Modify extends SubModify.Fields<SubModify.Modify> {
-        SubModify done();
+    interface Modify extends EmbeddedModify<SubModify.Modify, SubModify> {
     }
 }

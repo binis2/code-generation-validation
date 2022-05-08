@@ -3,8 +3,8 @@ package net.binis.codegen;
 
 import net.binis.codegen.validation.sanitizer.TrimSanitizer;
 import net.binis.codegen.validation.flow.Validation;
+import net.binis.codegen.modifier.impl.BaseModifierImpl;
 import net.binis.codegen.modifier.Modifiable;
-import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import javax.annotation.processing.Generated;
 
@@ -41,59 +41,46 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
     }
 
     public SubModify.Modify with() {
-        return new SubModifyModifyImpl();
+        return new SubModifyModifyImpl(this);
     }
 
-    protected static class EmbeddedSubModifyModifyImpl<T> implements SubModify.EmbeddedModify<T> {
+    protected class SubModifyImplCollectionModifyImpl extends SubModifyImplEmbeddedModifyImpl implements SubModify.EmbeddedCollectionModify {
 
-        protected SubModifyImpl entity;
-
-        protected T parent;
-
-        protected EmbeddedSubModifyModifyImpl(T parent, SubModifyImpl entity) {
-            this.parent = parent;
-            this.entity = entity;
+        protected SubModifyImplCollectionModifyImpl(Object parent) {
+            super(parent);
         }
 
-        public EmbeddedCodeCollection<SubModify.EmbeddedModify<T>, SubModify, T> and() {
+        public EmbeddedCodeCollection _and() {
             return (EmbeddedCodeCollection) parent;
         }
+    }
 
-        public SubModify.EmbeddedModify<T> prototype(SubModify prototype) {
-            entity.prototype = prototype;
-            return this;
+    protected class SubModifyImplEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements SubModify.EmbeddedModify<T, R> {
+
+        protected SubModifyImplEmbeddedModifyImpl(R parent) {
+            super(parent);
         }
 
-        public SubModify.EmbeddedModify<T> subAmount(double subAmount) {
-            entity.subAmount = subAmount;
-            return this;
+        public T prototype(SubModify prototype) {
+            SubModifyImpl.this.prototype = prototype;
+            return (T) this;
         }
 
-        public SubModify.EmbeddedModify<T> subtitle(String subtitle) {
-            Validation.start("subtitle", subtitle).sanitize(TrimSanitizer.class).perform(v -> entity.subtitle = v);
-            return this;
+        public T subAmount(double subAmount) {
+            SubModifyImpl.this.subAmount = subAmount;
+            return (T) this;
+        }
+
+        public T subtitle(String subtitle) {
+            Validation.start("subtitle", subtitle).sanitize(TrimSanitizer.class).perform(v -> SubModifyImpl.this.subtitle = v);
+            return (T) this;
         }
     }
 
-    protected class SubModifyModifyImpl implements SubModify.Modify {
+    protected class SubModifyModifyImpl extends SubModifyImplEmbeddedModifyImpl<SubModify.Modify, SubModify> implements SubModify.Modify {
 
-        public SubModify done() {
-            return SubModifyImpl.this;
-        }
-
-        public SubModify.Modify prototype(SubModify prototype) {
-            SubModifyImpl.this.prototype = prototype;
-            return this;
-        }
-
-        public SubModify.Modify subAmount(double subAmount) {
-            SubModifyImpl.this.subAmount = subAmount;
-            return this;
-        }
-
-        public SubModify.Modify subtitle(String subtitle) {
-            Validation.start("subtitle", subtitle).sanitize(TrimSanitizer.class).perform(v -> SubModifyImpl.this.subtitle = v);
-            return this;
+        protected SubModifyModifyImpl(SubModify parent) {
+            super(parent);
         }
     }
 }

@@ -1,6 +1,7 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen;
 
+import net.binis.codegen.modifier.BaseModifier;
 import net.binis.codegen.intf.Prototypable;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import net.binis.codegen.collection.CodeList;
@@ -28,11 +29,10 @@ public interface TestModify extends Prototypable<SubModify> {
         T title(String title);
     }
 
-    interface Modify extends TestModify.Fields<TestModify.Modify> {
-        TestModify done();
+    interface Modify extends TestModify.Fields<TestModify.Modify>, BaseModifier<TestModify.Modify, TestModify> {
         Modify items(List<Long> items);
-        CodeList<Long, Modify> items();
+        CodeList<Long, TestModify.Modify> items();
         Modify subs(Set<SubModify> subs);
-        EmbeddedCodeCollection<SubModify.EmbeddedModify<SubModify.Modify>, SubModify, Modify> subs();
+        EmbeddedCodeCollection<SubModify.EmbeddedCollectionModify<TestModify.Modify>, SubModify, TestModify.Modify> subs();
     }
 }

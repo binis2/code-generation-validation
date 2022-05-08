@@ -11,6 +11,7 @@ import net.binis.codegen.validation.sanitizer.OnlyNotNullsLambdaSanitizer;
 import net.binis.codegen.validation.sanitizer.LambdaSanitizer;
 import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.executor.LambdaExecutor;
+import net.binis.codegen.modifier.impl.BaseModifierImpl;
 import net.binis.codegen.modifier.Modifiable;
 import net.binis.codegen.collection.CodeSetImpl;
 import net.binis.codegen.collection.CodeSet;
@@ -100,10 +101,14 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     }
 
     public Test.Modify with() {
-        return new TestModifyImpl();
+        return new TestModifyImpl(this);
     }
 
-    protected class TestModifyImpl implements Test.Modify {
+    protected class TestModifyImpl extends BaseModifierImpl<Test.Modify, Test> implements Test.Modify {
+
+        protected TestModifyImpl(Test parent) {
+            super(parent);
+        }
 
         public Test.Modify amount(int amount) {
             Validation.start("amount", amount).validate(RangeValidator.class, "(%s) Value %f is not in range [%f, %f]", 0, 10).perform(v -> TestImpl.this.amount = v);
@@ -135,7 +140,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return this;
         }
 
-        public CodeList<Long, Test.Modify> list() {
+        public CodeList list() {
             if (TestImpl.this.list == null) {
                 TestImpl.this.list = new java.util.ArrayList<>();
             }
@@ -147,7 +152,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return this;
         }
 
-        public CodeSet<Long, Test.Modify> set() {
+        public CodeSet set() {
             if (TestImpl.this.set == null) {
                 TestImpl.this.set = new java.util.HashSet<>();
             }

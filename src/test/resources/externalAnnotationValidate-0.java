@@ -1,6 +1,7 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen;
 
+import net.binis.codegen.validation.validator.RegExValidator;
 import net.binis.codegen.validation.validator.NullValidator;
 import net.binis.codegen.validation.validator.LengthValidator;
 import net.binis.codegen.validation.sanitizer.TrimSanitizer;
@@ -61,7 +62,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     }
 
     public void setTitle(String title) {
-        Validation.start("title", title).validateWithMessages(LengthValidator.class, new String[] { "Must be longer than %4$d!", "Must be shorter than %3$d!" }, 255, 10).sanitize(TrimSanitizer.class).perform(v -> this.title = v);
+        Validation.start("title", title).validate(RegExValidator.class, "(%s) Injection attempt!", "^((?!<).)*$").validateWithMessages(LengthValidator.class, new String[] { "Must be longer than %4$d!", "Must be shorter than %3$d!" }, 255, 10).sanitize(TrimSanitizer.class).perform(v -> this.title = v);
     }
 
     public Test.Modify with() {
@@ -115,7 +116,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify title(String title) {
-            Validation.start("title", title).validateWithMessages(LengthValidator.class, new String[] { "Must be longer than %4$d!", "Must be shorter than %3$d!" }, 255, 10).sanitize(TrimSanitizer.class).perform(v -> TestImpl.this.title = v);
+            Validation.start("title", title).validate(RegExValidator.class, "(%s) Injection attempt!", "^((?!<).)*$").validateWithMessages(LengthValidator.class, new String[] { "Must be longer than %4$d!", "Must be shorter than %3$d!" }, 255, 10).sanitize(TrimSanitizer.class).perform(v -> TestImpl.this.title = v);
             return this;
         }
     }
