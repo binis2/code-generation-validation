@@ -21,7 +21,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     }
 
     public void setTitle(String title) {
-        Validation.start("title", title).sanitize(TrimSanitizer.class).sanitize(OnlyNotNullsLambdaSanitizer.class, ((java.util.function.Function<String, String>) String::toUpperCase)).perform(v -> this.title = v);
+        Validation.start(this.getClass(), "title", title).sanitize(TrimSanitizer.class).sanitize(OnlyNotNullsLambdaSanitizer.class, ((java.util.function.Function<String, String>) String::toUpperCase)).perform(v -> this.title = v);
     }
 
     public Test.Modify with() {
@@ -39,7 +39,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify title(String title) {
-            Validation.start("title", title).sanitize(TrimSanitizer.class).sanitize(OnlyNotNullsLambdaSanitizer.class, ((java.util.function.Function<String, String>) String::toUpperCase)).perform(v -> TestImpl.this.title = v);
+            Validation.start(this.getClass(), "title", title).sanitize(TrimSanitizer.class).sanitize(OnlyNotNullsLambdaSanitizer.class, ((java.util.function.Function<String, String>) String::toUpperCase)).perform(v -> TestImpl.this.title = v);
             return this;
         }
     }

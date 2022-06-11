@@ -54,12 +54,8 @@ public class TestImpl implements Test {
         return this;
     }
 
-    public void setTitle(String title) {
-        Validation.start("title", title).validate(NullValidator.class, "(%s) Value can't be null").sanitize(TrimSanitizer.class).perform(v -> this.title = v);
-    }
-
     public TestImpl title(String title) {
-        Validation.start("title", title).validate(NullValidator.class, "(%s) Value can't be null").sanitize(TrimSanitizer.class).perform(v -> this.title = v);
+        Validation.start(this.getClass(), "title", title).validate(NullValidator.class, "(%s) Value can't be null").sanitize(TrimSanitizer.class).perform(v -> this.title = v);
         return this;
     }
 }

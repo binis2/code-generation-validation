@@ -32,14 +32,6 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
         return subtitle;
     }
 
-    public void setSubAmount(double subAmount) {
-        this.subAmount = subAmount;
-    }
-
-    public void setSubtitle(String subtitle) {
-        Validation.start("subtitle", subtitle).sanitize(TrimSanitizer.class).perform(v -> this.subtitle = v);
-    }
-
     public SubModify.Modify with() {
         return new SubModifyModifyImpl(this);
     }
@@ -72,7 +64,7 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
         }
 
         public T subtitle(String subtitle) {
-            Validation.start("subtitle", subtitle).sanitize(TrimSanitizer.class).perform(v -> SubModifyImpl.this.subtitle = v);
+            Validation.start(this.getClass(), "subtitle", subtitle).sanitize(TrimSanitizer.class).perform(v -> SubModifyImpl.this.subtitle = v);
             return (T) this;
         }
     }
