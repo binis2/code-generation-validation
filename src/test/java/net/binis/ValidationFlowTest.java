@@ -42,7 +42,7 @@ public class ValidationFlowTest extends BaseTest {
 
     @Test
     public void test() {
-        Validation.start(this.getClass(), "test", " test ").sanitize(TrimSanitizer.class).perform(v -> assertEquals("test", v));
+        Validation.start("test", " test ").sanitize(TrimSanitizer.class).perform(v -> assertEquals("test", v));
     }
 
 }

@@ -46,9 +46,9 @@ public class TrimSanitizerTest extends BaseTest {
         mockCreate(TrimSanitizer.class);
         mockCreate(DefaultValidationFlow.class);
 
-        Validation.start(this.getClass(), "test", " test  ").sanitize(TrimSanitizer.class).perform(v -> assertEquals("test", v));
-        Validation.start(this.getClass(), "test", "test").sanitize(TrimSanitizer.class).perform(v -> assertEquals("test", v));
-        Validation.start(this.getClass(), "test", this).sanitize(TrimSanitizer.class).perform(v -> assertEquals(this, v));
+        Validation.start("test", " test  ").sanitize(TrimSanitizer.class).perform(v -> assertEquals("test", v));
+        Validation.start("test", "test").sanitize(TrimSanitizer.class).perform(v -> assertEquals("test", v));
+        Validation.start("test", this).sanitize(TrimSanitizer.class).perform(v -> assertEquals(this, v));
     }
 
 

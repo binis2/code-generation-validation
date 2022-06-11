@@ -45,10 +45,10 @@ public class NullValidatorTest extends BaseTest {
         mockCreate(NullValidator.class);
         mockCreate(DefaultValidationFlow.class);
 
-        var validation = Validation.start(this.getClass(), "test", null);
+        var validation = Validation.start("test", null);
         assertThrows(ValidationException.class, () -> validation.validate(NullValidator.class, null));
         assertThrows(ValidationException.class, () -> validation.validate(NullValidator.class, "test"), "Validation failed for field: test!");
-        assertDoesNotThrow(() -> Validation.start(this.getClass(), "test", this).validate(NullValidator.class, null));
+        assertDoesNotThrow(() -> Validation.start("test", this).validate(NullValidator.class, null));
     }
 
 

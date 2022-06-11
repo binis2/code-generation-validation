@@ -48,11 +48,11 @@ public class RangeSanitizerTest extends BaseTest {
         mockCreate(RangeSanitizer.class);
         mockCreate(DefaultValidationFlow.class);
 
-        Validation.start(this.getClass(), "test", 5).sanitize(RangeSanitizer.class, "5", "6").perform(v -> assertEquals(5, v));
-        Validation.start(this.getClass(), "test", 5.0).sanitize(RangeSanitizer.class, "5", "6").perform(v -> assertEquals(5.0, v));
-        Validation.start(this.getClass(), "test", 5).sanitize(RangeSanitizer.class, 5.0, 6).perform(v -> assertEquals(5, v));
-        Validation.start(this.getClass(), "test", 5).sanitize(RangeSanitizer.class, 6, "7").perform(v -> assertEquals(6, v));
-        Validation.start(this.getClass(), "test", 8.0).sanitize(RangeSanitizer.class, 6, 7).perform(v -> assertEquals(7.0, v));
+        Validation.start("test", 5).sanitize(RangeSanitizer.class, "5", "6").perform(v -> assertEquals(5, v));
+        Validation.start("test", 5.0).sanitize(RangeSanitizer.class, "5", "6").perform(v -> assertEquals(5.0, v));
+        Validation.start("test", 5).sanitize(RangeSanitizer.class, 5.0, 6).perform(v -> assertEquals(5, v));
+        Validation.start("test", 5).sanitize(RangeSanitizer.class, 6, "7").perform(v -> assertEquals(6, v));
+        Validation.start("test", 8.0).sanitize(RangeSanitizer.class, 6, 7).perform(v -> assertEquals(7.0, v));
     }
 
 

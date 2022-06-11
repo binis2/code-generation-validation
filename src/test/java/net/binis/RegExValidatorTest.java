@@ -48,8 +48,8 @@ public class RegExValidatorTest extends BaseTest {
         mockCreate(RegExValidator.class);
         mockCreate(DefaultValidationFlow.class);
 
-        assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", "asd").validate(RegExValidator.class, null, ValidateEmail.REGEX));
-        assertDoesNotThrow(() -> Validation.start(this.getClass(), "test", "codegen@binis.net").validate(RegExValidator.class, "", ValidateEmail.REGEX));
+        assertThrows(ValidationException.class, () -> Validation.start("test", "asd").validate(RegExValidator.class, null, ValidateEmail.REGEX));
+        assertDoesNotThrow(() -> Validation.start("test", "codegen@binis.net").validate(RegExValidator.class, "", ValidateEmail.REGEX));
     }
 
 

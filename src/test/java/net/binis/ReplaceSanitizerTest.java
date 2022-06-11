@@ -45,8 +45,8 @@ public class ReplaceSanitizerTest extends BaseTest {
         mockCreate(ReplaceSanitizer.class);
         mockCreate(DefaultValidationFlow.class);
 
-        Validation.start(this.getClass(), "test", " test  ").sanitize(ReplaceSanitizer.class, "\\s+", "").perform(v -> assertEquals("test", v));
-        Validation.start(this.getClass(), "test", "test-test").sanitize(ReplaceSanitizer.class, "-", "+").perform(v -> assertEquals("test+test", v));
+        Validation.start("test", " test  ").sanitize(ReplaceSanitizer.class, "\\s+", "").perform(v -> assertEquals("test", v));
+        Validation.start("test", "test-test").sanitize(ReplaceSanitizer.class, "-", "+").perform(v -> assertEquals("test+test", v));
     }
 
 

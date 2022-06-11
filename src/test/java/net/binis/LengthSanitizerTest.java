@@ -43,8 +43,8 @@ public class LengthSanitizerTest extends BaseTest {
         mockCreate(LengthSanitizer.class);
         mockCreate(DefaultValidationFlow.class);
 
-        Validation.start(this.getClass(), "test", "asd").sanitize(LengthSanitizer.class, 2).perform(v -> assertEquals("as", v));
-        Validation.start(this.getClass(), "test", "asd").sanitize(LengthSanitizer.class, 5).perform(v -> assertEquals("asd", v));
+        Validation.start("test", "asd").sanitize(LengthSanitizer.class, 2).perform(v -> assertEquals("as", v));
+        Validation.start("test", "asd").sanitize(LengthSanitizer.class, 5).perform(v -> assertEquals("asd", v));
     }
 
 

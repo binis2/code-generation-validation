@@ -21,9 +21,7 @@ package net.binis.codegen.validation.flow.impl.base;
  */
 
 import net.binis.codegen.exception.ValidationException;
-import net.binis.codegen.exception.ValidationFormException;
 import net.binis.codegen.factory.CodeFactory;
-import net.binis.codegen.objects.Pair;
 import net.binis.codegen.validation.Executor;
 import net.binis.codegen.validation.Sanitizer;
 import net.binis.codegen.validation.Validator;
@@ -31,10 +29,6 @@ import net.binis.codegen.validation.ValidatorWithMessages;
 import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.flow.ValidationStart;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
 
 import static java.util.Objects.isNull;
@@ -45,8 +39,6 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
 
     protected Object value;
     protected String field;
-    protected List<Pair<String, String>> errors;
-    protected Class<?> cls;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -63,10 +55,10 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
                     handleValidationError(field, value, message, params);
                 }
             } else {
-                throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not validator!");
+                throw new ValidationException(intf.getCanonicalName() + " is not validator!");
             }
         } else {
-            throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not registered!");
+            throw new ValidationException(intf.getCanonicalName() + " is not registered!");
         }
 
         return this;
@@ -88,10 +80,10 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
                     handleValidationError(field, value, messages[result.error()], params);
                 }
             } else {
-                throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not validator!");
+                throw new ValidationException(intf.getCanonicalName() + " is not validator!");
             }
         } else {
-            throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not registered!");
+            throw new ValidationException(intf.getCanonicalName() + " is not registered!");
         }
 
         return this;
@@ -111,10 +103,10 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
             if (obj instanceof Sanitizer) {
                 value = ((Sanitizer) obj).sanitize(value, params);
             } else {
-                throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not sanitizer!");
+                throw new ValidationException(intf.getCanonicalName() + " is not sanitizer!");
             }
         } else {
-            throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not registered!");
+            throw new ValidationException(intf.getCanonicalName() + " is not registered!");
         }
         return this;
     }
@@ -134,24 +126,12 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
                     handleValidationError(field, value, message, params);
                 }
             } else {
-                throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not executor!");
+                throw new ValidationException(intf.getCanonicalName() + " is not executor!");
             }
         } else {
-            throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not registered!");
+            throw new ValidationException(intf.getCanonicalName() + " is not registered!");
         }
 
-        return this;
-    }
-
-    @Override
-    public Validation errors(List list) {
-        this.errors = list;
-        return this;
-    }
-
-    @Override
-    public Validation cls(Class cls) {
-        this.cls = cls;
         return this;
     }
 
@@ -161,38 +141,12 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
         this.value = value;
         return this;
     }
-    
+
+
     @SuppressWarnings("unchecked")
     @Override
     public void perform(Consumer operation) {
         operation.accept(value);
-    }
-
-    @Override
-    public void form(Class cls, Consumer... operations) {
-        var all = new HashMap<String, List<String>>();
-        for (var op : operations) {
-            var err = new ArrayList<Pair<String, String>>();
-            try {
-                op.accept(err);
-            } catch (ValidationException ex) {
-                append(all, ex.getField(), ex.getMessage());
-            } catch (Exception e) {
-                if (err.isEmpty()) {
-                    append(all, "<unknown>", e.getMessage());
-                }
-            }
-            err.forEach(e -> append(all, e.getKey(), e.getValue()));
-        }
-
-        if (!all.isEmpty()) {
-            throw new ValidationFormException(cls, all);
-        }
-    }
-
-    private void append(Map<String, List<String>> all, String field, String message) {
-        var list = all.computeIfAbsent(field, k -> new ArrayList<>());
-        list.add(message);
     }
 
     protected abstract void handleValidationError(String field, Object value, String message, Object... params);

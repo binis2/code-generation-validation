@@ -48,7 +48,7 @@ public class LambdaSanitizerTest extends BaseTest {
         mockCreate(LambdaSanitizer.class);
         mockCreate(DefaultValidationFlow.class);
 
-        Validation.start(this.getClass(), "test", "test")
+        Validation.start("test", "test")
                 .sanitize(LambdaSanitizer.class, ((Function<String, String>) String::toUpperCase))
                 .perform(v -> assertEquals("TEST", v));
     }
@@ -58,11 +58,11 @@ public class LambdaSanitizerTest extends BaseTest {
         mockCreate(OnlyNullsLambdaSanitizer.class);
         mockCreate(DefaultValidationFlow.class);
 
-        Validation.start(this.getClass(), "test", "test")
+        Validation.start("test", "test")
                 .sanitize(OnlyNullsLambdaSanitizer.class, ((Function<String, String>) s -> "default"))
                 .perform(v -> assertEquals("test", v));
 
-        Validation.start(this.getClass(), "test", null)
+        Validation.start("test", null)
                 .sanitize(OnlyNullsLambdaSanitizer.class, ((Function<String, String>) s -> "default"))
                 .perform(v -> assertEquals("default", v));
 
@@ -73,11 +73,11 @@ public class LambdaSanitizerTest extends BaseTest {
         mockCreate(OnlyNotNullsLambdaSanitizer.class);
         mockCreate(DefaultValidationFlow.class);
 
-        Validation.start(this.getClass(), "test", "test")
+        Validation.start("test", "test")
                 .sanitize(OnlyNotNullsLambdaSanitizer.class, ((Function<String, String>) String::toUpperCase))
                 .perform(v -> assertEquals("TEST", v));
 
-        Validation.start(this.getClass(), "test", null)
+        Validation.start("test", null)
                 .sanitize(OnlyNotNullsLambdaSanitizer.class, ((Function<String, String>) String::toUpperCase))
                 .perform(Assertions::assertNull);
     }

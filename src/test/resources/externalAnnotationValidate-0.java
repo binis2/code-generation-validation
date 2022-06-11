@@ -50,19 +50,19 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     }
 
     public void setList(List<Long> list) {
-        Validation.start(this.getClass(), "list", list).validate(NullValidator.class, null).perform(v -> this.list = v);
+        Validation.start("list", list).validate(NullValidator.class, null).perform(v -> this.list = v);
     }
 
     public void setMap(Map<Long, String> map) {
-        Validation.start(this.getClass(), "map", map).validate(NullValidator.class, "test").perform(v -> this.map = v);
+        Validation.start("map", map).validate(NullValidator.class, "test").perform(v -> this.map = v);
     }
 
     public void setSet(Set<Long> set) {
-        Validation.start(this.getClass(), "set", set).validate(NullValidator.class, "test", "asd", "fgh").perform(v -> this.set = v);
+        Validation.start("set", set).validate(NullValidator.class, "test", "asd", "fgh").perform(v -> this.set = v);
     }
 
     public void setTitle(String title) {
-        Validation.start(this.getClass(), "title", title).validate(RegExValidator.class, "(%s) Injection attempt!", "^((?!<).)*$").validateWithMessages(LengthValidator.class, new String[] { "Must be longer than %4$d!", "Must be shorter than %3$d!" }, 255, 10).sanitize(TrimSanitizer.class).perform(v -> this.title = v);
+        Validation.start("title", title).validate(RegExValidator.class, "(%s) Injection attempt!", "^((?!<).)*$").validateWithMessages(LengthValidator.class, new String[] { "Must be longer than %4$d!", "Must be shorter than %3$d!" }, 255, 10).sanitize(TrimSanitizer.class).perform(v -> this.title = v);
     }
 
     public Test.Modify with() {
@@ -80,7 +80,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify list(List<Long> list) {
-            Validation.start(this.getClass(), "list", list).validate(NullValidator.class, null).perform(v -> TestImpl.this.list = v);
+            Validation.start("list", list).validate(NullValidator.class, null).perform(v -> TestImpl.this.list = v);
             return this;
         }
 
@@ -92,7 +92,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify map(Map<Long, String> map) {
-            Validation.start(this.getClass(), "map", map).validate(NullValidator.class, "test").perform(v -> TestImpl.this.map = v);
+            Validation.start("map", map).validate(NullValidator.class, "test").perform(v -> TestImpl.this.map = v);
             return this;
         }
 
@@ -104,7 +104,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify set(Set<Long> set) {
-            Validation.start(this.getClass(), "set", set).validate(NullValidator.class, "test", "asd", "fgh").perform(v -> TestImpl.this.set = v);
+            Validation.start("set", set).validate(NullValidator.class, "test", "asd", "fgh").perform(v -> TestImpl.this.set = v);
             return this;
         }
 
@@ -116,7 +116,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify title(String title) {
-            Validation.start(this.getClass(), "title", title).validate(RegExValidator.class, "(%s) Injection attempt!", "^((?!<).)*$").validateWithMessages(LengthValidator.class, new String[] { "Must be longer than %4$d!", "Must be shorter than %3$d!" }, 255, 10).sanitize(TrimSanitizer.class).perform(v -> TestImpl.this.title = v);
+            Validation.start("title", title).validate(RegExValidator.class, "(%s) Injection attempt!", "^((?!<).)*$").validateWithMessages(LengthValidator.class, new String[] { "Must be longer than %4$d!", "Must be shorter than %3$d!" }, 255, 10).sanitize(TrimSanitizer.class).perform(v -> TestImpl.this.title = v);
             return this;
         }
     }
