@@ -11,9 +11,6 @@ public interface SubModify extends Prototypable<SubModify> {
     double getSubAmount();
     String getSubtitle();
 
-    void setSubAmount(double subAmount);
-    void setSubtitle(String subtitle);
-
     SubModify.Modify with();
 
     interface EmbeddedCollectionModify<R> extends SubModify.EmbeddedModify<SubModify.EmbeddedCollectionModify<R>, R> {

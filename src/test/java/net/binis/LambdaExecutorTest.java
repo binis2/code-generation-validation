@@ -49,8 +49,8 @@ public class LambdaExecutorTest extends BaseTest {
         mockCreate(LambdaExecutor.class);
         mockCreate(DefaultValidationFlow.class);
 
-        assertThrows(ValidationException.class, () -> Validation.start("test", null).execute(LambdaExecutor.class, null, ((Consumer<String>) s -> {throw new RuntimeException();})));
-        assertDoesNotThrow(() -> Validation.start("test", "value").execute(LambdaExecutor.class, null, ((Consumer<String>) s -> log.info("The value is {}", s))));
+        assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", null).execute(LambdaExecutor.class, null, ((Consumer<String>) s -> {throw new RuntimeException();})));
+        assertDoesNotThrow(() -> Validation.start(this.getClass(), "test", "value").execute(LambdaExecutor.class, null, ((Consumer<String>) s -> log.info("The value is {}", s))));
     }
 
 

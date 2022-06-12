@@ -22,8 +22,12 @@ package net.binis.codegen.validation.flow.impl;
 
 import net.binis.codegen.exception.ValidationException;
 import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.objects.Pair;
+import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.flow.ValidationStart;
 import net.binis.codegen.validation.flow.impl.base.BaseValidationFlow;
+
+import java.util.List;
 
 import static java.util.Objects.isNull;
 
@@ -44,7 +48,13 @@ public class DefaultValidationFlow extends BaseValidationFlow {
         p[1] = value;
         System.arraycopy(params, 0, p, 2, params.length);
 
-        throw new ValidationException(String.format(message, p));
+        var msg = String.format(message, p);
+
+        if (isNull(errors)) {
+            throw new ValidationException(cls, field, msg);
+        } else {
+            errors.add(Pair.of(field, msg));
+        }
     }
 
 }

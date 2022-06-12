@@ -20,8 +20,13 @@ package net.binis;
  * #L%
  */
 
+import net.binis.codegen.annotation.builder.CodeRequest;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
+import net.binis.codegen.validation.annotation.SanitizeTrim;
+import net.binis.codegen.validation.annotation.ValidateLength;
+import net.binis.codegen.validation.annotation.ValidateNull;
+import net.binis.codegen.validation.annotation.ValidateRegEx;
 import org.apache.commons.lang3.tuple.Triple;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,7 +53,6 @@ public class ValidationTest extends BaseTest {
         ));
     }
 
-
     @Test
     public void enrichValidateCustomAnnotations() {
         testSingle("enrichValidateCustomAnnotations.java", "enrichValidateCustomAnnotations-0.java", "enrichValidateCustomAnnotations-1.java");
@@ -63,5 +67,29 @@ public class ValidationTest extends BaseTest {
     public void enrichValidateExecute() {
         testSingleExecute("enrichValidateExecute.java", "enrichValidateExecute-0.java", "enrichValidateExecute-1.java", "enrichValidateExecute-2.java");
     }
+
+    @Test
+    public void enrichValidateValueWithAlias() {
+        testSingle("enrichValidateValueWithAlias.java", "enrichValidateValueWithAlias-0.java", "enrichValidateValueWithAlias-1.java");
+    }
+
+    @CodeRequest
+    public interface TestRequestPrototype {
+
+        @ValidateNull
+        @ValidateLength(min = 5, value = 10, minMessage = "Name must be longer than 5 characters!", maxMessage = "Name must be no longer than 10 characters!")
+        String name();
+
+        @ValidateNull
+        @SanitizeTrim
+        String value();
+
+        @ValidateNull
+        @ValidateLength(3)
+        @ValidateRegEx(expression = "\\d+", message = "Value must have only numbers!")
+        String numbers();
+
+    }
+
 
 }

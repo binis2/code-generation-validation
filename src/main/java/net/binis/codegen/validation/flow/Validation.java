@@ -21,7 +21,9 @@ package net.binis.codegen.validation.flow;
  */
 
 import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.objects.Pair;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public interface Validation<T> {
@@ -30,10 +32,21 @@ public interface Validation<T> {
     Validation<T> validateWithMessages(Class intf, String[] messages, Object... params);
     Validation<T> execute(Class intf, String message, Object... params);
     Validation<T> sanitize(Class intf, Object... params);
+    Validation<T> errors(List<Pair<String, String>> list);
+    Validation<T> cls(Class<?> cls);
+
     void perform(Consumer<T> operation);
 
-    static <T> Validation<T> start(String field, T value) {
-        return CodeFactory.create(ValidationStart.class, "net.binis.codegen.validation.flow.impl.DefaultValidationFlow").start(field, value);
+    static <T> Validation<T> start(Class<?> cls, String field, T value) {
+        return CodeFactory.create(ValidationStart.class, "net.binis.codegen.validation.flow.impl.DefaultValidationFlow").start(field, value).cls(cls);
+    }
+
+    static <T> Validation<T> start(List errors, Class<?> cls, String field, T value) {
+        return CodeFactory.create(ValidationStart.class, "net.binis.codegen.validation.flow.impl.DefaultValidationFlow").start(field, value).errors(errors).cls(cls);
+    }
+
+    static void form(Class<?> cls, Consumer<List<Pair<String, String>>>... operations) {
+        CodeFactory.create(ValidationStart.class, "net.binis.codegen.validation.flow.impl.DefaultValidationFlow").form(cls, operations);
     }
 
 }

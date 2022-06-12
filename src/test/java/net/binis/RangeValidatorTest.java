@@ -45,13 +45,13 @@ public class RangeValidatorTest extends BaseTest {
         mockCreate(RangeValidator.class);
         mockCreate(DefaultValidationFlow.class);
 
-        assertThrows(ValidationException.class, () -> Validation.start("test", null).validate(RangeValidator.class, null));
-        assertThrows(ValidationException.class, () -> Validation.start("test", null).validate(RangeValidator.class, "test"), "test");
-        assertThrows(ValidationException.class, () -> Validation.start("test", 5).validate(RangeValidator.class, null));
-        assertDoesNotThrow(() -> Validation.start("test", 5).validate(RangeValidator.class, null, "5", "6"));
-        assertDoesNotThrow(() -> Validation.start("test", 6).validate(RangeValidator.class, null, "5", "6"));
-        assertThrows(ValidationException.class, () -> Validation.start("test", 4.99).validate(RangeValidator.class, null, 5, 7));
-        assertThrows(ValidationException.class, () -> Validation.start("test", 7.0001).validate(RangeValidator.class, null, "5", "7"));
+        assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", null).validate(RangeValidator.class, null));
+        assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", null).validate(RangeValidator.class, "test"), "test");
+        assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", 5).validate(RangeValidator.class, null));
+        assertDoesNotThrow(() -> Validation.start(this.getClass(), "test", 5).validate(RangeValidator.class, null, "5", "6"));
+        assertDoesNotThrow(() -> Validation.start(this.getClass(), "test", 6).validate(RangeValidator.class, null, "5", "6"));
+        assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", 4.99).validate(RangeValidator.class, null, 5, 7));
+        assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", 7.0001).validate(RangeValidator.class, null, "5", "7"));
     }
 
 

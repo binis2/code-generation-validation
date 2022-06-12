@@ -46,12 +46,12 @@ public class LengthValidatorTest extends BaseTest {
         mockCreate(DefaultValidationFlow.class);
         var messages = new String[] { "Value for field '%s' is shorter than %4$d!", "Value for field '%s' is longer than %3$d!" };
 
-        var validation = Validation.start("test", "asd");
-        assertThrows(ValidationException.class, () -> validation.validateWithMessages(LengthValidator.class, messages, 2, -1), "Value for field 'test' is longer than 2!");
-        assertDoesNotThrow(() -> Validation.start("test", this).validateWithMessages(LengthValidator.class, messages, 5, -1));
+        var validation = Validation.start(this.getClass(), "test", "asd");
+        assertThrows(ValidationException.class, () -> validation.validateWithMessages(LengthValidator.class, messages, -1, 2), "Value for field 'test' is longer than 2!");
+        assertDoesNotThrow(() -> Validation.start(this.getClass(), "test", this).validateWithMessages(LengthValidator.class, messages, -1, 5));
 
-        assertThrows(ValidationException.class, () -> validation.validateWithMessages(LengthValidator.class, messages, 6, 5), "Value for field 'test' is shorter than 5!");
-        assertDoesNotThrow(() -> Validation.start("test", this).validateWithMessages(LengthValidator.class, messages, 5, 4));
+        assertThrows(ValidationException.class, () -> validation.validateWithMessages(LengthValidator.class, messages, 5, 6), "Value for field 'test' is shorter than 5!");
+        assertDoesNotThrow(() -> Validation.start(this.getClass(), "test", this).validateWithMessages(LengthValidator.class, messages, 4, 5));
 
     }
 

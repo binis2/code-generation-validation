@@ -48,8 +48,8 @@ public class LambdaValidatorTest extends BaseTest {
         mockCreate(LambdaValidator.class);
         mockCreate(DefaultValidationFlow.class);
 
-        assertThrows(ValidationException.class, () -> Validation.start("test", null).validate(LambdaValidator.class, null, ((Predicate<String>) s -> false)));
-        assertDoesNotThrow(() -> Validation.start("test", null).validate(LambdaValidator.class, null, ((Predicate<LambdaValidatorTest>) s -> true)));
+        assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", null).validate(LambdaValidator.class, null, ((Predicate<String>) s -> false)));
+        assertDoesNotThrow(() -> Validation.start(this.getClass(), "test", null).validate(LambdaValidator.class, null, ((Predicate<LambdaValidatorTest>) s -> true)));
     }
 
 

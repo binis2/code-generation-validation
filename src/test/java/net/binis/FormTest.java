@@ -20,20 +20,15 @@ package net.binis;
  * #L%
  */
 
-import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
-import net.binis.codegen.validation.flow.Validation;
-import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
-import net.binis.codegen.validation.sanitizer.ReplaceSanitizer;
-import net.binis.codegen.validation.sanitizer.TrimSanitizer;
+import org.apache.commons.lang3.tuple.Triple;
 import org.junit.Before;
 import org.junit.Test;
 
-import static net.binis.codegen.mock.CodeGenMock.mockCreate;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.List;
 
-public class ReplaceSanitizerTest extends BaseTest {
+public class FormTest extends BaseTest {
 
     @Before
     public void cleanUp() {
@@ -41,13 +36,8 @@ public class ReplaceSanitizerTest extends BaseTest {
     }
 
     @Test
-    public void test() {
-        mockCreate(ReplaceSanitizer.class);
-        mockCreate(DefaultValidationFlow.class);
-
-        Validation.start(this.getClass(), "test", " test  ").sanitize(ReplaceSanitizer.class, "\\s+", "").perform(v -> assertEquals("test", v));
-        Validation.start(this.getClass(), "test", "test-test").sanitize(ReplaceSanitizer.class, "-", "+").perform(v -> assertEquals("test+test", v));
+    public void enrichForm() {
+        testSingleExecute("enrichForm.java", "enrichForm-0.java", "enrichForm-1.java", "enrichForm-2.java");
     }
-
 
 }
