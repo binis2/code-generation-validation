@@ -61,7 +61,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     }
 
     public void setTitle(String title) {
-        Validation.start(this.getClass(), "title", title).validateWithMessages(LengthValidator.class, new String[] { "Must be longer than %4$d!", "Must be shorter than %3$d!" }, 255, 10).sanitize(TrimSanitizer.class).perform(v -> this.title = v);
+        Validation.start(this.getClass(), "title", title).validateWithMessages(LengthValidator.class, new String[] { "Must be longer than %4$d!", "Must be shorter than %3$d!" }, 10, 255).sanitize(TrimSanitizer.class).perform(v -> this.title = v);
     }
 
     public Test.Modify with() {
@@ -115,7 +115,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify title(String title) {
-            Validation.start(this.getClass(), "title", title).validateWithMessages(LengthValidator.class, new String[] { "Must be longer than %4$d!", "Must be shorter than %3$d!" }, 255, 10).sanitize(TrimSanitizer.class).perform(v -> TestImpl.this.title = v);
+            Validation.start(this.getClass(), "title", title).validateWithMessages(LengthValidator.class, new String[] { "Must be longer than %4$d!", "Must be shorter than %3$d!" }, 10, 255).sanitize(TrimSanitizer.class).perform(v -> TestImpl.this.title = v);
             return this;
         }
     }

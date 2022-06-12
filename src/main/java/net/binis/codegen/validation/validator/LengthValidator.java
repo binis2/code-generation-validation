@@ -21,7 +21,6 @@ package net.binis.codegen.validation.validator;
  */
 
 import net.binis.codegen.factory.CodeFactory;
-import net.binis.codegen.validation.Validator;
 import net.binis.codegen.validation.ValidatorWithMessages;
 import net.binis.codegen.validation.flow.impl.ValidationResultImpl;
 
@@ -37,11 +36,11 @@ public class LengthValidator implements ValidatorWithMessages {
     public ValidationResult validate(Object value, Object... params) {
         if (value instanceof String && params.length == 2 && params[0] instanceof Integer && params[1] instanceof Integer) {
             var str = (String) value;
-            var min = (int) params[1];
+            var min = (int) params[0];
             if (min > 0 && str.length() < min) {
                 return ValidationResultImpl.of(false);
             } else {
-                var max = (int) params[0];
+                var max = (int) params[1];
                 if (max > -1 && str.length() > max) {
                     return ValidationResultImpl.of(false, 1);
                 }

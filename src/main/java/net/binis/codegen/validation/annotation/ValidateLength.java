@@ -36,16 +36,16 @@ import java.lang.annotation.Target;
 @Validate(LengthValidator.class)
 public @interface ValidateLength {
 
-    @AliasFor("params")
-    int value() default 255;
-
-    @AliasFor("params")
+    @AliasFor(value = "params")
     int min() default -1;
 
-    @AliasFor("messages")
-    String minMessage() default "Value for field '%s' is shorter than %4$d!";
+    @AliasFor(value = "params", order = 1)
+    int value() default 255;
 
-    @AliasFor("messages")
-    String maxMessage() default "Value for field '%s' is longer than %3$d!";
+    @AliasFor(value = "messages")
+    String minMessage() default "Value for field '%s' is shorter than %3$d!";
+
+    @AliasFor(value = "messages", order = 1)
+    String maxMessage() default "Value for field '%s' is longer than %4$d!";
 
 }
