@@ -9,9 +9,9 @@ package net.binis.codegen.validation.flow.impl.base;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,10 +24,7 @@ import net.binis.codegen.exception.ValidationException;
 import net.binis.codegen.exception.ValidationFormException;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.objects.Pair;
-import net.binis.codegen.validation.Executor;
-import net.binis.codegen.validation.Sanitizer;
-import net.binis.codegen.validation.Validator;
-import net.binis.codegen.validation.ValidatorWithMessages;
+import net.binis.codegen.validation.*;
 import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.flow.ValidationStart;
 
@@ -161,7 +158,7 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
         this.value = value;
         return this;
     }
-    
+
     @SuppressWarnings("unchecked")
     @Override
     public void perform(Consumer operation) {
@@ -188,6 +185,21 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
         if (!all.isEmpty()) {
             throw new ValidationFormException(cls, all);
         }
+    }
+
+    @Override
+    public Validation child() {
+        if (nonNull(value) && value instanceof Validatable) {
+            try {
+                ((Validatable) value).validate();
+            } catch (ValidationFormException ex) {
+                var prefix = field + ".";
+                ex.getErrors().forEach((key, val) ->
+                        val.forEach(v ->
+                                errors.add(Pair.of(prefix + key, v))));
+            }
+        }
+        return this;
     }
 
     private void append(Map<String, List<String>> all, String field, String message) {
