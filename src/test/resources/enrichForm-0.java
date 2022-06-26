@@ -6,6 +6,7 @@ import net.binis.codegen.validation.validator.NullValidator;
 import net.binis.codegen.validation.validator.LengthValidator;
 import net.binis.codegen.validation.sanitizer.TrimSanitizer;
 import net.binis.codegen.validation.flow.Validation;
+import net.binis.codegen.validation.Validatable;
 import net.binis.codegen.factory.CodeFactory;
 import javax.annotation.processing.Generated;
 import java.util.Set;
@@ -13,7 +14,7 @@ import java.util.Map;
 import java.util.List;
 
 @Generated(value = "TestPrototype", comments = "Test")
-public class TestImpl implements Test {
+public class TestImpl implements Test, Validatable {
 
     protected List<Long> list;
 
