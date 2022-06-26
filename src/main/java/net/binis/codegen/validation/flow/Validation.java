@@ -33,7 +33,9 @@ public interface Validation<T> {
     Validation<T> execute(Class intf, String message, Object... params);
     Validation<T> sanitize(Class intf, Object... params);
     Validation<T> errors(List<Pair<String, String>> list);
+    Validation<T> child();
     Validation<T> cls(Class<?> cls);
+
 
     void perform(Consumer<T> operation);
 

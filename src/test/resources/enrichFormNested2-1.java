@@ -13,5 +13,13 @@ public interface Test {
     List<Long> getList();
     Map<Long, String> getMap();
     Set<Long> getSet();
+    Test.Sub getSub();
     String getTitle();
+
+    // region inner classes
+    @Default("net.binis.codegen.TestImpl$SubImpl")
+    public interface Sub {
+        String getValue();
+    }
+    // endregion
 }

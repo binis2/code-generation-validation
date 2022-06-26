@@ -40,4 +40,14 @@ public class FormTest extends BaseTest {
         testSingleExecute("enrichForm.java", "enrichForm-0.java", "enrichForm-1.java", "enrichForm-2.java");
     }
 
+    @Test
+    public void enrichFormWithNested() {
+        testSingle("enrichFormNested.java", "enrichFormNested-0.java", "enrichFormNested-1.java", 2);
+    }
+
+    @Test
+    public void enrichFormWithNested2() {
+        testSingle("enrichFormNested2.java", "enrichFormNested2-0.java", "enrichFormNested2-1.java", 2);
+    }
+
 }
