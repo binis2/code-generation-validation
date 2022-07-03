@@ -6,32 +6,30 @@ import javax.annotation.processing.Generated;
 import java.util.Set;
 import java.util.Map;
 import java.util.List;
-import io.swagger.annotations.*;
+import io.swagger.v3.oas.annotations.media.*;
 
 @Generated(value = "TestPrototype", comments = "TestImpl")
 @Default("net.binis.codegen.TestImpl")
-@ApiModel()
 public interface Test {
-    @ApiModelProperty(name = "list")
+    @Schema(name = "list", required = true)
     List<Long> getList();
 
-    @ApiModelProperty(name = "map")
+    @Schema(name = "map", required = true)
     Map<Long, String> getMap();
 
-    @ApiModelProperty(name = "set")
+    @Schema(name = "set", required = true)
     Set<Long> getSet();
 
-    @ApiModelProperty(name = "sub")
+    @Schema(name = "sub", required = true)
     Test.Sub getSub();
 
-    @ApiModelProperty(name = "title")
+    @Schema(name = "title", required = true)
     String getTitle();
 
     // region inner classes
     @Default("net.binis.codegen.TestImpl$SubImpl")
-    @ApiModel()
     public interface Sub {
-        @ApiModelProperty(name = "value")
+        @Schema(name = "value", required = true)
         String getValue();
     }
     // endregion
