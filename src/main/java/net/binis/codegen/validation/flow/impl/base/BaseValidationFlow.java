@@ -24,15 +24,14 @@ import net.binis.codegen.exception.ValidationException;
 import net.binis.codegen.exception.ValidationFormException;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.objects.Pair;
+import net.binis.codegen.tools.Holder;
 import net.binis.codegen.validation.*;
 import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.flow.ValidationStart;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -187,19 +186,41 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Validation child() {
-        if (nonNull(value) && value instanceof Validatable) {
-            try {
-                ((Validatable) value).validate();
-            } catch (ValidationFormException ex) {
-                var prefix = field + ".";
-                ex.getErrors().forEach((key, val) ->
-                        val.forEach(v ->
-                                errors.add(Pair.of(prefix + key, v))));
+        if (nonNull(value)) {
+            if (value instanceof Validatable) {
+                validateValue(value, () -> field + ".");
+            } else if (value instanceof Collection) {
+                var idx = Holder.of(0);
+                for (Object o : (Collection) value) {
+                    validateValue(o, () -> field + "[" + idx.get() + "].");
+                    idx.set(idx.get() + 1);
+                }
+            } else if (value instanceof Map) {
+                var map = (Map<Object, Object>) value;
+                map.forEach((key, val) -> {
+                    if (key instanceof Validatable) {
+                        validateValue(key, () -> field + ".key(" + key + ").");
+                    }
+                    if (val instanceof Validatable) {
+                        validateValue(val, () -> field + "[\"" + key + "\"].");
+                    }
+                });
             }
         }
         return this;
+    }
+
+    private void validateValue(Object value, Supplier<String> prefix) {
+        try {
+            ((Validatable) value).validate();
+        } catch (ValidationFormException ex) {
+            ex.getErrors().forEach((key, val) ->
+                    val.forEach(v ->
+                            errors.add(Pair.of(prefix.get() + key, v))));
+        }
     }
 
     private void append(Map<String, List<String>> all, String field, String message) {

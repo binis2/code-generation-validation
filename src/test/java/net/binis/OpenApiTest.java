@@ -2,9 +2,9 @@ package net.binis;
 
 /*-
  * #%L
- * code-generator
+ * code-generation-test
  * %%
- * Copyright (C) 2021 Binis Belev
+ * Copyright (C) 2021 - 2022 Binis Belev
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,13 +22,10 @@ package net.binis;
 
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
-import org.apache.commons.lang3.tuple.Triple;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
-
-public class FormTest extends BaseTest {
+public class OpenApiTest extends BaseTest {
 
     @Before
     public void cleanUp() {
@@ -36,24 +33,8 @@ public class FormTest extends BaseTest {
     }
 
     @Test
-    public void enrichForm() {
-        testSingleExecute("enrichForm.java", "enrichForm-0.java", "enrichForm-1.java", "enrichForm-2.java");
+    public void enrichOpenApi() {
+        testSingle("enrichOpenApi.java", "enrichOpenApi-0.java", "enrichOpenApi-1.java", 2, true);
     }
-
-    @Test
-    public void enrichFormWithNested() {
-        testSingle("enrichFormNested.java", "enrichFormNested-0.java", "enrichFormNested-1.java", 2);
-    }
-
-    @Test
-    public void enrichFormWithNested2() {
-        testSingle("enrichFormNested2.java", "enrichFormNested2-0.java", "enrichFormNested2-1.java", 2);
-    }
-
-    @Test
-    public void enrichFormWithNestedCollection() {
-        testSingle("enrichFormNestedCollection.java", "enrichFormNestedCollection-0.java", "enrichFormNestedCollection-1.java", 2);
-    }
-
 
 }
