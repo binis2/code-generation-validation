@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.List;
 
 @Generated(value = "TestPrototype", comments = "Test")
+@SuppressWarnings(value = "unchecked")
 public class TestImpl implements Test, Validatable {
 
     protected List<Long> list;

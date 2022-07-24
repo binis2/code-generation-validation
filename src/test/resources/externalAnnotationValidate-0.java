@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.List;
 
 @Generated(value = "TestPrototype", comments = "Test")
+@SuppressWarnings(value = "unchecked")
 public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     protected List<Long> list;
@@ -69,6 +70,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         return new TestModifyImpl(this);
     }
 
+    @SuppressWarnings(value = "unchecked")
     protected class TestModifyImpl extends BaseModifierImpl<Test.Modify, Test> implements Test.Modify {
 
         protected TestModifyImpl(Test parent) {

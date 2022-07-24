@@ -1,6 +1,7 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen;
 
+import net.binis.codegen.validation.validator.RangeValidator;
 import net.binis.codegen.validation.sanitizer.TrimSanitizer;
 import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.modifier.impl.BaseModifierImpl;
@@ -47,6 +48,7 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
         }
     }
 
+    @SuppressWarnings(value = "unchecked")
     protected class SubModifyImplEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements SubModify.EmbeddedModify<T, R> {
 
         protected SubModifyImplEmbeddedModifyImpl(R parent) {
@@ -59,7 +61,7 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
         }
 
         public T subAmount(double subAmount) {
-            SubModifyImpl.this.subAmount = subAmount;
+            Validation.start(this.getClass(), "subAmount", subAmount).validate(RangeValidator.class, "(%s) Value %f is not in range [%f, %f]", 0, 10).perform(v -> SubModifyImpl.this.subAmount = v);
             return (T) this;
         }
 

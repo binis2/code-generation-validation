@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.List;
 
 @Generated(value = "TestPrototype", comments = "Test")
+@SuppressWarnings(value = "unchecked")
 public class TestImpl implements Test, Validatable {
 
     protected List<Long> list;
@@ -62,6 +63,7 @@ public class TestImpl implements Test, Validatable {
     // endregion
 
     // region inner classes
+    @SuppressWarnings(value = "unchecked")
     public static class SubImpl implements Sub, Validatable {
 
         protected String value;

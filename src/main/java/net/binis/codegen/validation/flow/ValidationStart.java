@@ -29,6 +29,7 @@ public interface ValidationStart {
 
     <T> Validation<T> start(String field, T value);
 
+    @SuppressWarnings("unchecked")
     void form(Class<?> cls, Consumer<List<Pair<String, String>>>... operations);
 
 
