@@ -68,6 +68,7 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
         return this;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Validation validateWithMessages(Class intf, String[] messages, Object... params) {
         var entry = CodeFactory.lookup(intf);
@@ -139,6 +140,7 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
         return this;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Validation errors(List list) {
         this.errors = list;
@@ -164,6 +166,7 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
         operation.accept(value);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void form(Class cls, Consumer... operations) {
         var all = new HashMap<String, List<String>>();

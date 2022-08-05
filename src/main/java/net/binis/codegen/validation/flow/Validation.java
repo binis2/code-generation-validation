@@ -43,10 +43,12 @@ public interface Validation<T> {
         return CodeFactory.create(ValidationStart.class, "net.binis.codegen.validation.flow.impl.DefaultValidationFlow").start(field, value).cls(cls);
     }
 
+    @SuppressWarnings("unchecked")
     static <T> Validation<T> start(List errors, Class<?> cls, String field, T value) {
         return CodeFactory.create(ValidationStart.class, "net.binis.codegen.validation.flow.impl.DefaultValidationFlow").start(field, value).errors(errors).cls(cls);
     }
 
+    @SuppressWarnings("unchecked")
     static void form(Class<?> cls, Consumer<List<Pair<String, String>>>... operations) {
         CodeFactory.create(ValidationStart.class, "net.binis.codegen.validation.flow.impl.DefaultValidationFlow").form(cls, operations);
     }
