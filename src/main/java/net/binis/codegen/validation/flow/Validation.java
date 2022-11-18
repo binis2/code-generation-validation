@@ -28,6 +28,8 @@ import java.util.function.Consumer;
 
 public interface Validation<T> {
 
+    String DEFAULT_FLOW_CLASS = "net.binis.codegen.validation.flow.impl.DefaultValidationFlow";
+
     Validation<T> validate(Class intf, String message, Object... params);
     Validation<T> validateWithMessages(Class intf, String[] messages, Object... params);
     Validation<T> execute(Class intf, String message, Object... params);
@@ -40,17 +42,17 @@ public interface Validation<T> {
     void perform(Consumer<T> operation);
 
     static <T> Validation<T> start(Class<?> cls, String field, T value) {
-        return CodeFactory.create(ValidationStart.class, "net.binis.codegen.validation.flow.impl.DefaultValidationFlow").start(field, value).cls(cls);
+        return CodeFactory.createDefault(ValidationStart.class, DEFAULT_FLOW_CLASS).start(field, value).cls(cls);
     }
 
     @SuppressWarnings("unchecked")
     static <T> Validation<T> start(List errors, Class<?> cls, String field, T value) {
-        return CodeFactory.create(ValidationStart.class, "net.binis.codegen.validation.flow.impl.DefaultValidationFlow").start(field, value).errors(errors).cls(cls);
+        return CodeFactory.createDefault(ValidationStart.class, DEFAULT_FLOW_CLASS).start(field, value).errors(errors).cls(cls);
     }
 
     @SuppressWarnings("unchecked")
     static void form(Class<?> cls, Consumer<List<Pair<String, String>>>... operations) {
-        CodeFactory.create(ValidationStart.class, "net.binis.codegen.validation.flow.impl.DefaultValidationFlow").form(cls, operations);
+        CodeFactory.createDefault(ValidationStart.class, DEFAULT_FLOW_CLASS).form(cls, operations);
     }
 
 }
