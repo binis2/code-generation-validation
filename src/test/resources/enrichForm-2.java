@@ -2,7 +2,6 @@ package net.binis.codegen;
 
 import net.binis.codegen.exception.ValidationFormException;
 import net.binis.codegen.test.TestExecutor;
-import static org.junit.Assert.*;
 
 public class Execute extends TestExecutor {
 

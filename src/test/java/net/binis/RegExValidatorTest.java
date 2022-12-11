@@ -21,36 +21,33 @@ package net.binis;
  */
 
 import net.binis.codegen.exception.ValidationException;
-import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
 import net.binis.codegen.validation.annotation.ValidateEmail;
 import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
-import net.binis.codegen.validation.validator.NullValidator;
 import net.binis.codegen.validation.validator.RegExValidator;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static net.binis.codegen.mock.CodeGenMock.mockCreate;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class RegExValidatorTest extends BaseTest {
+class RegExValidatorTest extends BaseTest {
 
-    @Before
+    @BeforeEach
     public void cleanUp() {
         Helpers.cleanUp();
     }
 
     @Test
-    public void test() {
+    void test() {
         mockCreate(RegExValidator.class);
         mockCreate(DefaultValidationFlow.class);
 
         assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", "asd").validate(RegExValidator.class, null, ValidateEmail.REGEX));
         assertDoesNotThrow(() -> Validation.start(this.getClass(), "test", "codegen@binis.net").validate(RegExValidator.class, "", ValidateEmail.REGEX));
     }
-
 
 }

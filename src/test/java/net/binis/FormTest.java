@@ -22,36 +22,33 @@ package net.binis;
 
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
-import org.apache.commons.lang3.tuple.Triple;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import java.util.List;
+class FormTest extends BaseTest {
 
-public class FormTest extends BaseTest {
-
-    @Before
+    @BeforeEach
     public void cleanUp() {
         Helpers.cleanUp();
     }
 
     @Test
-    public void enrichForm() {
+    void enrichForm() {
         testSingleExecute("enrichForm.java", "enrichForm-0.java", "enrichForm-1.java", "enrichForm-2.java");
     }
 
     @Test
-    public void enrichFormWithNested() {
+    void enrichFormWithNested() {
         testSingle("enrichFormNested.java", "enrichFormNested-0.java", "enrichFormNested-1.java", 2);
     }
 
     @Test
-    public void enrichFormWithNested2() {
+    void enrichFormWithNested2() {
         testSingle("enrichFormNested2.java", "enrichFormNested2-0.java", "enrichFormNested2-1.java", 2);
     }
 
     @Test
-    public void enrichFormWithNestedCollection() {
+    void enrichFormWithNestedCollection() {
         testSingle("enrichFormNestedCollection.java", "enrichFormNestedCollection-0.java", "enrichFormNestedCollection-1.java", 2);
     }
 

@@ -20,29 +20,26 @@ package net.binis;
  * #L%
  */
 
-import net.binis.codegen.exception.ValidationException;
-import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
 import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
 import net.binis.codegen.validation.sanitizer.TrimSanitizer;
-import net.binis.codegen.validation.validator.NullValidator;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static net.binis.codegen.mock.CodeGenMock.mockCreate;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TrimSanitizerTest extends BaseTest {
+class TrimSanitizerTest extends BaseTest {
 
-    @Before
+    @BeforeEach
     public void cleanUp() {
         Helpers.cleanUp();
     }
 
     @Test
-    public void test() {
+    void test() {
         mockCreate(TrimSanitizer.class);
         mockCreate(DefaultValidationFlow.class);
 

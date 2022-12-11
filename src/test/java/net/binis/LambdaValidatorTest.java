@@ -21,14 +21,13 @@ package net.binis;
  */
 
 import net.binis.codegen.exception.ValidationException;
-import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
 import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
 import net.binis.codegen.validation.validator.LambdaValidator;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.function.Predicate;
 
@@ -36,15 +35,15 @@ import static net.binis.codegen.mock.CodeGenMock.mockCreate;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class LambdaValidatorTest extends BaseTest {
+class LambdaValidatorTest extends BaseTest {
 
-    @Before
+    @BeforeEach
     public void cleanUp() {
         Helpers.cleanUp();
     }
 
     @Test
-    public void test() {
+    void test() {
         mockCreate(LambdaValidator.class);
         mockCreate(DefaultValidationFlow.class);
 

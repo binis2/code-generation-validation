@@ -27,8 +27,8 @@ import net.binis.codegen.test.BaseTest;
 import net.binis.codegen.validation.executor.LambdaExecutor;
 import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.function.Consumer;
 
@@ -37,15 +37,15 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Slf4j
-public class LambdaExecutorTest extends BaseTest {
+class LambdaExecutorTest extends BaseTest {
 
-    @Before
+    @BeforeEach
     public void cleanUp() {
         Helpers.cleanUp();
     }
 
     @Test
-    public void test() {
+    void test() {
         mockCreate(LambdaExecutor.class);
         mockCreate(DefaultValidationFlow.class);
 

@@ -20,34 +20,31 @@ package net.binis;
  * #L%
  */
 
-import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
 import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
 import net.binis.codegen.validation.sanitizer.ReplaceSanitizer;
-import net.binis.codegen.validation.sanitizer.TrimSanitizer;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static net.binis.codegen.mock.CodeGenMock.mockCreate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ReplaceSanitizerTest extends BaseTest {
+class ReplaceSanitizerTest extends BaseTest {
 
-    @Before
+    @BeforeEach
     public void cleanUp() {
         Helpers.cleanUp();
     }
 
     @Test
-    public void test() {
+    void test() {
         mockCreate(ReplaceSanitizer.class);
         mockCreate(DefaultValidationFlow.class);
 
         Validation.start(this.getClass(), "test", " test  ").sanitize(ReplaceSanitizer.class, "\\s+", "").perform(v -> assertEquals("test", v));
         Validation.start(this.getClass(), "test", "test-test").sanitize(ReplaceSanitizer.class, "-", "+").perform(v -> assertEquals("test+test", v));
     }
-
 
 }

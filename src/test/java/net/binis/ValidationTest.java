@@ -20,35 +20,28 @@ package net.binis;
  * #L%
  */
 
-import net.binis.codegen.annotation.builder.CodeRequest;
-import net.binis.codegen.enrich.CreatorModifierEnricher;
-import net.binis.codegen.enrich.ModifierEnricher;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
-import net.binis.codegen.validation.annotation.SanitizeTrim;
-import net.binis.codegen.validation.annotation.ValidateLength;
-import net.binis.codegen.validation.annotation.ValidateNull;
-import net.binis.codegen.validation.annotation.ValidateRegEx;
 import org.apache.commons.lang3.tuple.Triple;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class ValidationTest extends BaseTest {
+class ValidationTest extends BaseTest {
 
-    @Before
+    @BeforeEach
     public void cleanUp() {
         Helpers.cleanUp();
     }
 
     @Test
-    public void enrichValidate() {
+    void enrichValidate() {
         testSingle("enrichValidate.java", "enrichValidate-0.java", "enrichValidate-1.java");
     }
 
     @Test
-    public void enrichValidateModify() {
+    void enrichValidateModify() {
         testMulti(List.of(
                 Triple.of("enrichModifySub.java", "enrichModifySub-0.java", "enrichModifySub-1.java"),
                 Triple.of("enrichModify.java", "enrichModify-0.java", "enrichModify-1.java")
@@ -56,22 +49,22 @@ public class ValidationTest extends BaseTest {
     }
 
     @Test
-    public void enrichValidateCustomAnnotations() {
+    void enrichValidateCustomAnnotations() {
         testSingle("enrichValidateCustomAnnotations.java", "enrichValidateCustomAnnotations-0.java", "enrichValidateCustomAnnotations-1.java");
     }
 
     @Test
-    public void enrichFluentWithValidate() {
+    void enrichFluentWithValidate() {
         testSingle("enrichFluentWithValidate.java", "enrichFluentWithValidate-0.java", "enrichFluentWithValidate-1.java");
     }
 
     @Test
-    public void enrichValidateExecute() {
+    void enrichValidateExecute() {
         testSingleExecute("enrichValidateExecute.java", "enrichValidateExecute-0.java", "enrichValidateExecute-1.java", "enrichValidateExecute-2.java");
     }
 
     @Test
-    public void enrichValidateValueWithAlias() {
+    void enrichValidateValueWithAlias() {
         testSingle("enrichValidateValueWithAlias.java", "enrichValidateValueWithAlias-0.java", "enrichValidateValueWithAlias-1.java");
     }
 

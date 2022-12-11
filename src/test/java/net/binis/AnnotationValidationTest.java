@@ -22,23 +22,20 @@ package net.binis;
 
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
-import org.apache.commons.lang3.tuple.Triple;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static net.binis.codegen.generation.core.Helpers.lookup;
 
-public class AnnotationValidationTest extends BaseTest {
+class AnnotationValidationTest extends BaseTest {
 
-    @Before
+    @BeforeEach
     public void cleanUp() {
         Helpers.cleanUp();
     }
 
     @Test
-    public void annotationValidate() {
+    void annotationValidate() {
         lookup.registerExternalLookup(testSourcesLookup());
 
         testSingle("externalAnnotationValidate.java", "externalAnnotationValidate-0.java", "externalAnnotationValidate-1.java");

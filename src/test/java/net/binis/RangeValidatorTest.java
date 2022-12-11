@@ -26,22 +26,22 @@ import net.binis.codegen.test.BaseTest;
 import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
 import net.binis.codegen.validation.validator.RangeValidator;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static net.binis.codegen.mock.CodeGenMock.mockCreate;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class RangeValidatorTest extends BaseTest {
+class RangeValidatorTest extends BaseTest {
 
-    @Before
+    @BeforeEach
     public void cleanUp() {
         Helpers.cleanUp();
     }
 
     @Test
-    public void test() {
+    void test() {
         mockCreate(RangeValidator.class);
         mockCreate(DefaultValidationFlow.class);
 
@@ -53,6 +53,5 @@ public class RangeValidatorTest extends BaseTest {
         assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", 4.99).validate(RangeValidator.class, null, 5, 7));
         assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", 7.0001).validate(RangeValidator.class, null, "5", "7"));
     }
-
 
 }

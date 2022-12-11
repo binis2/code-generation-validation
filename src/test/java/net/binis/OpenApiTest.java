@@ -22,18 +22,18 @@ package net.binis;
 
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class OpenApiTest extends BaseTest {
+class OpenApiTest extends BaseTest {
 
-    @Before
+    @BeforeEach
     public void cleanUp() {
         Helpers.cleanUp();
     }
 
     @Test
-    public void enrichOpenApi() {
+    void enrichOpenApi() {
         testSingle("enrichOpenApi.java", "enrichOpenApi-0.java", "enrichOpenApi-1.java", 2, true);
     }
 

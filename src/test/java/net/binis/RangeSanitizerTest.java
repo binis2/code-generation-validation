@@ -20,31 +20,26 @@ package net.binis;
  * #L%
  */
 
-import net.binis.codegen.exception.ValidationException;
-import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
 import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
 import net.binis.codegen.validation.sanitizer.RangeSanitizer;
-import net.binis.codegen.validation.sanitizer.TrimSanitizer;
-import net.binis.codegen.validation.validator.RangeValidator;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static net.binis.codegen.mock.CodeGenMock.mockCreate;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RangeSanitizerTest extends BaseTest {
+class RangeSanitizerTest extends BaseTest {
 
-    @Before
+    @BeforeEach
     public void cleanUp() {
         Helpers.cleanUp();
     }
 
     @Test
-    public void test() {
+    void test() {
         mockCreate(RangeSanitizer.class);
         mockCreate(DefaultValidationFlow.class);
 
@@ -54,6 +49,5 @@ public class RangeSanitizerTest extends BaseTest {
         Validation.start(this.getClass(), "test", 5).sanitize(RangeSanitizer.class, 6, "7").perform(v -> assertEquals(6, v));
         Validation.start(this.getClass(), "test", 8.0).sanitize(RangeSanitizer.class, 6, 7).perform(v -> assertEquals(7.0, v));
     }
-
 
 }

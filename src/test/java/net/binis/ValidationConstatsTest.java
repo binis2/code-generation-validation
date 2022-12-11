@@ -22,26 +22,23 @@ package net.binis;
 
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseTest;
-import org.apache.commons.lang3.tuple.Triple;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import java.util.List;
+class ValidationConstatsTest extends BaseTest {
 
-public class ValidationConstatsTest extends BaseTest {
-
-    @Before
+    @BeforeEach
     public void cleanUp() {
         Helpers.cleanUp();
     }
 
     @Test
-    public void enrichValidate() {
+    void enrichValidate() {
         testSingle("constantValidate.java", "constantValidate-0.java", "constantValidate-1.java");
     }
 
     @Test
-    public void enrichValidateCalculated() {
+    void enrichValidateCalculated() {
         testSingle("constantValidate2.java", "constantValidate2-0.java", "constantValidate2-1.java");
     }
 

@@ -27,24 +27,24 @@ import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
 import net.binis.codegen.validation.sanitizer.LambdaSanitizer;
 import net.binis.codegen.validation.sanitizer.OnlyNotNullsLambdaSanitizer;
 import net.binis.codegen.validation.sanitizer.OnlyNullsLambdaSanitizer;
-import org.junit.Before;
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.function.Function;
 
 import static net.binis.codegen.mock.CodeGenMock.mockCreate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class LambdaSanitizerTest extends BaseTest {
+class LambdaSanitizerTest extends BaseTest {
 
-    @Before
+    @BeforeEach
     public void cleanUp() {
         Helpers.cleanUp();
     }
 
     @Test
-    public void test() {
+    void test() {
         mockCreate(LambdaSanitizer.class);
         mockCreate(DefaultValidationFlow.class);
 
@@ -54,7 +54,7 @@ public class LambdaSanitizerTest extends BaseTest {
     }
 
     @Test
-    public void testOnlyNulls() {
+    void testOnlyNulls() {
         mockCreate(OnlyNullsLambdaSanitizer.class);
         mockCreate(DefaultValidationFlow.class);
 
@@ -69,7 +69,7 @@ public class LambdaSanitizerTest extends BaseTest {
     }
 
     @Test
-    public void testOnlyNotNulls() {
+    void testOnlyNotNulls() {
         mockCreate(OnlyNotNullsLambdaSanitizer.class);
         mockCreate(DefaultValidationFlow.class);
 
@@ -81,7 +81,5 @@ public class LambdaSanitizerTest extends BaseTest {
                 .sanitize(OnlyNotNullsLambdaSanitizer.class, ((Function<String, String>) String::toUpperCase))
                 .perform(Assertions::assertNull);
     }
-
-
 
 }
