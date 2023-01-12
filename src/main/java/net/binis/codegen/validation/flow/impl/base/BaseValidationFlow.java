@@ -54,8 +54,8 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
         }
         if (nonNull(entry)) {
             var obj = CodeFactory.create(intf);
-            if (obj instanceof Validator) {
-                if (!((Validator) obj).validate(value, params)) {
+            if (obj instanceof Validator v) {
+                if (!v.validate(value, params)) {
                     handleValidationError(field, value, message, params);
                 }
             } else {
@@ -78,8 +78,7 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
         }
         if (nonNull(entry)) {
             var obj = CodeFactory.create(intf);
-            if (obj instanceof ValidatorWithMessages) {
-                var validator = (ValidatorWithMessages) obj;
+            if (obj instanceof ValidatorWithMessages validator) {
                 var result = validator.validate(value, params);
                 if (!result.result()) {
                     handleValidationError(field, value, messages[result.error()], params);
@@ -105,8 +104,8 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
         }
         if (nonNull(entry)) {
             var obj = CodeFactory.create(intf);
-            if (obj instanceof Sanitizer) {
-                value = ((Sanitizer) obj).sanitize(value, params);
+            if (obj instanceof Sanitizer s) {
+                value = s.sanitize(value, params);
             } else {
                 throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not sanitizer!");
             }
@@ -126,8 +125,8 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
         }
         if (nonNull(entry)) {
             var obj = CodeFactory.create(intf);
-            if (obj instanceof Executor) {
-                if (!((Executor) obj).execute(value, params)) {
+            if (obj instanceof Executor e) {
+                if (!e.execute(value, params)) {
                     handleValidationError(field, value, message, params);
                 }
             } else {
