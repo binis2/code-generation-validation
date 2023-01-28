@@ -23,7 +23,7 @@ package net.binis;
 import lombok.extern.slf4j.Slf4j;
 import net.binis.codegen.exception.ValidationException;
 import net.binis.codegen.generation.core.Helpers;
-import net.binis.codegen.test.BaseTest;
+import net.binis.codegen.test.BaseCodeGenTest;
 import net.binis.codegen.validation.executor.LambdaExecutor;
 import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Slf4j
-class LambdaExecutorTest extends BaseTest {
+class LambdaExecutorTest extends BaseCodeGenTest {
 
     @BeforeEach
     public void cleanUp() {

@@ -22,7 +22,7 @@ package net.binis;
 
 import net.binis.codegen.exception.ValidationException;
 import net.binis.codegen.generation.core.Helpers;
-import net.binis.codegen.test.BaseTest;
+import net.binis.codegen.test.BaseCodeGenTest;
 import net.binis.codegen.validation.annotation.ValidateEmail;
 import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
@@ -34,7 +34,7 @@ import static net.binis.codegen.mock.CodeGenMock.mockCreate;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class RegExValidatorTest extends BaseTest {
+class RegExValidatorTest extends BaseCodeGenTest {
 
     @BeforeEach
     public void cleanUp() {

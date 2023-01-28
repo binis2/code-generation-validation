@@ -21,13 +21,13 @@ package net.binis;
  */
 
 import net.binis.codegen.generation.core.Helpers;
-import net.binis.codegen.test.BaseTest;
+import net.binis.codegen.test.BaseCodeGenTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static net.binis.codegen.generation.core.Helpers.lookup;
 
-class AnnotationValidationTest extends BaseTest {
+class AnnotationValidationTest extends BaseCodeGenTest {
 
     @BeforeEach
     public void cleanUp() {

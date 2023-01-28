@@ -21,7 +21,7 @@ package net.binis;
  */
 
 import net.binis.codegen.generation.core.Helpers;
-import net.binis.codegen.test.BaseTest;
+import net.binis.codegen.test.BaseCodeGenTest;
 import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.sanitizer.TrimSanitizer;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ValidationFlowTest extends BaseTest {
+class ValidationFlowTest extends BaseCodeGenTest {
 
     @BeforeEach
     public void cleanUp() {
