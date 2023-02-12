@@ -8,7 +8,7 @@ import net.binis.codegen.constants.Constants;
 import javax.annotation.processing.Generated;
 
 @Generated(value = "TestPrototype", comments = "Test")
-@SuppressWarnings(value = "unchecked")
+@SuppressWarnings("unchecked")
 public class TestImpl implements Test {
 
     static final public int MAX_LENGTH = 100;

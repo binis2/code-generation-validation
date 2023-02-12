@@ -48,7 +48,7 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
         }
     }
 
-    @SuppressWarnings(value = "unchecked")
+    @SuppressWarnings("unchecked")
     protected class SubModifyImplEmbeddedModifyImpl<T, R> extends BaseModifierImpl<T, R> implements SubModify.EmbeddedModify<T, R> {
 
         protected SubModifyImplEmbeddedModifyImpl(R parent) {

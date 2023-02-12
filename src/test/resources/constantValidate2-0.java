@@ -9,7 +9,7 @@ import net.binis.codegen.constants.Constants;
 import javax.annotation.processing.Generated;
 
 @Generated(value = "TestPrototype", comments = "Test")
-@SuppressWarnings(value = "unchecked")
+@SuppressWarnings("unchecked")
 public class TestImpl implements Test {
 
     protected String calculated;
