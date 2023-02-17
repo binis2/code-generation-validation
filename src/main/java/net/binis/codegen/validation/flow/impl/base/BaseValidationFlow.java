@@ -30,6 +30,7 @@ import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.flow.ValidationStart;
 
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -44,100 +45,110 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
     protected List<Pair<String, String>> errors;
     protected Class<?> cls;
 
-    @SuppressWarnings("unchecked")
     @Override
     public Validation validate(Class intf, String message, Object... params) {
-        var entry = CodeFactory.lookup(intf);
-        if (isNull(entry) && !intf.isInterface()) {
-            instantiate(intf);
-            entry = CodeFactory.lookup(intf);
-        }
-        if (nonNull(entry)) {
-            var obj = CodeFactory.create(intf);
-            if (obj instanceof Validator v) {
-                if (!v.validate(value, params)) {
-                    handleValidationError(field, value, message, params);
-                }
+        process(intf, obj -> {
+            if (obj instanceof Validator validator) {
+                internalValidate(validator, params, field, value, message);
             } else {
                 throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not validator!");
             }
-        } else {
-            throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not registered!");
-        }
+        });
 
         return this;
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
+    public Validation validateCollection(Class intf, String message, Object... params) {
+        process(intf, obj -> {
+            if (obj instanceof Validator validator) {
+                processCollection((k, v) -> internalValidate(validator, params, field + k, v, message));
+            } else {
+                throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not validator!");
+            }
+        });
+
+        return this;
+    }
+
     @Override
     public Validation validateWithMessages(Class intf, String[] messages, Object... params) {
-        var entry = CodeFactory.lookup(intf);
-        if (isNull(entry) && !intf.isInterface()) {
-            instantiate(intf);
-            entry = CodeFactory.lookup(intf);
-        }
-        if (nonNull(entry)) {
-            var obj = CodeFactory.create(intf);
+        process(intf, obj -> {
             if (obj instanceof ValidatorWithMessages validator) {
-                var result = validator.validate(value, params);
-                if (!result.result()) {
-                    handleValidationError(field, value, messages[result.error()], params);
-                }
+                internalValidateWithMessages(messages, validator, params, field, value);
             } else {
                 throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not validator!");
             }
-        } else {
-            throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not registered!");
-        }
+        });
 
         return this;
     }
 
+    @Override
+    public Validation validateWithMessagesCollection(Class intf, String[] messages, Object... params) {
+        process(intf, obj -> {
+            if (obj instanceof ValidatorWithMessages validator) {
+                processCollection((k, v) -> internalValidateWithMessages(messages, validator, params, field + k, v));
+            } else {
+                throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not validator!");
+            }
+        });
 
-    @SuppressWarnings("unchecked")
+        return this;
+    }
+
     @Override
     public Validation sanitize(Class intf, Object... params) {
-        var entry = CodeFactory.lookup(intf);
-        if (isNull(entry) && !intf.isInterface()) {
-            instantiate(intf);
-            entry = CodeFactory.lookup(intf);
-        }
-        if (nonNull(entry)) {
-            var obj = CodeFactory.create(intf);
+        process(intf, obj -> {
             if (obj instanceof Sanitizer s) {
                 value = s.sanitize(value, params);
             } else {
                 throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not sanitizer!");
             }
-        } else {
-            throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not registered!");
-        }
+        });
+
         return this;
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
+    public Validation sanitizeCollection(Class intf, Object... params) {
+        process(intf, obj -> {
+            if (obj instanceof Sanitizer s) {
+                value = s.sanitize(value, params);
+            } else {
+                throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not sanitizer!");
+            }
+        });
+
+        return this;
+    }
+
     @Override
     public Validation execute(Class intf, String message, Object... params) {
-        var entry = CodeFactory.lookup(intf);
-        if (isNull(entry) && !intf.isInterface()) {
-            instantiate(intf);
-            entry = CodeFactory.lookup(intf);
-        }
-        if (nonNull(entry)) {
-            var obj = CodeFactory.create(intf);
-            if (obj instanceof Executor e) {
-                if (!e.execute(value, params)) {
-                    handleValidationError(field, value, message, params);
-                }
+        process(intf, obj -> {
+            if (obj instanceof Executor executor) {
+                internalExecute(executor, params, field, value, message);
             } else {
                 throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not executor!");
             }
-        } else {
-            throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not registered!");
-        }
+        });
 
         return this;
     }
+
+    @Override
+    public Validation executeCollection(Class intf, String message, Object... params) {
+        process(intf, obj -> {
+            if (obj instanceof Executor executor) {
+                processCollection((k, v) -> internalExecute(executor, params, field + k, v, message));
+            } else {
+                throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not executor!");
+            }
+        });
+
+        return this;
+    }
+
 
     @SuppressWarnings("unchecked")
     @Override
@@ -163,6 +174,11 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
     @Override
     public void perform(Consumer operation) {
         operation.accept(value);
+    }
+
+    @Override
+    public void perform() {
+        //Do nothing
     }
 
     @SuppressWarnings("unchecked")
@@ -194,14 +210,13 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
         if (nonNull(value)) {
             if (value instanceof Validatable) {
                 validateValue(value, () -> field + ".");
-            } else if (value instanceof Collection) {
+            } else if (value instanceof Collection c) {
                 var idx = Holder.of(0);
-                for (Object o : (Collection) value) {
+                for (Object o : c) {
                     validateValue(o, () -> field + "[" + idx.get() + "].");
                     idx.set(idx.get() + 1);
                 }
-            } else if (value instanceof Map) {
-                var map = (Map<Object, Object>) value;
+            } else if (value instanceof Map map) {
                 map.forEach((key, val) -> {
                     if (key instanceof Validatable) {
                         validateValue(key, () -> field + ".key(" + key + ").");
@@ -215,7 +230,48 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
         return this;
     }
 
-    private void validateValue(Object value, Supplier<String> prefix) {
+    protected void internalValidateWithMessages(String[] messages, ValidatorWithMessages validator, Object[] params, String title, Object value) {
+        var result = validator.validate(value, params);
+        if (!result.result()) {
+            if (result.converted()) {
+                try {
+                    handleValidationError(title, result.value(), messages[result.error()], result.params());
+                } catch(IllegalFormatConversionException e) {
+                    handleValidationError(title, value, messages[result.error()], params);
+                }
+            } else {
+                handleValidationError(title, value, messages[result.error()], params);
+            }
+        }
+    }
+
+    protected void internalValidate(Validator validator, Object[] params, String title, Object value, String message) {
+        if (!validator.validate(value, params)) {
+            handleValidationError(title, value, message, params);
+        }
+    }
+
+    protected void internalExecute(Executor executor, Object[] params, String title, Object value, String message) {
+        if (!executor.execute(value, params)) {
+            handleValidationError(title, value, message, params);
+        }
+    }
+
+    protected void processCollection(BiConsumer<String, Object> consumer) {
+        if (value instanceof Collection<?> c) {
+            var idx = 0;
+            for (var item : c) {
+                consumer.accept("[" + idx + "]", item);
+                idx++;
+            }
+        } else if (value instanceof Map map) {
+            throw new UnsupportedOperationException("Not implemented!");
+//            map.keySet().forEach(key ->
+//                    consumer.accept("[" + idx + "]", item));
+        }
+    }
+
+    protected void validateValue(Object value, Supplier<String> prefix) {
         try {
             ((Validatable) value).validate();
         } catch (ValidationFormException ex) {
@@ -225,7 +281,21 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
         }
     }
 
-    private void append(Map<String, List<String>> all, String field, String message) {
+    @SuppressWarnings("unchecked")
+    public void process(Class intf, Consumer consumer) {
+        var entry = CodeFactory.lookup(intf);
+        if (isNull(entry) && !intf.isInterface()) {
+            instantiate(intf);
+            entry = CodeFactory.lookup(intf);
+        }
+        if (nonNull(entry)) {
+            consumer.accept(CodeFactory.create(intf));
+        } else {
+            throw new ValidationException(cls, intf.getSimpleName(), intf.getCanonicalName() + " is not registered!");
+        }
+    }
+
+    protected void append(Map<String, List<String>> all, String field, String message) {
         var list = all.computeIfAbsent(field, k -> new ArrayList<>());
         list.add(message);
     }

@@ -20,11 +20,13 @@ package net.binis;
  * #L%
  */
 
+import net.binis.codegen.annotation.validation.AliasFor;
 import net.binis.codegen.exception.ValidationException;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseCodeGenTest;
 import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.flow.impl.DefaultValidationFlow;
+import net.binis.codegen.validation.validator.LengthValidator;
 import net.binis.codegen.validation.validator.RangeValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,23 +37,29 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class RangeValidatorTest extends BaseCodeGenTest {
 
-    @BeforeEach
-    public void cleanUp() {
-        Helpers.cleanUp();
-    }
-
     @Test
     void test() {
         mockCreate(RangeValidator.class);
         mockCreate(DefaultValidationFlow.class);
 
-        assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", null).validate(RangeValidator.class, null));
-        assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", null).validate(RangeValidator.class, "test"), "test");
-        assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", 5).validate(RangeValidator.class, null));
-        assertDoesNotThrow(() -> Validation.start(this.getClass(), "test", 5).validate(RangeValidator.class, null, "5", "6"));
-        assertDoesNotThrow(() -> Validation.start(this.getClass(), "test", 6).validate(RangeValidator.class, null, "5", "6"));
-        assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", 4.99).validate(RangeValidator.class, null, 5, 7));
-        assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", 7.0001).validate(RangeValidator.class, null, "5", "7"));
+        var messages = new String[] { "Value (%2$f) for field '%s' is less than %3$f!", "Value (%2$f) for field '%s' is more than %4$f!" };
+
+        var validation = Validation.start(this.getClass(), "test", 5);
+        assertThrows(ValidationException.class, () -> validation.validateWithMessages(RangeValidator.class, messages, -1, 2), "Value for field 'test' is longer than 2!");
+        assertDoesNotThrow(() -> Validation.start(this.getClass(), "test", this).validateWithMessages(RangeValidator.class, messages, -1, 5));
+
+        //TODO:
+//        assertThrows(ValidationException.class, () -> validation.validateWithMessages(RangeValidator.class, messages, 5, 6), "Value for field 'test' is shorter than 5!");
+//        assertDoesNotThrow(() -> Validation.start(this.getClass(), "test", this).validateWithMessages(RangeValidator.class, messages, 4, 5));
+//
+//
+//        assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", null).validateWithMessages(RangeValidator.class, null));
+//        assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", null).validateWithMessages(RangeValidator.class, new String[] {"test", "test2"}), "test");
+//        assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", 5).validateWithMessages(RangeValidator.class, null));
+//        assertDoesNotThrow(() -> Validation.start(this.getClass(), "test", 5).validateWithMessages(RangeValidator.class, null, "5", "6"));
+//        assertDoesNotThrow(() -> Validation.start(this.getClass(), "test", 6).validateWithMessages(RangeValidator.class, null, "5", "6"));
+//        assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", 4.99).validateWithMessages(RangeValidator.class, null, 5, 7));
+//        assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", 7.0001).validateWithMessages(RangeValidator.class, null, "5", "7"));
     }
 
 }

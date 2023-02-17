@@ -9,9 +9,9 @@ package net.binis.codegen.validation.validator;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,13 +21,12 @@ package net.binis.codegen.validation.validator;
  */
 
 import net.binis.codegen.factory.CodeFactory;
-import net.binis.codegen.validation.Validator;
+import net.binis.codegen.validation.ValidatorWithMessages;
+import net.binis.codegen.validation.flow.impl.ValidationResultImpl;
 
 import java.math.BigDecimal;
 
-import static java.util.Objects.nonNull;
-
-public class RangeValidator implements Validator {
+public class RangeValidator implements ValidatorWithMessages {
 
     private static final RangeValidator instance = new RangeValidator();
 
@@ -35,15 +34,20 @@ public class RangeValidator implements Validator {
         CodeFactory.registerType(RangeValidator.class, () -> instance, null);
     }
 
-    @Override
-    public boolean validate(Object value, Object... params) {
-        if (nonNull(value) && value instanceof Number && params.length > 1) {
-            var val = BigDecimal.valueOf(((Number) value).doubleValue());
-            var min = params[0] instanceof String ? BigDecimal.valueOf(Double.parseDouble((String) params[0])) : BigDecimal.valueOf(((Number) params[0]).doubleValue());
-            var max = params[1] instanceof String ? BigDecimal.valueOf(Double.parseDouble((String) params[1])) : BigDecimal.valueOf(((Number) params[1]).doubleValue());
-            return val.compareTo(min) >= 0 && val.compareTo(max) <= 0;
-        } else {
-            return false;
+    public ValidationResult validate(Object value, Object... params) {
+        if (value instanceof Number n && params.length == 2 && params[0] instanceof Number p1 && params[1] instanceof Number p2) {
+            var val = BigDecimal.valueOf(n.doubleValue());
+            var min = params[0] instanceof String p ? BigDecimal.valueOf(Double.parseDouble(p)) : BigDecimal.valueOf(p1.doubleValue());
+            if (val.compareTo(min) < 0) {
+                return ValidationResultImpl.of(false, 0, val.doubleValue(), new Object[] {p1.doubleValue(), p2.doubleValue()});
+            } else {
+                var max = params[1] instanceof String p ? BigDecimal.valueOf(Double.parseDouble(p)) : BigDecimal.valueOf(p2.doubleValue());
+                if (val.compareTo(max) > 0) {
+                    return ValidationResultImpl.of(false, 1, val.doubleValue(), new Object[] {p1.doubleValue(), p2.doubleValue()});
+                }
+            }
         }
+        return ValidationResultImpl.of(true);
     }
+
 }

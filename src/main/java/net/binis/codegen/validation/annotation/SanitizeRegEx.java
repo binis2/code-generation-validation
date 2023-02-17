@@ -31,7 +31,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @CodeAnnotation
-@Target({ElementType.METHOD})
+@Target({ElementType.METHOD, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 @Sanitize(ReplaceSanitizer.class)
 public @interface SanitizeRegEx {

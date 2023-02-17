@@ -63,7 +63,7 @@ public class TestImpl implements Test, Validatable {
     // endregion
 
     // region inner classes
-    @SuppressWarnings(value = "unchecked")
+    @SuppressWarnings("unchecked")
     public static class SubImpl implements Sub, Validatable {
 
         protected String value;

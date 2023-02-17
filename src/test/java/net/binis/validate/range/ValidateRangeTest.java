@@ -1,4 +1,4 @@
-package net.binis;
+package net.binis.validate.range;
 
 /*-
  * #%L
@@ -25,11 +25,16 @@ import net.binis.codegen.test.BaseCodeGenTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class OpenApiTest extends BaseCodeGenTest {
+class ValidateRangeTest extends BaseCodeGenTest {
+
+    @BeforeEach
+    public void cleanUp() {
+        Helpers.cleanUp();
+    }
 
     @Test
-    void enrichOpenApi() {
-        testSingle("enrichOpenApi.java", "enrichOpenApi-0.java", "enrichOpenApi-1.java", 2, true);
+    void enrichValidateRange() {
+        testSingleExecute("validate/range/enrichValidateRange.java", "validate/range/enrichValidateRange-0.java", "validate/range/enrichValidateRange-1.java", "validate/range/enrichValidateRange-2.java");
     }
 
 }

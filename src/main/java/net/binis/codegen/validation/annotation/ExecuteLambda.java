@@ -26,13 +26,10 @@ import net.binis.codegen.annotation.validation.AsCode;
 import net.binis.codegen.annotation.validation.Execute;
 import net.binis.codegen.validation.executor.LambdaExecutor;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 @CodeAnnotation
-@Target({ElementType.METHOD})
+@Target({ElementType.METHOD, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 @Execute(value = LambdaExecutor.class)
 public @interface ExecuteLambda {

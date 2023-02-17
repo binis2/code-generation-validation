@@ -30,7 +30,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @CodeAnnotation
-@Target({ElementType.METHOD})
+@Target({ElementType.METHOD, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 @Sanitize(TrimSanitizer.class)
 public @interface SanitizeTrim {

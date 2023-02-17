@@ -37,6 +37,7 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
         return new SubModifyModifyImpl(this);
     }
 
+    @SuppressWarnings("unchecked")
     protected class SubModifyImplCollectionModifyImpl extends SubModifyImplEmbeddedModifyImpl implements SubModify.EmbeddedCollectionModify {
 
         protected SubModifyImplCollectionModifyImpl(Object parent) {
@@ -61,7 +62,7 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
         }
 
         public T subAmount(double subAmount) {
-            Validation.start(this.getClass(), "subAmount", subAmount).validate(RangeValidator.class, "(%s) Value %f is not in range [%f, %f]", 0, 10).perform(v -> SubModifyImpl.this.subAmount = v);
+            Validation.start(this.getClass(), "subAmount", subAmount).validateWithMessages(RangeValidator.class, new String[] { "Value for field '%s' is less than %3$f!", "Value for field '%s' is more than %4$f!" }, 0, 10).perform(v -> SubModifyImpl.this.subAmount = v);
             return (T) this;
         }
 
@@ -71,6 +72,7 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected class SubModifyModifyImpl extends SubModifyImplEmbeddedModifyImpl<SubModify.Modify, SubModify> implements SubModify.Modify {
 
         protected SubModifyModifyImpl(SubModify parent) {

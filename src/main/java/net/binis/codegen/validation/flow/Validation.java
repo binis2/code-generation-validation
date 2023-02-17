@@ -34,12 +34,16 @@ public interface Validation<T> {
     Validation<T> validateWithMessages(Class intf, String[] messages, Object... params);
     Validation<T> execute(Class intf, String message, Object... params);
     Validation<T> sanitize(Class intf, Object... params);
+    Validation<T> validateCollection(Class intf, String message, Object... params);
+    Validation<T> validateWithMessagesCollection(Class intf, String[] messages, Object... params);
+    Validation<T> executeCollection(Class intf, String message, Object... params);
+    Validation<T> sanitizeCollection(Class intf, Object... params);
     Validation<T> errors(List<Pair<String, String>> list);
     Validation<T> child();
     Validation<T> cls(Class<?> cls);
 
-
     void perform(Consumer<T> operation);
+    void perform();
 
     static <T> Validation<T> start(Class<?> cls, String field, T value) {
         return CodeFactory.createDefault(ValidationStart.class, DEFAULT_FLOW_CLASS).start(field, value).cls(cls);

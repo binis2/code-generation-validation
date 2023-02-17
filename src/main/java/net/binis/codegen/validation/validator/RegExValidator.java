@@ -20,7 +20,6 @@ package net.binis.codegen.validation.validator;
  * #L%
  */
 
-import net.binis.codegen.exception.ValidationException;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.validation.Validator;
 

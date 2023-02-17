@@ -31,14 +31,20 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @CodeAnnotation
-@Target({ElementType.METHOD})
+@Target({ElementType.METHOD, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 @Validate(RangeValidator.class)
 public @interface ValidateRange {
-    String message() default "(%s) Value %f is not in range [%f, %f]";
     @AliasFor("params")
-    double min();
+    double min() default Double.MIN_VALUE;
     @AliasFor("params")
-    double max();
+    double max() default Double.MAX_VALUE;
+
+    @AliasFor(value = "messages")
+    String minMessage() default "Value for field '%s' is less than %3$f!";
+
+    @AliasFor(value = "messages", order = 1)
+    String maxMessage() default "Value for field '%s' is more than %4$f!";
+
 
 }

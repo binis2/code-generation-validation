@@ -29,11 +29,6 @@ import static net.binis.codegen.generation.core.Helpers.lookup;
 
 class AnnotationValidationTest extends BaseCodeGenTest {
 
-    @BeforeEach
-    public void cleanUp() {
-        Helpers.cleanUp();
-    }
-
     @Test
     void annotationValidate() {
         lookup.registerExternalLookup(testSourcesLookup());

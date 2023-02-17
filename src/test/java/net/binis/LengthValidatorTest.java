@@ -35,11 +35,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class LengthValidatorTest extends BaseCodeGenTest {
 
-    @BeforeEach
-    public void cleanUp() {
-        Helpers.cleanUp();
-    }
-
     @Test
     void test() {
         mockCreate(LengthValidator.class);

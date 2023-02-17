@@ -26,6 +26,9 @@ public class ValidationResultImpl implements ValidatorWithMessages.ValidationRes
 
     private boolean result;
     private int error;
+    private boolean converted;
+    private Object value;
+    private Object[] params;
 
     @Override
     public boolean result() {
@@ -35,6 +38,21 @@ public class ValidationResultImpl implements ValidatorWithMessages.ValidationRes
     @Override
     public int error() {
         return error;
+    }
+
+    @Override
+    public boolean converted() {
+        return converted;
+    }
+
+    @Override
+    public Object value() {
+        return value;
+    }
+
+    @Override
+    public Object[] params() {
+        return params;
     }
 
     public static ValidatorWithMessages.ValidationResult of(boolean result) {
@@ -49,4 +67,15 @@ public class ValidationResultImpl implements ValidatorWithMessages.ValidationRes
         r.error = error;
         return r;
     }
+
+    public static ValidatorWithMessages.ValidationResult of(boolean result, int error, Object value, Object[] params) {
+        var r = new ValidationResultImpl();
+        r.result = result;
+        r.error = error;
+        r.value = value;
+        r.params = params;
+        r.converted = true;
+        return r;
+    }
+
 }

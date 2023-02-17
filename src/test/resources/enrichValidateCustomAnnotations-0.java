@@ -75,7 +75,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         return new TestModifyImpl(this);
     }
 
-    @SuppressWarnings(value = "unchecked")
+    @SuppressWarnings("unchecked")
     protected class TestModifyImpl extends BaseModifierImpl<Test.Modify, Test> implements Test.Modify {
 
         protected TestModifyImpl(Test parent) {
@@ -83,7 +83,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         }
 
         public Test.Modify amount(int amount) {
-            Validation.start(this.getClass(), "amount", amount).validate(RangeValidator.class, "(%s) Value %f is not in range [%f, %f]", 0, 10).perform(v -> TestImpl.this.amount = v);
+            Validation.start(this.getClass(), "amount", amount).validateWithMessages(RangeValidator.class, new String[] { "Value for field '%s' is less than %3$f!", "Value for field '%s' is more than %4$f!" }, 0, 10).perform(v -> TestImpl.this.amount = v);
             return this;
         }
 

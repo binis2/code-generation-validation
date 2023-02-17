@@ -9,7 +9,7 @@ import net.binis.codegen.modifier.Modifiable;
 import javax.annotation.processing.Generated;
 
 @Generated(value = "TestPrototype", comments = "Test")
-@SuppressWarnings(value = "unchecked")
+@SuppressWarnings("unchecked")
 public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     protected String title;
@@ -29,7 +29,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         return new TestModifyImpl(this);
     }
 
-    @SuppressWarnings(value = "unchecked")
+    @SuppressWarnings("unchecked")
     protected class TestModifyImpl extends BaseModifierImpl<Test.Modify, Test> implements Test.Modify {
 
         protected TestModifyImpl(Test parent) {
