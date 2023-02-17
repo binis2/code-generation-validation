@@ -28,6 +28,7 @@ import net.binis.codegen.tools.Holder;
 import net.binis.codegen.validation.*;
 import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.flow.ValidationStart;
+import net.binis.codegen.validation.message.ValidationMessageBuilder;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -233,27 +234,19 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
     protected void internalValidateWithMessages(String[] messages, ValidatorWithMessages validator, Object[] params, String title, Object value) {
         var result = validator.validate(value, params);
         if (!result.result()) {
-            if (result.converted()) {
-                try {
-                    handleValidationError(title, result.value(), messages[result.error()], result.params());
-                } catch(IllegalFormatConversionException e) {
-                    handleValidationError(title, value, messages[result.error()], params);
-                }
-            } else {
-                handleValidationError(title, value, messages[result.error()], params);
-            }
+            internalHandleValidationError(title, value, messages[result.error()], params);
         }
     }
 
     protected void internalValidate(Validator validator, Object[] params, String title, Object value, String message) {
         if (!validator.validate(value, params)) {
-            handleValidationError(title, value, message, params);
+            internalHandleValidationError(title, value, message, params);
         }
     }
 
     protected void internalExecute(Executor executor, Object[] params, String title, Object value, String message) {
         if (!executor.execute(value, params)) {
-            handleValidationError(title, value, message, params);
+            internalHandleValidationError(title, value, message, params);
         }
     }
 
@@ -298,6 +291,10 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
     protected void append(Map<String, List<String>> all, String field, String message) {
         var list = all.computeIfAbsent(field, k -> new ArrayList<>());
         list.add(message);
+    }
+
+    protected void internalHandleValidationError(String field, Object value, String message, Object... params) {
+        handleValidationError(field, value, ValidationMessageBuilder.message(field, value, params, message), params);
     }
 
     protected abstract void handleValidationError(String field, Object value, String message, Object... params);

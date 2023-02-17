@@ -39,11 +39,11 @@ public class RangeValidator implements ValidatorWithMessages {
             var val = BigDecimal.valueOf(n.doubleValue());
             var min = params[0] instanceof String p ? BigDecimal.valueOf(Double.parseDouble(p)) : BigDecimal.valueOf(p1.doubleValue());
             if (val.compareTo(min) < 0) {
-                return ValidationResultImpl.of(false, 0, val.doubleValue(), new Object[] {p1.doubleValue(), p2.doubleValue()});
+                return ValidationResultImpl.of(false, 0);
             } else {
                 var max = params[1] instanceof String p ? BigDecimal.valueOf(Double.parseDouble(p)) : BigDecimal.valueOf(p2.doubleValue());
                 if (val.compareTo(max) > 0) {
-                    return ValidationResultImpl.of(false, 1, val.doubleValue(), new Object[] {p1.doubleValue(), p2.doubleValue()});
+                    return ValidationResultImpl.of(false, 1);
                 }
             }
         }
