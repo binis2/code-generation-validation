@@ -1,21 +1,38 @@
 package net.binis.codegen.validation.message;
 
+/*-
+ * #%L
+ * code-generator-validation
+ * %%
+ * Copyright (C) 2021 - 2023 Binis Belev
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.tools.BaseStringInterpolator;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Consumer;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-public class ValidationMessageBuilder {
-
-    protected static final String INVALID_EXPRESSION = "Invalid expression! ";
+public class ValidationMessageBuilder extends BaseStringInterpolator<ValidationMessageBuilder.Message> {
 
     protected static final Map<String, Message> cache = new ConcurrentHashMap<>();
 
@@ -24,57 +41,13 @@ public class ValidationMessageBuilder {
     }
 
     public static String message(String field, Object value, Object[] params, String message) {
-        return cache.computeIfAbsent(message, k ->
-                        CodeFactory.create(ValidationMessageBuilder.class).buildExpression(k))
-                .interpolate(field, value, params);
-    }
-
-    protected Message buildExpression(String exp) {
-        var list = new ArrayList<Message>();
-        var flag = true;
-        var start = 0;
-        for (var i = 0; i < exp.length(); i++) {
-            if ('{' == exp.charAt(i)) {
-                if (!flag) {
-                    throw new InvalidParameterException(INVALID_EXPRESSION + exp);
-                }
-
-                if (start < i) {
-                    var constant = exp.substring(start, i);
-                    if (constant.length() != 0) {
-                        list.add(buildConstantExpression(constant));
-                    }
-                }
-
-                start = i + 1;
-
-                flag = false;
-            } else if ('}' == exp.charAt(i)) {
-                if (flag) {
-                    throw new InvalidParameterException(INVALID_EXPRESSION + exp);
-                }
-
-                if (start < i) {
-                    var e = exp.substring(start, i);
-                    list.add(buildParamExpression(e));
-                }
-
-                start = i + 1;
-
-                flag = true;
-            }
-
+        if (nonNull(message)) {
+            return cache.computeIfAbsent(message, k ->
+                            CodeFactory.create(ValidationMessageBuilder.class).buildExpression(k))
+                    .interpolate(field, value, params);
+        } else {
+            return null;
         }
-
-        if (!flag) {
-            throw new InvalidParameterException(INVALID_EXPRESSION + exp);
-        }
-
-        if (start < exp.length()) {
-            list.add(buildConstantExpression(exp.substring(start)));
-        }
-
-        return buildComplexExpression(list);
     }
 
     protected Message buildConstantExpression(String exp) {
@@ -82,17 +55,13 @@ public class ValidationMessageBuilder {
     }
 
     protected Message buildComplexExpression(List<Message> list) {
-        if (list.size() == 1) {
-            return list.get(0);
-        } else {
-            return (field, value, params) -> {
-                var result = new StringBuilder();
-                for (var exp : list) {
-                    result.append(exp.interpolate(field, value, params));
-                }
-                return result.toString();
-            };
-        }
+        return (field, value, params) -> {
+            var result = new StringBuilder();
+            for (var exp : list) {
+                result.append(exp.interpolate(field, value, params));
+            }
+            return result.toString();
+        };
     }
 
     protected Message buildParamExpression(String exp) {
@@ -100,9 +69,9 @@ public class ValidationMessageBuilder {
             return (field, value, params) -> field;
         } else if ("value".equals(exp)) {
             return (field, value, params) -> isNull(value) ? "null" : value.toString();
-        } else if (exp.startsWith("params[") && exp.endsWith("]")) {
+        } else if (exp.startsWith("param[") && exp.endsWith("]")) {
             try {
-                var idx = Integer.parseInt(exp.substring(7, exp.length() - 1));
+                var idx = Integer.parseInt(exp.substring(6, exp.length() - 1));
                 var e = "{" + exp + "}";
                 return (field, value, params) -> idx > -1 && idx < params.length ? params[idx].toString() : e;
             } catch (Exception e) {
@@ -111,14 +80,6 @@ public class ValidationMessageBuilder {
         }
 
         return buildConstantExpression("{" + exp + "}");
-    }
-
-    protected static <R> R with(R object, Consumer<R> consumer) {
-        if (nonNull(object)) {
-            consumer.accept(object);
-        }
-
-        return object;
     }
 
     @FunctionalInterface

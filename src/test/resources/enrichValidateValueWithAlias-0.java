@@ -25,10 +25,10 @@ public class TestImpl implements Test {
     }
 
     public void setField(String field) {
-        Validation.start(this.getClass(), "field", field).validateWithMessages(LengthValidator.class, new String[] { "Value for field '%s' is shorter than %3$d!", "Value for field '%s' is longer than %4$d!" }, -1, 3).perform(v -> this.field = v);
+        Validation.start(this.getClass(), "field", field).validateWithMessages(LengthValidator.class, new String[] { "Value ({value}) for field '{field}' is shorter than {param[0]}!", "Value ({value}) for field '{field}' is longer than {param[1]}!" }, -1, 3).perform(v -> this.field = v);
     }
 
     public void setField1(String field1) {
-        Validation.start(this.getClass(), "field1", field1).validateWithMessages(LengthValidator.class, new String[] { "Value for field '%s' is shorter than %3$d!", "Value for field '%s' is longer than %4$d!" }, -1, 3).perform(v -> this.field1 = v);
+        Validation.start(this.getClass(), "field1", field1).validateWithMessages(LengthValidator.class, new String[] { "Value ({value}) for field '{field}' is shorter than {param[0]}!", "Value ({value}) for field '{field}' is longer than {param[1]}!" }, -1, 3).perform(v -> this.field1 = v);
     }
 }

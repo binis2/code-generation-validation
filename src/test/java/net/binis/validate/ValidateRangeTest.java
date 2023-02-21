@@ -1,10 +1,10 @@
-package net.binis;
+package net.binis.validate;
 
 /*-
  * #%L
- * code-generator
+ * code-generation-test
  * %%
- * Copyright (C) 2021 Binis Belev
+ * Copyright (C) 2021 - 2022 Binis Belev
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,16 +25,11 @@ import net.binis.codegen.test.BaseCodeGenTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ValidationConstatsTest extends BaseCodeGenTest {
+class ValidateRangeTest extends BaseCodeGenTest {
 
     @Test
-    void enrichValidate() {
-        testSingle("constantValidate.java", "constantValidate-0.java", "constantValidate-1.java");
-    }
-
-    @Test
-    void enrichValidateCalculated() {
-        testSingle("constantValidate2.java", "constantValidate2-0.java", "constantValidate2-1.java");
+    void enrichValidateRange() {
+        testSingleExecute("validate/range/enrichValidateRange.java", "validate/range/enrichValidateRange-0.java", "validate/range/enrichValidateRange-1.java", "validate/range/enrichValidateRange-2.java");
     }
 
 }

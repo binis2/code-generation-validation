@@ -37,6 +37,6 @@ import java.lang.annotation.Target;
 public @interface SanitizeReplace {
     @AliasFor("params")
     String value();
-    @AliasFor("params")
+    @AliasFor(value = "params", order = 1)
     String with() default "";
 }

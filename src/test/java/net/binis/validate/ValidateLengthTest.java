@@ -1,10 +1,10 @@
-package net.binis.validate.range;
+package net.binis.validate;
 
 /*-
  * #%L
- * code-generation-test
+ * code-generator-validation
  * %%
- * Copyright (C) 2021 - 2022 Binis Belev
+ * Copyright (C) 2021 - 2023 Binis Belev
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,21 +20,15 @@ package net.binis.validate.range;
  * #L%
  */
 
-import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseCodeGenTest;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ValidateRangeTest extends BaseCodeGenTest {
+class ValidateLengthTest extends BaseCodeGenTest {
 
-    @BeforeEach
-    public void cleanUp() {
-        Helpers.cleanUp();
-    }
 
     @Test
-    void enrichValidateRange() {
-        testSingleExecute("validate/range/enrichValidateRange.java", "validate/range/enrichValidateRange-0.java", "validate/range/enrichValidateRange-1.java", "validate/range/enrichValidateRange-2.java");
+    void enrichValidateLength() {
+        testSingleExecute("validate/length/enrichValidateLength.java", "validate/length/enrichValidateLength-0.java", "validate/length/enrichValidateLength-1.java", "validate/length/enrichValidateLength-2.java");
     }
 
 }

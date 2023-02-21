@@ -27,11 +27,6 @@ import org.junit.jupiter.api.Test;
 
 class FormTest extends BaseCodeGenTest {
 
-    @BeforeEach
-    public void cleanUp() {
-        Helpers.cleanUp();
-    }
-
     @Test
     void enrichForm() {
         testSingleExecute("enrichForm.java", "enrichForm-0.java", "enrichForm-1.java", "enrichForm-2.java");

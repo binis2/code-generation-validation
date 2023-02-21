@@ -36,11 +36,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class RegExValidatorTest extends BaseCodeGenTest {
 
-    @BeforeEach
-    public void cleanUp() {
-        Helpers.cleanUp();
-    }
-
     @Test
     void test() {
         mockCreate(RegExValidator.class);

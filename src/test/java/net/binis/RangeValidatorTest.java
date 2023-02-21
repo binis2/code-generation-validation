@@ -42,7 +42,7 @@ class RangeValidatorTest extends BaseCodeGenTest {
         mockCreate(RangeValidator.class);
         mockCreate(DefaultValidationFlow.class);
 
-        var messages = new String[] { "Value (%2$f) for field '%s' is less than %3$f!", "Value (%2$f) for field '%s' is more than %4$f!" };
+        var messages = new String[] { "Value (%2$d) for field '%s' is less than %3$d!", "Value (%2$d) for field '%s' is more than %4$d!" };
 
         var validation = Validation.start(this.getClass(), "test", 5);
         assertThrows(ValidationException.class, () -> validation.validateWithMessages(RangeValidator.class, messages, -1, 2), "Value for field 'test' is longer than 2!");

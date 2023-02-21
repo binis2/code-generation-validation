@@ -37,6 +37,6 @@ import java.lang.annotation.Target;
 public @interface SanitizeRange {
     @AliasFor("params")
     double min();
-    @AliasFor("params")
+    @AliasFor(value = "params", order = 1)
     double max();
 }

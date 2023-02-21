@@ -41,7 +41,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify>, Validatable {
     }
 
     public void validate() {
-        Validation.form(this.getClass(), e -> Validation.start(e, this.getClass(), "value", value).validate(NullValidator.class, "(%s) Value can't be null").validateWithMessages(RangeValidator.class, new String[] { "min %2$d(%3$d)", "max %2$d(%4$d)" }, 0, 1000).validateWithMessages(LengthValidator.class, new String[] { "Value for field '%s' is shorter than %3$d!", "Value for field '%s' is longer than %4$d!" }, 1, 255).perform(v -> value = v), e -> Validation.start(e, this.getClass(), "list", list).validate(NullValidator.class, "(%s) Value can't be null").validateCollection(NullValidator.class, "(%s) Value can't be null").validateWithMessagesCollection(RangeValidator.class, new String[] { "minC %2$d(%3$d)", "maxC %2$d(%4$d)" }, 0, 1000).validateWithMessagesCollection(LengthValidator.class, new String[] { "Value for field '%s' is shorter than %3$d!", "Value for field '%s' is longer than %4$d!" }, 1, 255).perform(v -> list = v));
+        Validation.form(this.getClass(), e -> Validation.start(e, this.getClass(), "value", value).validate(NullValidator.class, "({field}) Value can't be null").validateWithMessages(RangeValidator.class, new String[] { "min %2$d(%3$d)", "max %2$d(%4$d)" }, 0, 1000).validateWithMessages(LengthValidator.class, new String[] { "Value ({value}) for field '{field}' is shorter than {param[0]}!", "Value ({value}) for field '{field}' is longer than {param[1]}!" }, 1, 255).perform(v -> value = v), e -> Validation.start(e, this.getClass(), "list", list).validate(NullValidator.class, "({field}) Value can't be null").validateCollection(NullValidator.class, "({field}) Value can't be null").validateWithMessagesCollection(RangeValidator.class, new String[] { "minC %2$d(%3$d)", "maxC %2$d(%4$d)" }, 0, 1000).validateWithMessagesCollection(LengthValidator.class, new String[] { "Value ({value}) for field '{field}' is shorter than {param[0]}!", "Value ({value}) for field '{field}' is longer than {param[1]}!" }, 1, 255).perform(v -> list = v));
     }
 
     public Test.Modify with() {
@@ -62,7 +62,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify>, Validatable {
         }
 
         public Test.Modify list(List<Integer> list) {
-            Validation.start(this.getClass(), "list", list).validate(NullValidator.class, "(%s) Value can't be null").validateCollection(NullValidator.class, "(%s) Value can't be null").validateWithMessagesCollection(RangeValidator.class, new String[] { "minC %2$d(%3$d)", "maxC %2$d(%4$d)" }, 0, 1000).validateWithMessagesCollection(LengthValidator.class, new String[] { "Value for field '%s' is shorter than %3$d!", "Value for field '%s' is longer than %4$d!" }, 1, 255).perform(v -> TestImpl.this.list = v);
+            Validation.start(this.getClass(), "list", list).validate(NullValidator.class, "({field}) Value can't be null").validateCollection(NullValidator.class, "({field}) Value can't be null").validateWithMessagesCollection(RangeValidator.class, new String[] { "minC %2$d(%3$d)", "maxC %2$d(%4$d)" }, 0, 1000).validateWithMessagesCollection(LengthValidator.class, new String[] { "Value ({value}) for field '{field}' is shorter than {param[0]}!", "Value ({value}) for field '{field}' is longer than {param[1]}!" }, 1, 255).perform(v -> TestImpl.this.list = v);
             return this;
         }
 
@@ -70,11 +70,11 @@ public class TestImpl implements Test, Modifiable<Test.Modify>, Validatable {
             if (TestImpl.this.list == null) {
                 TestImpl.this.list = new java.util.ArrayList<>();
             }
-            return new CodeListImpl<>(this, TestImpl.this.list, value -> Validation.start(this.getClass(), "list", value).validate(NullValidator.class, "(%s) Value can't be null").validateWithMessages(RangeValidator.class, new String[] { "minC %2$d(%3$d)", "maxC %2$d(%4$d)" }, 0, 1000).validateWithMessages(LengthValidator.class, new String[] { "Value for field '%s' is shorter than %3$d!", "Value for field '%s' is longer than %4$d!" }, 1, 255));
+            return new CodeListImpl<>(this, TestImpl.this.list, value -> Validation.start(this.getClass(), "list", value).validate(NullValidator.class, "({field}) Value can't be null").validateWithMessages(RangeValidator.class, new String[] { "minC %2$d(%3$d)", "maxC %2$d(%4$d)" }, 0, 1000).validateWithMessages(LengthValidator.class, new String[] { "Value ({value}) for field '{field}' is shorter than {param[0]}!", "Value ({value}) for field '{field}' is longer than {param[1]}!" }, 1, 255));
         }
 
         public Test.Modify value(int value) {
-            Validation.start(this.getClass(), "value", value).validate(NullValidator.class, "(%s) Value can't be null").validateWithMessages(RangeValidator.class, new String[] { "min %2$d(%3$d)", "max %2$d(%4$d)" }, 0, 1000).validateWithMessages(LengthValidator.class, new String[] { "Value for field '%s' is shorter than %3$d!", "Value for field '%s' is longer than %4$d!" }, 1, 255).perform(v -> TestImpl.this.value = v);
+            Validation.start(this.getClass(), "value", value).validate(NullValidator.class, "({field}) Value can't be null").validateWithMessages(RangeValidator.class, new String[] { "min %2$d(%3$d)", "max %2$d(%4$d)" }, 0, 1000).validateWithMessages(LengthValidator.class, new String[] { "Value ({value}) for field '{field}' is shorter than {param[0]}!", "Value ({value}) for field '{field}' is longer than {param[1]}!" }, 1, 255).perform(v -> TestImpl.this.value = v);
             return this;
         }
     }

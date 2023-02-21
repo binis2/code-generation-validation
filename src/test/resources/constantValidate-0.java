@@ -53,26 +53,26 @@ public class TestImpl implements Test {
     }
 
     public void setCalculated(String calculated) {
-        Validation.start(this.getClass(), "calculated", calculated).validateWithMessages(LengthValidator.class, new String[] { Constants.STATIC_TEXT + "!", "Value for field '%s' is longer than %4$d!" }, -1, 10 * 10).perform(v -> this.calculated = v);
+        Validation.start(this.getClass(), "calculated", calculated).validateWithMessages(LengthValidator.class, new String[] { Constants.STATIC_TEXT + "!", "Value ({value}) for field '{field}' is longer than {param[1]}!" }, -1, 10 * 10).perform(v -> this.calculated = v);
     }
 
     public void setCompiledSubtitle(String compiledSubtitle) {
-        Validation.start(this.getClass(), "compiledSubtitle", compiledSubtitle).validateWithMessages(LengthValidator.class, new String[] { "Value for field '%s' is shorter than %3$d!", "Value for field '%s' is longer than %4$d!" }, -1, Constants.STATIC_MAX_LENGTH).perform(v -> this.compiledSubtitle = v);
+        Validation.start(this.getClass(), "compiledSubtitle", compiledSubtitle).validateWithMessages(LengthValidator.class, new String[] { "Value ({value}) for field '{field}' is shorter than {param[0]}!", "Value ({value}) for field '{field}' is longer than {param[1]}!" }, -1, Constants.STATIC_MAX_LENGTH).perform(v -> this.compiledSubtitle = v);
     }
 
     public void setCompiledTitle(String compiledTitle) {
-        Validation.start(this.getClass(), "compiledTitle", compiledTitle).validateWithMessages(LengthValidator.class, new String[] { "Value for field '%s' is shorter than %3$d!", "Value for field '%s' is longer than %4$d!" }, -1, STATIC_MAX_LENGTH).perform(v -> this.compiledTitle = v);
+        Validation.start(this.getClass(), "compiledTitle", compiledTitle).validateWithMessages(LengthValidator.class, new String[] { "Value ({value}) for field '{field}' is shorter than {param[0]}!", "Value ({value}) for field '{field}' is longer than {param[1]}!" }, -1, STATIC_MAX_LENGTH).perform(v -> this.compiledTitle = v);
     }
 
     public void setOther(String other) {
-        Validation.start(this.getClass(), "other", other).validateWithMessages(LengthValidator.class, new String[] { "Value for field '%s' is shorter than %3$d!", "Value for field '%s' is longer than %4$d!" }, -1, Test.LENGTH).perform(v -> this.other = v);
+        Validation.start(this.getClass(), "other", other).validateWithMessages(LengthValidator.class, new String[] { "Value ({value}) for field '{field}' is shorter than {param[0]}!", "Value ({value}) for field '{field}' is longer than {param[1]}!" }, -1, Test.LENGTH).perform(v -> this.other = v);
     }
 
     public void setSubtitle(String subtitle) {
-        Validation.start(this.getClass(), "subtitle", subtitle).validateWithMessages(LengthValidator.class, new String[] { "Value for field '%s' is shorter than %3$d!", "Value for field '%s' is longer than %4$d!" }, -1, TestImpl.MAX_LENGTH).perform(v -> this.subtitle = v);
+        Validation.start(this.getClass(), "subtitle", subtitle).validateWithMessages(LengthValidator.class, new String[] { "Value ({value}) for field '{field}' is shorter than {param[0]}!", "Value ({value}) for field '{field}' is longer than {param[1]}!" }, -1, TestImpl.MAX_LENGTH).perform(v -> this.subtitle = v);
     }
 
     public void setTitle(String title) {
-        Validation.start(this.getClass(), "title", title).validateWithMessages(LengthValidator.class, new String[] { "Value for field '%s' is shorter than %3$d!", "Value for field '%s' is longer than %4$d!" }, -1, MAX_LENGTH).perform(v -> this.title = v);
+        Validation.start(this.getClass(), "title", title).validateWithMessages(LengthValidator.class, new String[] { "Value ({value}) for field '{field}' is shorter than {param[0]}!", "Value ({value}) for field '{field}' is longer than {param[1]}!" }, -1, MAX_LENGTH).perform(v -> this.title = v);
     }
 }

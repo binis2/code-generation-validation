@@ -62,7 +62,7 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
         }
 
         public T subAmount(double subAmount) {
-            Validation.start(this.getClass(), "subAmount", subAmount).validateWithMessages(RangeValidator.class, new String[] { "Value for field '%s' is less than %3$f!", "Value for field '%s' is more than %4$f!" }, 0, 10).perform(v -> SubModifyImpl.this.subAmount = v);
+            Validation.start(this.getClass(), "subAmount", subAmount).validateWithMessages(RangeValidator.class, new String[] { "Value ({value}) for field '{field}' is less than {param[0]}!", "Value ({value}) for field '{field}' is more than {param[1]}!" }, 0, 10).perform(v -> SubModifyImpl.this.subAmount = v);
             return (T) this;
         }
 
