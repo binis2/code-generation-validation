@@ -25,15 +25,32 @@ import net.binis.codegen.test.BaseCodeGenTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import static net.binis.codegen.generation.core.Helpers.lookup;
 
 class AnnotationValidationTest extends BaseCodeGenTest {
 
     @Test
-    void annotationValidate() {
+    void annotationValidateCompiled() {
         lookup.registerExternalLookup(testSourcesLookup());
-
         testSingle("externalAnnotationValidate.java", "externalAnnotationValidate-0.java", "externalAnnotationValidate-1.java");
+    }
+
+    @Test
+    void annotationValidate() {
+        lookup.registerExternalLookup(s -> {
+            if ("net.binis.codegen.annotations.ValidateJavaScriptInjection2".equals(s)) {
+                try {
+                    return Files.readString(Path.of("./src/test/java/" + s.replace('.', '/').substring(0, s.length() - 1) + ".java"));
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+            return null;
+        });
+        testSingleSkip("externalAnnotationValidate2.java", "externalAnnotationValidate2-0.java", "externalAnnotationValidate-1.java", true, false);
     }
 
 }

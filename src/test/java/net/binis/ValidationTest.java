@@ -68,4 +68,30 @@ class ValidationTest extends BaseCodeGenTest {
         testSingle("enrichValidateValueWithAlias.java", "enrichValidateValueWithAlias-0.java", "enrichValidateValueWithAlias-1.java");
     }
 
+    @Test
+    void enrichValidateCollection() {
+        testSingle("enrichValidateCollection.java", "enrichValidateCollection-0.java", "enrichValidateCollection-1.java");
+    }
+
+    @Test
+    void enrichValidateEmbeddedCollection() {
+        testSingleExecute("enrichValidateEmbeddedCollection.java", "enrichValidateEmbeddedCollection-0.java", "enrichValidateEmbeddedCollection-1.java", "enrichValidateEmbeddedCollection-2.java");
+    }
+
+
+    @Test
+    void enrichValidateMixin() {
+        testMulti(List.of(
+                Triple.of("enrichValidateMixIn.java", "enrichValidateMixIn-0.java", "enrichValidateMixIn-1.java"),
+                Triple.of("enrichValidateMixIn2.java", null, "enrichValidateMixIn2-1.java")
+        ));
+    }
+
+    @Test
+    void enrichValidateNested() {
+        testSingle("enrichValidateNested.java", "enrichValidateNested-0.java", "enrichValidateNested-1.java", 2);
+    }
+
+
+
 }
