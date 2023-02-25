@@ -36,9 +36,9 @@ class ValidationMessageBuilderTest {
 
     @Test
     void test() {
-        var msg = ValidationMessageBuilder.message("field", "value", new Object[] {1, 2L, 3.0, 4.0f}, "Field '{field}' with value '{value}' with params - [{param[0]},{param[1]},{param[2]},{param[3]},{param[4]},{param[5]}]");
+        var msg = ValidationMessageBuilder.message(ValidationMessageBuilderTest.class, "field", "value", new Object[] {1, 2L, 3.0, 4.0f}, "({Class} ({class})) Field '{field}' with value '{value}' with params - [{param[0]},{param[1]},{param[2]},{param[3]},{param[4]},{param[5]}]");
 
-        assertEquals("Field 'field' with value 'value' with params - [1,2,3.0,4.0,{param[4]},{param[5]}]", msg);
+        assertEquals("(net.binis.ValidationMessageBuilderTest (ValidationMessageBuilderTest)) Field 'field' with value 'value' with params - [1,2,3.0,4.0,{param[4]},{param[5]}]", msg);
     }
 
 }

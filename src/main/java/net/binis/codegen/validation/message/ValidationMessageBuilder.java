@@ -23,8 +23,6 @@ package net.binis.codegen.validation.message;
 import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.tools.BaseStringInterpolator;
 
-import java.security.InvalidParameterException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -40,25 +38,25 @@ public class ValidationMessageBuilder extends BaseStringInterpolator<ValidationM
         CodeFactory.forceRegisterType(ValidationMessageBuilder.class, CodeFactory.lazy(ValidationMessageBuilder::new), null);
     }
 
-    public static String message(String field, Object value, Object[] params, String message) {
+    public static String message(Class cls, String field, Object value, Object[] params, String message) {
         if (nonNull(message)) {
             return cache.computeIfAbsent(message, k ->
                             CodeFactory.create(ValidationMessageBuilder.class).buildExpression(k))
-                    .interpolate(field, value, params);
+                    .interpolate(cls, field, value, params);
         } else {
             return null;
         }
     }
 
     protected Message buildConstantExpression(String exp) {
-        return (field, value, params) -> exp;
+        return (cls, field, value, params) -> exp;
     }
 
     protected Message buildComplexExpression(List<Message> list) {
-        return (field, value, params) -> {
+        return (cls, field, value, params) -> {
             var result = new StringBuilder();
             for (var exp : list) {
-                result.append(exp.interpolate(field, value, params));
+                result.append(exp.interpolate(cls, field, value, params));
             }
             return result.toString();
         };
@@ -66,17 +64,21 @@ public class ValidationMessageBuilder extends BaseStringInterpolator<ValidationM
 
     protected Message buildParamExpression(String exp) {
         if ("field".equals(exp)) {
-            return (field, value, params) -> field;
+            return (cls, field, value, params) -> field;
         } else if ("value".equals(exp)) {
-            return (field, value, params) -> isNull(value) ? "null" : value.toString();
+            return (cls, field, value, params) -> isNull(value) ? "null" : value.toString();
         } else if (exp.startsWith("param[") && exp.endsWith("]")) {
             try {
                 var idx = Integer.parseInt(exp.substring(6, exp.length() - 1));
                 var e = "{" + exp + "}";
-                return (field, value, params) -> idx > -1 && idx < params.length ? params[idx].toString() : e;
+                return (cls, field, value, params) -> idx > -1 && idx < params.length ? params[idx].toString() : e;
             } catch (Exception e) {
                 //Do nothing
             }
+        } else if ("class".equals(exp)) {
+            return (cls, field, value, params) -> cls.getSimpleName();
+        } else if ("Class".equals(exp)) {
+            return (cls, field, value, params) -> cls.getCanonicalName();
         }
 
         return buildConstantExpression("{" + exp + "}");
@@ -84,7 +86,7 @@ public class ValidationMessageBuilder extends BaseStringInterpolator<ValidationM
 
     @FunctionalInterface
     protected interface Message {
-        String interpolate(String field, Object value, Object[] params);
+        String interpolate(Class cls, String field, Object value, Object[] params);
     }
 
     public void cleanUp() {

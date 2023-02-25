@@ -294,7 +294,7 @@ public abstract class BaseValidationFlow implements Validation, ValidationStart 
     }
 
     protected void internalHandleValidationError(String field, Object value, String message, Object... params) {
-        handleValidationError(field, value, ValidationMessageBuilder.message(field, value, params, message), params);
+        handleValidationError(field, value, ValidationMessageBuilder.message(cls, field, value, params, message), params);
     }
 
     protected abstract void handleValidationError(String field, Object value, String message, Object... params);
