@@ -5,7 +5,7 @@ import net.binis.codegen.validation.validator.LengthValidator;
 import net.binis.codegen.validation.flow.Validation;
 import javax.annotation.processing.Generated;
 
-@Generated(value = "TestPrototype", comments = "Test")
+@Generated(value = "net.binis.codegen.TestPrototype", comments = "Test")
 @SuppressWarnings("unchecked")
 public class TestImpl implements Test {
 

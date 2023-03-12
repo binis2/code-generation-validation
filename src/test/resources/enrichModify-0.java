@@ -11,7 +11,7 @@ import javax.annotation.processing.Generated;
 import java.util.Set;
 import java.util.List;
 
-@Generated(value = "TestModifyPrototype", comments = "TestModify")
+@Generated(value = "net.binis.codegen.TestModifyPrototype", comments = "TestModify")
 public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify> {
 
     protected double amount;

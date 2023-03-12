@@ -6,7 +6,7 @@ import net.binis.codegen.collection.CodeList;
 import javax.annotation.processing.Generated;
 import java.util.List;
 
-@Generated(value = "MixInPrototype", comments = "MixInImpl")
+@Generated(value = "net.binis.codegen.MixInPrototype", comments = "MixInImpl")
 public interface MixIn extends Test {
     MixIn.Modify asMixIn();
 

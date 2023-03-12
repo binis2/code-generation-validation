@@ -8,7 +8,7 @@ import net.binis.codegen.modifier.impl.BaseModifierImpl;
 import net.binis.codegen.modifier.Modifiable;
 import javax.annotation.processing.Generated;
 
-@Generated(value = "TestPrototype", comments = "Test")
+@Generated(value = "net.binis.codegen.TestPrototype", comments = "Test")
 @SuppressWarnings("unchecked")
 public class TestImpl implements Test, Modifiable<Test.Modify> {
 

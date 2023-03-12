@@ -9,7 +9,7 @@ import javax.annotation.processing.Generated;
 import java.util.Set;
 import java.util.List;
 
-@Generated(value = "TestModifyPrototype", comments = "TestModifyImpl")
+@Generated(value = "net.binis.codegen.TestModifyPrototype", comments = "TestModifyImpl")
 public interface TestModify extends Prototypable<SubModify> {
     double getAmount();
     List<Long> getItems();

@@ -11,7 +11,7 @@ import net.binis.codegen.collection.CodeList;
 import javax.annotation.processing.Generated;
 import java.util.List;
 
-@Generated(value = "TestPrototype", comments = "Test")
+@Generated(value = "net.binis.codegen.TestPrototype", comments = "Test")
 @SuppressWarnings("unchecked")
 public class TestImpl implements Test, MixIn, Modifiable<Test.Modify> {
 

@@ -6,7 +6,7 @@ import net.binis.codegen.collection.CodeList;
 import javax.annotation.processing.Generated;
 import java.util.List;
 
-@Generated(value = "TestPrototype", comments = "TestImpl")
+@Generated(value = "net.binis.codegen.TestPrototype", comments = "TestImpl")
 public interface Test {
     List<String> getList();
     List<String> getList2();

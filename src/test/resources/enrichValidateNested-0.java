@@ -10,7 +10,7 @@ import net.binis.codegen.factory.CodeFactory;
 import javax.annotation.processing.Generated;
 import java.util.List;
 
-@Generated(value = "TestPrototype", comments = "Test")
+@Generated(value = "net.binis.codegen.TestPrototype", comments = "Test")
 public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     protected List<Test.Item> list;

@@ -9,7 +9,7 @@ import net.binis.codegen.modifier.Modifiable;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import javax.annotation.processing.Generated;
 
-@Generated(value = "SubModifyPrototype", comments = "SubModify")
+@Generated(value = "net.binis.codegen.SubModifyPrototype", comments = "SubModify")
 public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
 
     protected SubModify prototype;

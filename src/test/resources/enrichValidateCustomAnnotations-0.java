@@ -22,7 +22,7 @@ import javax.annotation.processing.Generated;
 import java.util.Set;
 import java.util.List;
 
-@Generated(value = "TestPrototype", comments = "Test")
+@Generated(value = "net.binis.codegen.TestPrototype", comments = "Test")
 @Data
 public class TestImpl implements Test, Modifiable<Test.Modify> {
 

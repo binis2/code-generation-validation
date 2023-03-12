@@ -8,7 +8,7 @@ import net.binis.codegen.annotation.Default;
 import javax.annotation.processing.Generated;
 import java.util.List;
 
-@Generated(value = "TestPrototype", comments = "TestImpl")
+@Generated(value = "net.binis.codegen.validate.range.TestPrototype", comments = "TestImpl")
 @Default("net.binis.codegen.validate.range.TestImpl")
 @SuppressWarnings("unchecked")
 public interface Test {
