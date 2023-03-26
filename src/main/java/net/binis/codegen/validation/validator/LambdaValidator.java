@@ -38,7 +38,7 @@ public class LambdaValidator implements Validator {
     @SuppressWarnings("unchecked")
     @Override
     public boolean validate(Object value, Object... params) {
-        return params.length > 0 && params[0] instanceof Predicate && ((Predicate) params[0]).test(value);
+        return params.length > 0 && params[0] instanceof Predicate p && p.test(value);
     }
 
 }
