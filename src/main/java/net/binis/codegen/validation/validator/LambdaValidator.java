@@ -31,7 +31,7 @@ public class LambdaValidator implements Validator {
 
     private static final LambdaValidator instance = new LambdaValidator();
 
-    {
+    static {
         CodeFactory.registerType(LambdaValidator.class, () -> instance, null);
     }
 

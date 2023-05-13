@@ -21,10 +21,8 @@ package net.binis.codegen.validation.annotation;
  */
 
 import net.binis.codegen.annotation.CodeAnnotation;
-import net.binis.codegen.annotation.validation.AliasFor;
 import net.binis.codegen.annotation.validation.Validate;
 import net.binis.codegen.validation.validator.NotEmptyValidator;
-import net.binis.codegen.validation.validator.RangeValidator;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

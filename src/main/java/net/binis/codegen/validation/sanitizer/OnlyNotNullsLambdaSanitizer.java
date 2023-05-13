@@ -30,7 +30,7 @@ public class OnlyNotNullsLambdaSanitizer extends LambdaSanitizer {
 
     private static final OnlyNotNullsLambdaSanitizer instance = new OnlyNotNullsLambdaSanitizer();
 
-    {
+    static {
         CodeFactory.registerType(OnlyNotNullsLambdaSanitizer.class, () -> instance, null);
     }
 

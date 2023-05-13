@@ -27,7 +27,7 @@ public class ReplaceSanitizer implements Sanitizer {
 
     private static final ReplaceSanitizer instance = new ReplaceSanitizer();
 
-    {
+    static {
         CodeFactory.registerType(ReplaceSanitizer.class, () -> instance, null);
     }
 

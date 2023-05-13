@@ -27,7 +27,7 @@ public class LengthSanitizer implements Sanitizer {
 
     private static final LengthSanitizer instance = new LengthSanitizer();
 
-    {
+    static {
         CodeFactory.registerType(LengthSanitizer.class, () -> instance, null);
     }
 

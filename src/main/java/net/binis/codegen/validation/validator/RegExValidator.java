@@ -35,7 +35,7 @@ public class RegExValidator implements Validator {
     private static final RegExValidator instance = new RegExValidator();
     private static final Map<String, Pattern> cache = new ConcurrentHashMap<>();
 
-    {
+    static {
         CodeFactory.registerType(RegExValidator.class, () -> instance, null);
     }
 

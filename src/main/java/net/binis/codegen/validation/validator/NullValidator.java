@@ -29,7 +29,7 @@ public class NullValidator implements Validator {
 
     private static final NullValidator instance = new NullValidator();
 
-    {
+    static {
         CodeFactory.registerType(NullValidator.class, () -> instance, null);
     }
 

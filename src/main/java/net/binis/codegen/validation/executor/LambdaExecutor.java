@@ -33,7 +33,7 @@ public class LambdaExecutor implements Executor {
 
     private static final LambdaExecutor instance = new LambdaExecutor();
 
-    {
+    static {
         CodeFactory.registerType(LambdaExecutor.class, () -> instance, null);
     }
 

@@ -30,7 +30,7 @@ public class ValidValidator implements Validator {
 
     private static final ValidValidator instance = new ValidValidator();
 
-    {
+    static {
         CodeFactory.registerType(ValidValidator.class, () -> instance, null);
     }
 

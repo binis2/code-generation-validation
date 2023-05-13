@@ -31,7 +31,7 @@ public class NotEmptyValidator implements Validator {
 
     private static final NotEmptyValidator instance = new NotEmptyValidator();
 
-    {
+    static {
         CodeFactory.registerType(NotEmptyValidator.class, () -> instance, null);
     }
 

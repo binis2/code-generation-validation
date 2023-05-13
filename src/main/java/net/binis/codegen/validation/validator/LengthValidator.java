@@ -30,7 +30,7 @@ public class LengthValidator implements ValidatorWithMessages {
 
     private static final LengthValidator instance = new LengthValidator();
 
-    {
+    static {
         CodeFactory.registerType(LengthValidator.class, () -> instance, null);
     }
 
