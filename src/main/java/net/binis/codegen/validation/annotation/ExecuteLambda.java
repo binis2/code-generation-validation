@@ -37,4 +37,6 @@ public @interface ExecuteLambda {
     @AliasFor("params")
     String value();
     String message() default "({field}) Invalid value!";
+
+    Class<?>[] targets() default {};
 }

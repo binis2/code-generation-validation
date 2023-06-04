@@ -32,7 +32,7 @@ import java.lang.annotation.Target;
 @CodeAnnotation
 @Target({ElementType.METHOD, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
-@Validate(NotEmptyValidator.class)
+@Validate(value = NotEmptyValidator.class, targets = String.class)
 public @interface ValidateNotEmpty {
     String message() default "Field '{field}' is empty!";
 }

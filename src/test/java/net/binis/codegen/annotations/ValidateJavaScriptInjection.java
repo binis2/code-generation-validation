@@ -32,7 +32,7 @@ import java.lang.annotation.Target;
 @CodeAnnotation
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@Validate(value = RegExValidator.class, params = ValidateJavaScriptInjection.REGEX, message = "(%s) Injection attempt!")
+@Validate(value = RegExValidator.class, params = ValidateJavaScriptInjection.REGEX, message = "(%s) Injection attempt!", targets = String.class)
 public @interface ValidateJavaScriptInjection {
     String REGEX = "^((?!<).)*$";
 }

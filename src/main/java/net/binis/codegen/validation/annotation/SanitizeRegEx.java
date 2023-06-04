@@ -37,4 +37,5 @@ import java.lang.annotation.Target;
 public @interface SanitizeRegEx {
     @AliasFor("params")
     String expression() default "";
+    Class<?>[] targets() default {};
 }

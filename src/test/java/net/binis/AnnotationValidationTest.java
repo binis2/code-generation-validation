@@ -20,6 +20,7 @@ package net.binis;
  * #L%
  */
 
+import net.binis.codegen.exception.GenericCodeGenException;
 import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseCodeGenTest;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,6 +30,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static net.binis.codegen.generation.core.Helpers.lookup;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AnnotationValidationTest extends BaseCodeGenTest {
 
@@ -52,5 +54,12 @@ class AnnotationValidationTest extends BaseCodeGenTest {
         });
         testSingleSkip("externalAnnotationValidate2.java", "externalAnnotationValidate2-0.java", "externalAnnotationValidate-1.java", true, false);
     }
+
+    @Test
+    void annotationValidateCompiledFailed() {
+        lookup.registerExternalLookup(testSourcesLookup());
+        assertThrows(GenericCodeGenException.class, () ->testSingle("externalAnnotationValidate3.java", null, null));
+    }
+
 
 }

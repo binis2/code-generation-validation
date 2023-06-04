@@ -34,7 +34,7 @@ import java.lang.annotation.Target;
 @CodeAnnotation
 @Target({ElementType.METHOD, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
-@Validate(LambdaValidator.class)
+@Validate(value = LambdaValidator.class, targets = String.class)
 public @interface ValidateNotBlank {
     @AsCode
     @AliasFor("params")

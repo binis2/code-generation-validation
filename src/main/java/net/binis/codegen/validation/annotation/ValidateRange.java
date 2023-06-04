@@ -23,6 +23,7 @@ package net.binis.codegen.validation.annotation;
 import net.binis.codegen.annotation.CodeAnnotation;
 import net.binis.codegen.annotation.validation.AliasFor;
 import net.binis.codegen.annotation.validation.Validate;
+import net.binis.codegen.validation.consts.ValidationTargets;
 import net.binis.codegen.validation.validator.RangeValidator;
 
 import java.lang.annotation.ElementType;
@@ -33,16 +34,14 @@ import java.lang.annotation.Target;
 @CodeAnnotation
 @Target({ElementType.METHOD, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
-@Validate(RangeValidator.class)
+@Validate(value = RangeValidator.class, targets = ValidationTargets.Numbers.class)
 public @interface ValidateRange {
     @AliasFor("params")
     double min() default Double.MIN_VALUE;
     @AliasFor(value = "params", order = 1)
     double max() default Double.MAX_VALUE;
-
     @AliasFor(value = "messages")
     String minMessage() default "Value ({value}) for field '{field}' is less than {min}!";
-
     @AliasFor(value = "messages", order = 1)
     String maxMessage() default "Value ({value}) for field '{field}' is more than {max}!";
 

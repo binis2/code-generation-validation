@@ -39,4 +39,6 @@ public @interface SanitizeLambda {
     @AsCode
     @AliasFor("params")
     String value();
+
+    Class<?>[] targets() default {};
 }

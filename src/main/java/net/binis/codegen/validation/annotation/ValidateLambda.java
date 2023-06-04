@@ -40,4 +40,5 @@ public @interface ValidateLambda {
     @AliasFor("params")
     String value();
     String message() default "({field}) Invalid value!";
+    Class<?>[] targets() default {};
 }

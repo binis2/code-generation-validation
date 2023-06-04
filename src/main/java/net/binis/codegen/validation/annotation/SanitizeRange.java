@@ -23,6 +23,7 @@ package net.binis.codegen.validation.annotation;
 import net.binis.codegen.annotation.CodeAnnotation;
 import net.binis.codegen.annotation.validation.AliasFor;
 import net.binis.codegen.annotation.validation.Sanitize;
+import net.binis.codegen.validation.consts.ValidationTargets;
 import net.binis.codegen.validation.sanitizer.RangeSanitizer;
 
 import java.lang.annotation.ElementType;
@@ -33,7 +34,7 @@ import java.lang.annotation.Target;
 @CodeAnnotation
 @Target({ElementType.METHOD, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
-@Sanitize(RangeSanitizer.class)
+@Sanitize(value = RangeSanitizer.class, targets = ValidationTargets.Numbers.class)
 public @interface SanitizeRange {
     @AliasFor("params")
     double min();

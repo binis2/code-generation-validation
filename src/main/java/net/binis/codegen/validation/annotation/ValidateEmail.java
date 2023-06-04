@@ -32,7 +32,7 @@ import java.lang.annotation.Target;
 @CodeAnnotation
 @Target({ElementType.METHOD, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
-@Validate(value = RegExValidator.class, params = ValidateEmail.REGEX)
+@Validate(value = RegExValidator.class, params = ValidateEmail.REGEX, targets = String.class)
 public @interface ValidateEmail {
     String REGEX = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
     String message() default "({field}) Invalid Email!";
