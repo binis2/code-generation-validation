@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>dev.binis</groupId>
     <artifactId>code-generator-validation</artifactId>
-    <version>1.1.5</version>
+    <version>1.1.6</version>
     <name>code-generator-validation</name>
     <description>Validation and Sanitization extension for Binis Code Generation library</description>
     <url>https://github.com/binis2/code-generation</url>
@@ -64,23 +64,23 @@
         <dependency>
             <groupId>dev.binis</groupId>
             <artifactId>code-generator-core</artifactId>
-            <version>1.1.5</version>
+            <version>1.1.6</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.12.0</version>
+            <version>3.13.0</version>
         </dependency>
         <dependency>
             <groupId>dev.binis</groupId>
             <artifactId>code-generator</artifactId>
-            <version>1.1.5</version>
+            <version>1.1.6</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>dev.binis</groupId>
             <artifactId>code-generation-test</artifactId>
-            <version>1.1.5</version>
+            <version>1.1.6</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -208,7 +208,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>3.4.0</version>
                 <executions>
                     <execution>
                         <id>enforce-maven</id>
