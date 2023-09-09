@@ -2,6 +2,7 @@
 package net.binis.codegen;
 
 import net.binis.codegen.annotation.Default;
+import net.binis.codegen.Test.Sub;
 import javax.annotation.processing.Generated;
 import java.util.Set;
 import java.util.Map;

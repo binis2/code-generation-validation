@@ -7,6 +7,7 @@ import net.binis.codegen.validation.Validatable;
 import net.binis.codegen.modifier.impl.BaseModifierImpl;
 import net.binis.codegen.modifier.Modifiable;
 import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.Test.Item;
 import javax.annotation.processing.Generated;
 import java.util.List;
 

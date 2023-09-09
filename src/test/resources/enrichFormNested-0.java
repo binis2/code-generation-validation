@@ -8,6 +8,7 @@ import net.binis.codegen.validation.sanitizer.TrimSanitizer;
 import net.binis.codegen.validation.flow.Validation;
 import net.binis.codegen.validation.Validatable;
 import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.Test.Sub;
 import javax.annotation.processing.Generated;
 import java.util.Set;
 import java.util.Map;

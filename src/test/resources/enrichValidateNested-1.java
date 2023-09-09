@@ -4,6 +4,7 @@ package net.binis.codegen;
 import net.binis.codegen.modifier.BaseModifier;
 import net.binis.codegen.creator.EntityCreatorModifier;
 import net.binis.codegen.annotation.Default;
+import net.binis.codegen.Test.Item;
 import javax.annotation.processing.Generated;
 import java.util.List;
 
