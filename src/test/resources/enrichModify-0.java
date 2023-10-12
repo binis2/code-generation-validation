@@ -67,6 +67,7 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
         return new TestModifyModifyImpl(this);
     }
 
+    @Generated("ModifierEnricher")
     @SuppressWarnings("unchecked")
     protected class TestModifyModifyImpl extends BaseModifierImpl<TestModify.Modify, TestModify> implements TestModify.Modify {
 

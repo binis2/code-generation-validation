@@ -61,6 +61,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         // endregion
     }
 
+    @Generated("ModifierEnricher")
     protected class TestModifyImpl extends BaseModifierImpl<Test.Modify, Test> implements Test.Modify {
 
         protected TestModifyImpl(Test parent) {

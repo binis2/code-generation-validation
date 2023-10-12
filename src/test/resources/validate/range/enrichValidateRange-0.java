@@ -50,6 +50,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify>, Validatable {
     // endregion
 
     // region inner classes
+    @Generated("ModifierEnricher")
     @SuppressWarnings("unchecked")
     protected class TestModifyImpl extends BaseModifierImpl<Test.Modify, Test> implements Test.Modify {
 

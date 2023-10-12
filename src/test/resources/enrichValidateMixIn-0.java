@@ -46,6 +46,7 @@ public class TestImpl implements Test, MixIn, Modifiable<Test.Modify> {
         return new TestModifyImpl(this);
     }
 
+    @Generated("ModifierEnricher")
     @SuppressWarnings("unchecked")
     protected class MixInModifyImpl extends BaseModifierImpl<MixIn.Modify, MixIn> implements MixIn.Modify {
 
@@ -75,6 +76,7 @@ public class TestImpl implements Test, MixIn, Modifiable<Test.Modify> {
         }
     }
 
+    @Generated("ModifierEnricher")
     @SuppressWarnings("unchecked")
     protected class TestModifyImpl extends BaseModifierImpl<Test.Modify, Test> implements Test.Modify {
 

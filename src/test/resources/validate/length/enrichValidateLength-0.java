@@ -39,6 +39,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     // endregion
 
     // region inner classes
+    @Generated("ModifierEnricher")
     @SuppressWarnings("unchecked")
     protected class TestModifyImpl extends BaseModifierImpl<Test.Modify, Test> implements Test.Modify {
 
