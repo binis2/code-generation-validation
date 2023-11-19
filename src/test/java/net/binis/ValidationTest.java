@@ -30,11 +30,6 @@ import java.util.List;
 
 class ValidationTest extends BaseCodeGenTest {
 
-    @BeforeEach
-    public void cleanUp() {
-        Helpers.cleanUp();
-    }
-
     @Test
     void enrichValidate() {
         testSingle("enrichValidate.java", "enrichValidate-0.java", "enrichValidate-1.java");
