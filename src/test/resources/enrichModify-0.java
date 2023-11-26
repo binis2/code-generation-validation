@@ -55,6 +55,10 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
         this.items = items;
     }
 
+    public void setPrototype(SubModify prototype) {
+        this.prototype = prototype;
+    }
+
     public void setSubs(Set<SubModify> subs) {
         this.subs = subs;
     }
