@@ -20,10 +20,8 @@ package net.binis;
  * #L%
  */
 
-import net.binis.codegen.generation.core.Helpers;
 import net.binis.codegen.test.BaseCodeGenTest;
 import org.apache.commons.lang3.tuple.Triple;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -85,6 +83,11 @@ class ValidationTest extends BaseCodeGenTest {
     @Test
     void enrichValidateNested() {
         testSingle("enrichValidateNested.java", "enrichValidateNested-0.java", "enrichValidateNested-1.java", 2);
+    }
+
+    @Test
+    void enrichValidateExecutorWithModifier() {
+        testSingleExecute("enrichValidateExecuteWithModifier.java", "enrichValidateExecuteWithModifier-0.java", "enrichValidateExecuteWithModifier-1.java", "enrichValidateExecuteWithModifier-2.java");
     }
 
 
