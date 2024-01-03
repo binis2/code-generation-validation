@@ -1,10 +1,12 @@
 package net.binis.codegen;
 
 import net.binis.codegen.annotation.Default;
+import net.binis.codegen.annotation.EnumPrototype;
 import net.binis.codegen.annotation.builder.CodeRequest;
+import net.binis.codegen.annotation.type.GenerationStrategy;
 import net.binis.codegen.annotation.validation.Sanitize;
 import net.binis.codegen.annotation.validation.Validate;
-import net.binis.codegen.options.GenerateOpenApiAlwaysOption;
+import net.binis.codegen.options.GenerateOpenApiIfAvailableOption;
 import net.binis.codegen.options.HiddenCreateMethodOption;
 import net.binis.codegen.options.ValidationFormOption;
 import net.binis.codegen.validation.annotation.ValidateEmail;
@@ -17,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@CodeRequest(options = {ValidationFormOption.class, HiddenCreateMethodOption.class, GenerateOpenApiAlwaysOption.class})
+@CodeRequest(options = {ValidationFormOption.class, HiddenCreateMethodOption.class, GenerateOpenApiIfAvailableOption.class})
 public interface TestPrototype {
     @Default("\"asd\"")
     @ValidateLength(min = 10, minMessage = "Must be longer than %4$d!", maxMessage = "Must be shorter than %3$d!")
@@ -37,12 +39,22 @@ public interface TestPrototype {
     @ValidateNull
     SubPrototype sub();
 
-    @CodeRequest(options = {ValidationFormOption.class, HiddenCreateMethodOption.class, GenerateOpenApiAlwaysOption.class})
+    @ValidateNull
+    OpenApiEnumPrototype type();
+
+    GenerationStrategy compiled();
+    @CodeRequest(options = {ValidationFormOption.class, HiddenCreateMethodOption.class, GenerateOpenApiIfAvailableOption.class})
     interface SubPrototype {
 
         @ValidateNull
         String value();
 
+    }
+
+    @EnumPrototype
+    enum OpenApiEnumPrototype {
+        ONE,
+        TWO
     }
 
 }

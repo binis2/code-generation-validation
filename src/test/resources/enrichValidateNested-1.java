@@ -7,6 +7,7 @@ import net.binis.codegen.annotation.Default;
 import net.binis.codegen.Test.Item;
 import javax.annotation.processing.Generated;
 import java.util.List;
+import io.swagger.v3.oas.annotations.media.*;
 
 @Generated(value = "net.binis.codegen.TestPrototype", comments = "TestImpl")
 @Default("net.binis.codegen.TestImpl")
@@ -26,6 +27,7 @@ public interface Test {
     // region inner classes
     @Default("net.binis.codegen.TestImpl$ItemImpl")
     public interface Item {
+        @Schema(name = "value", required = true)
         String getValue();
     }
 

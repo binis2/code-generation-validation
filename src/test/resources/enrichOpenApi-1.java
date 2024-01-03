@@ -1,6 +1,9 @@
 /*Generated code by Binis' code generator.*/
 package net.binis.codegen;
 
+import net.binis.codegen.objects.base.enumeration.CodeEnum;
+import net.binis.codegen.factory.CodeFactory;
+import net.binis.codegen.annotation.type.GenerationStrategy;
 import net.binis.codegen.annotation.Default;
 import net.binis.codegen.Test.Sub;
 import javax.annotation.processing.Generated;
@@ -12,6 +15,9 @@ import io.swagger.v3.oas.annotations.media.*;
 @Generated(value = "net.binis.codegen.TestPrototype", comments = "TestImpl")
 @Default("net.binis.codegen.TestImpl")
 public interface Test {
+    @Schema(name = "compiled", required = true, allowableValues = { "PROTOTYPE", "IMPLEMENTATION", "PLAIN", "NONE" })
+    GenerationStrategy getCompiled();
+
     @Schema(name = "list", required = true)
     List<Long> getList();
 
@@ -27,7 +33,30 @@ public interface Test {
     @Schema(name = "title", required = true)
     String getTitle();
 
+    @Schema(name = "type", required = true, allowableValues = { "ONE", "TWO" }, type = "string")
+    Test.OpenApiEnum getType();
+
     // region inner classes
+    @Default("net.binis.codegen.OpenApiEnumImpl")
+    public interface OpenApiEnum extends CodeEnum {
+
+        static final OpenApiEnum ONE = CodeFactory.initializeEnumValue(OpenApiEnum.class, "ONE", 0);
+
+        static final OpenApiEnum TWO = CodeFactory.initializeEnumValue(OpenApiEnum.class, "TWO", 1);
+
+        static OpenApiEnum valueOf(String name) {
+            return CodeFactory.enumValueOf(OpenApiEnum.class, name);
+        }
+
+        static OpenApiEnum valueOf(int ordinal) {
+            return CodeFactory.enumValueOf(OpenApiEnum.class, ordinal);
+        }
+
+        static OpenApiEnum[] values() {
+            return CodeFactory.enumValues(OpenApiEnum.class);
+        }
+    }
+
     @Default("net.binis.codegen.TestImpl$SubImpl")
     public interface Sub {
         @Schema(name = "value", required = true)
