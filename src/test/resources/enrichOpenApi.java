@@ -12,6 +12,7 @@ import net.binis.codegen.options.ValidationFormOption;
 import net.binis.codegen.validation.annotation.ValidateEmail;
 import net.binis.codegen.validation.annotation.ValidateLength;
 import net.binis.codegen.validation.annotation.ValidateNull;
+import net.binis.codegen.validation.annotation.ValidateRange;
 import net.binis.codegen.validation.sanitizer.TrimSanitizer;
 import net.binis.codegen.validation.validator.NullValidator;
 
@@ -26,6 +27,10 @@ public interface TestPrototype {
     @Sanitize(TrimSanitizer.class)
     @ValidateEmail
     String title();
+
+    @Default(value = "100")
+    @ValidateRange(min = Integer.MIN_VALUE, max = Integer.MAX_VALUE - 5)
+    int number();
 
     @ValidateNull
     List<Long> list();

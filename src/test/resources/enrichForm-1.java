@@ -14,12 +14,12 @@ public interface Test {
     @Schema(name = "list", required = true)
     List<Long> getList();
 
-    @Schema(name = "map", required = true)
+    @Schema(name = "map")
     Map<Long, String> getMap();
 
-    @Schema(name = "set", required = true)
+    @Schema(name = "set")
     Set<Long> getSet();
 
-    @Schema(name = "title", required = true)
+    @Schema(name = "title", defaultValue = "asd", minLength = 10)
     String getTitle();
 }

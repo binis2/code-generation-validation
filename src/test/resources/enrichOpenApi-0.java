@@ -2,6 +2,7 @@
 package net.binis.codegen;
 
 import net.binis.codegen.validation.validator.RegExValidator;
+import net.binis.codegen.validation.validator.RangeValidator;
 import net.binis.codegen.validation.validator.NullValidator;
 import net.binis.codegen.validation.validator.LengthValidator;
 import net.binis.codegen.validation.sanitizer.TrimSanitizer;
@@ -25,6 +26,8 @@ public class TestImpl implements Test, Validatable {
     protected List<Long> list;
 
     protected Map<Long, String> map;
+
+    protected int number = 100;
 
     protected Set<Long> set;
 
@@ -56,6 +59,10 @@ public class TestImpl implements Test, Validatable {
         return map;
     }
 
+    public int getNumber() {
+        return number;
+    }
+
     public Set<Long> getSet() {
         return set;
     }
@@ -73,7 +80,7 @@ public class TestImpl implements Test, Validatable {
     }
 
     public void validate() {
-        Validation.form(this.getClass(), e -> Validation.start(e, this.getClass(), "title", title).validateWithMessages(LengthValidator.class, new String[] { "Must be longer than %4$d!", "Must be shorter than %3$d!" }, 10, 255).sanitize(TrimSanitizer.class).validate(RegExValidator.class, "({field}) Invalid Email!", "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$").perform(v -> title = v), e -> Validation.start(e, this.getClass(), "list", list).validate(NullValidator.class, "({field}) Value can't be null").perform(v -> list = v), e -> Validation.start(e, this.getClass(), "set", set).validate(NullValidator.class, "test", "asd", "fgh").perform(v -> set = v), e -> Validation.start(e, this.getClass(), "map", map).validate(NullValidator.class, "another test").perform(v -> map = v), e -> Validation.start(e, this.getClass(), "sub", sub).validate(NullValidator.class, "({field}) Value can't be null").child().perform(v -> sub = v), e -> Validation.start(e, this.getClass(), "type", type).validate(NullValidator.class, "({field}) Value can't be null").perform(v -> type = v));
+        Validation.form(this.getClass(), e -> Validation.start(e, this.getClass(), "title", title).validateWithMessages(LengthValidator.class, new String[] { "Must be longer than %4$d!", "Must be shorter than %3$d!" }, 10, 255).sanitize(TrimSanitizer.class).validate(RegExValidator.class, "({field}) Invalid Email!", "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$").perform(v -> title = v), e -> Validation.start(e, this.getClass(), "number", number).validateWithMessages(RangeValidator.class, new String[] { "Value ({value}) for field '{field}' is less than {param[0]}!", "Value ({value}) for field '{field}' is more than {param[1]}!" }, null, Integer.MAX_VALUE - 5).perform(v -> number = v), e -> Validation.start(e, this.getClass(), "list", list).validate(NullValidator.class, "({field}) Value can't be null").perform(v -> list = v), e -> Validation.start(e, this.getClass(), "set", set).validate(NullValidator.class, "test", "asd", "fgh").perform(v -> set = v), e -> Validation.start(e, this.getClass(), "map", map).validate(NullValidator.class, "another test").perform(v -> map = v), e -> Validation.start(e, this.getClass(), "sub", sub).validate(NullValidator.class, "({field}) Value can't be null").child().perform(v -> sub = v), e -> Validation.start(e, this.getClass(), "type", type).validate(NullValidator.class, "({field}) Value can't be null").perform(v -> type = v));
     }
     // endregion
 

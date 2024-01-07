@@ -15,22 +15,25 @@ import io.swagger.v3.oas.annotations.media.*;
 @Generated(value = "net.binis.codegen.TestPrototype", comments = "TestImpl")
 @Default("net.binis.codegen.TestImpl")
 public interface Test {
-    @Schema(name = "compiled", required = true, allowableValues = { "PROTOTYPE", "IMPLEMENTATION", "PLAIN", "NONE" })
+    @Schema(name = "compiled", allowableValues = { "PROTOTYPE", "IMPLEMENTATION", "PLAIN", "NONE" })
     GenerationStrategy getCompiled();
 
     @Schema(name = "list", required = true)
     List<Long> getList();
 
-    @Schema(name = "map", required = true)
+    @Schema(name = "map")
     Map<Long, String> getMap();
 
-    @Schema(name = "set", required = true)
+    @Schema(name = "number", defaultValue = "100", minimum = "Integer.MIN_VALUE", maximum = "Integer.MAX_VALUE - 5")
+    int getNumber();
+
+    @Schema(name = "set")
     Set<Long> getSet();
 
     @Schema(name = "sub", required = true)
     Test.Sub getSub();
 
-    @Schema(name = "title", required = true)
+    @Schema(name = "title", defaultValue = "asd", minLength = 10)
     String getTitle();
 
     @Schema(name = "type", required = true, allowableValues = { "ONE", "TWO" }, type = "string")
