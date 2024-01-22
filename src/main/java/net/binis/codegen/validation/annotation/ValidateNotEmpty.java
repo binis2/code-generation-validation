@@ -4,7 +4,7 @@ package net.binis.codegen.validation.annotation;
  * #%L
  * code-generator-core
  * %%
- * Copyright (C) 2021 Binis Belev
+ * Copyright (C) 2021 - 2024 Binis Belev
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,11 +28,13 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.Collection;
+import java.util.Map;
 
 @CodeAnnotation
 @Target({ElementType.METHOD, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
-@Validate(value = NotEmptyValidator.class, targets = String.class)
+@Validate(value = NotEmptyValidator.class, targets = {String.class, Map.class, Collection.class})
 public @interface ValidateNotEmpty {
     String message() default "Field '{field}' is empty!";
 }
