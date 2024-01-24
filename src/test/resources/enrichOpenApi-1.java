@@ -18,7 +18,7 @@ public interface Test {
     @Schema(name = "compiled", allowableValues = { "PROTOTYPE", "IMPLEMENTATION", "PLAIN", "NONE" })
     GenerationStrategy getCompiled();
 
-    @Schema(name = "list", required = true)
+    @ArraySchema(schema = @Schema(name = "list", required = true))
     List<Long> getList();
 
     @Schema(name = "map")
