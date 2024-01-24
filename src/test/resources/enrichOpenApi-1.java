@@ -18,16 +18,16 @@ public interface Test {
     @Schema(name = "compiled", allowableValues = { "PROTOTYPE", "IMPLEMENTATION", "PLAIN", "NONE" })
     GenerationStrategy getCompiled();
 
-    @Schema(name = "list", required = true)
+    @ArraySchema(schema = @Schema(name = "list", required = true))
     List<Long> getList();
 
-    @Schema(name = "map")
+    @ArraySchema(schema = @Schema(name = "map"))
     Map<Long, String> getMap();
 
     @Schema(name = "number", defaultValue = "100", minimum = "Integer.MIN_VALUE", maximum = "Integer.MAX_VALUE - 5")
     int getNumber();
 
-    @Schema(name = "set")
+    @ArraySchema(schema = @Schema(name = "set"))
     Set<Long> getSet();
 
     @Schema(name = "sub", required = true)
