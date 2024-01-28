@@ -12,13 +12,13 @@ import io.swagger.v3.oas.annotations.media.*;
 @Generated(value = "net.binis.codegen.TestPrototype", comments = "TestImpl")
 @Default("net.binis.codegen.TestImpl")
 public interface Test {
-    @Schema(name = "list", required = true)
+    @ArraySchema(schema = @Schema(name = "list", required = true))
     List<Test.Sub> getList();
 
-    @Schema(name = "map")
+    @ArraySchema(schema = @Schema(name = "map"))
     Map<Long, Test.Sub> getMap();
 
-    @Schema(name = "set")
+    @ArraySchema(schema = @Schema(name = "set"))
     Set<Test.Sub> getSet();
 
     @Schema(name = "title", defaultValue = "asd", minLength = 10)
