@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.media.*;
 @Generated(value = "net.binis.codegen.TestPrototype", comments = "TestImpl")
 @Default("net.binis.codegen.TestImpl")
 public interface Test {
-    @Schema(name = "compiled", allowableValues = { "PROTOTYPE", "IMPLEMENTATION", "PLAIN", "NONE" })
+    @Schema(name = "compiled", allowableValues = { "PROTOTYPE", "IMPLEMENTATION", "PLAIN", "NONE" }, type = "string")
     GenerationStrategy getCompiled();
 
     @ArraySchema(schema = @Schema(name = "list", required = true))
