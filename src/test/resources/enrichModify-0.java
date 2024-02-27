@@ -3,11 +3,13 @@ package net.binis.codegen;
 
 import net.binis.codegen.modifier.impl.BaseModifierImpl;
 import net.binis.codegen.modifier.Modifiable;
+import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.collection.EmbeddedCodeSetImpl;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import net.binis.codegen.collection.CodeListImpl;
 import net.binis.codegen.collection.CodeList;
 import javax.annotation.processing.Generated;
+import java.util.function.Consumer;
 import java.util.Set;
 import java.util.List;
 
@@ -102,6 +104,21 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
 
         public TestModify.Modify prototype(SubModify prototype) {
             TestModifyImpl.this.prototype = prototype;
+            return this;
+        }
+
+        public SubModify.EmbeddedSoloModify<TestModify.Modify> prototype() {
+            if (TestModifyImpl.this.prototype == null) {
+                TestModifyImpl.this.prototype = CodeFactory.create(SubModify.class);
+            }
+            return CodeFactory.modify(this, TestModifyImpl.this.prototype, SubModify.class);
+        }
+
+        public TestModify.Modify prototype$(Consumer<SubModify.Modify> init) {
+            if (TestModifyImpl.this.prototype == null) {
+                TestModifyImpl.this.prototype = CodeFactory.create(SubModify.class);
+            }
+            init.accept(TestModifyImpl.this.prototype.with());
             return this;
         }
 

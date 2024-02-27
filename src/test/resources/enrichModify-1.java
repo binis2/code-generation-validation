@@ -6,6 +6,7 @@ import net.binis.codegen.intf.Prototypable;
 import net.binis.codegen.collection.EmbeddedCodeCollection;
 import net.binis.codegen.collection.CodeList;
 import javax.annotation.processing.Generated;
+import java.util.function.Consumer;
 import java.util.Set;
 import java.util.List;
 
@@ -32,6 +33,8 @@ public interface TestModify extends Prototypable<SubModify> {
     interface Modify extends TestModify.Fields<TestModify.Modify>, BaseModifier<TestModify.Modify, TestModify> {
         Modify items(List<Long> items);
         CodeList<Long, TestModify.Modify> items();
+        SubModify.EmbeddedSoloModify<Modify> prototype();
+        Modify prototype$(Consumer<SubModify.Modify> init);
         Modify subs(Set<SubModify> subs);
         EmbeddedCodeCollection<SubModify.EmbeddedCollectionModify<TestModify.Modify>, SubModify, TestModify.Modify> subs();
     }
