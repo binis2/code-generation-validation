@@ -1,5 +1,6 @@
 package net.binis.codegen;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import net.binis.codegen.annotation.Default;
 import net.binis.codegen.annotation.EnumPrototype;
 import net.binis.codegen.annotation.builder.CodeRequest;
@@ -46,8 +47,12 @@ public interface TestPrototype {
 
     @ValidateNull
     OpenApiEnumPrototype type();
-
     GenerationStrategy compiled();
+
+    @ValidateNull
+    @ValidateLength(min = 10, max = 20)
+    @Schema(name = "Presented", description = "This is present annotation", minLength = 11, maxLength = 19, example = "example")
+    String present();
     @CodeRequest(options = {ValidationFormOption.class, HiddenCreateMethodOption.class, GenerateOpenApiIfAvailableOption.class})
     interface SubPrototype {
 

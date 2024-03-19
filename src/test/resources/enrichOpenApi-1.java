@@ -27,6 +27,9 @@ public interface Test {
     @Schema(name = "number", defaultValue = "100", minimum = "Integer.MIN_VALUE", maximum = "Integer.MAX_VALUE - 5")
     int getNumber();
 
+    @Schema(name = "Presented", description = "This is present annotation", minLength = 11, maxLength = 19, example = "example", required = true)
+    String getPresent();
+
     @ArraySchema(schema = @Schema(name = "set"))
     Set<Long> getSet();
 
