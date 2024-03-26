@@ -67,16 +67,16 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return (T) this;
         }
 
-        public T list(List<Test> list) {
-            Validation.start(this.getClass(), "list", list).validate(NullValidator.class, "({field}) Value can't be null").validateCollection(NullValidator.class, "({field}) Value can't be null").perform(v -> TestImpl.this.list = v);
-            return (T) this;
-        }
-
         public EmbeddedCodeCollection list() {
             if (TestImpl.this.list == null) {
                 TestImpl.this.list = new java.util.ArrayList<>();
             }
             return new EmbeddedCodeListImpl<>(this, TestImpl.this.list, Test.class, value -> Validation.start(this.getClass(), "list", value).validate(NullValidator.class, "({field}) Value can't be null"));
+        }
+
+        public T list(List<Test> list) {
+            Validation.start(this.getClass(), "list", list).validate(NullValidator.class, "({field}) Value can't be null").validateCollection(NullValidator.class, "({field}) Value can't be null").perform(v -> TestImpl.this.list = v);
+            return (T) this;
         }
     }
 

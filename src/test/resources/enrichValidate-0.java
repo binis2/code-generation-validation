@@ -81,11 +81,6 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return TestImpl.this;
         }
 
-        public Test.Modify list(List<Long> list) {
-            Validation.start(this.getClass(), "list", list).validate(NullValidator.class, null).perform(v -> TestImpl.this.list = v);
-            return this;
-        }
-
         public CodeList list() {
             if (TestImpl.this.list == null) {
                 TestImpl.this.list = new java.util.ArrayList<>();
@@ -93,8 +88,8 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return new CodeListImpl<>(this, TestImpl.this.list);
         }
 
-        public Test.Modify map(Map<Long, String> map) {
-            Validation.start(this.getClass(), "map", map).validate(NullValidator.class, "test").perform(v -> TestImpl.this.map = v);
+        public Test.Modify list(List<Long> list) {
+            Validation.start(this.getClass(), "list", list).validate(NullValidator.class, null).perform(v -> TestImpl.this.list = v);
             return this;
         }
 
@@ -105,8 +100,8 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return new CodeMapImpl<>(this, TestImpl.this.map);
         }
 
-        public Test.Modify set(Set<Long> set) {
-            Validation.start(this.getClass(), "set", set).validate(NullValidator.class, "test", "asd", "fgh").perform(v -> TestImpl.this.set = v);
+        public Test.Modify map(Map<Long, String> map) {
+            Validation.start(this.getClass(), "map", map).validate(NullValidator.class, "test").perform(v -> TestImpl.this.map = v);
             return this;
         }
 
@@ -115,6 +110,11 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
                 TestImpl.this.set = new java.util.HashSet<>();
             }
             return new CodeSetImpl<>(this, TestImpl.this.set);
+        }
+
+        public Test.Modify set(Set<Long> set) {
+            Validation.start(this.getClass(), "set", set).validate(NullValidator.class, "test", "asd", "fgh").perform(v -> TestImpl.this.set = v);
+            return this;
         }
 
         public Test.Modify title(String title) {

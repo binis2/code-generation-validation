@@ -30,8 +30,8 @@ public interface Test {
     }
 
     interface Modify extends Test.Fields<Test.Modify>, BaseModifier<Test.Modify, Test> {
-        Modify list(List<Integer> list);
         CodeList<Integer, Test.Modify> list();
+        Modify list(List<Integer> list);
     }
     // endregion
 }

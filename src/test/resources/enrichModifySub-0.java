@@ -60,16 +60,16 @@ public class SubModifyImpl implements SubModify, Modifiable<SubModify.Modify> {
             super(parent);
         }
 
-        public T prototype(SubModify prototype) {
-            SubModifyImpl.this.prototype = prototype;
-            return (T) this;
-        }
-
         public SubModify.EmbeddedSoloModify<SubModify.EmbeddedModify<T, R>> prototype() {
             if (SubModifyImpl.this.prototype == null) {
                 SubModifyImpl.this.prototype = CodeFactory.create(SubModify.class);
             }
             return CodeFactory.modify(this, SubModifyImpl.this.prototype, SubModify.class);
+        }
+
+        public T prototype(SubModify prototype) {
+            SubModifyImpl.this.prototype = prototype;
+            return (T) this;
         }
 
         public T subAmount(double subAmount) {

@@ -21,8 +21,8 @@ public interface Test {
     }
 
     interface EmbeddedModify<T, R> extends BaseModifier<T, R>, Test.Fields<T> {
-        T list(List<Test> list);
         EmbeddedCodeCollection<Test.EmbeddedCollectionModify<Test.EmbeddedModify<T, R>>, Test, T> list();
+        T list(List<Test> list);
     }
 
     interface Fields<T> {

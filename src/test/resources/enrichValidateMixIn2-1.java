@@ -15,7 +15,7 @@ public interface MixIn extends Test {
     void setList(List<Long> list);
 
     interface Modify extends BaseModifier<MixIn.Modify, MixIn> {
-        Modify list(List<Long> list);
         CodeList<Long, MixIn.Modify> list();
+        Modify list(List<Long> list);
     }
 }

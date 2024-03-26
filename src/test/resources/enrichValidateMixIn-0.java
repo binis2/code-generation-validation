@@ -58,16 +58,16 @@ public class TestImpl implements Test, MixIn, Modifiable<Test.Modify> {
             return TestImpl.this;
         }
 
-        public MixIn.Modify list(List<Long> list) {
-            Validation.start(this.getClass(), "list", list).validate(NullValidator.class, null).perform(v -> TestImpl.this.list = v);
-            return this;
-        }
-
         public CodeList list() {
             if (TestImpl.this.list == null) {
                 TestImpl.this.list = new java.util.ArrayList<>();
             }
             return new CodeListImpl<>(this, TestImpl.this.list);
+        }
+
+        public MixIn.Modify list(List<Long> list) {
+            Validation.start(this.getClass(), "list", list).validate(NullValidator.class, null).perform(v -> TestImpl.this.list = v);
+            return this;
         }
 
         public MixIn.Modify title(String title) {

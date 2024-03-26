@@ -16,7 +16,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     protected int value2;
 
     // region constructor & initializer
-    {
+    static {
         CodeFactory.registerType(Test.class, TestImpl::new, null);
     }
 

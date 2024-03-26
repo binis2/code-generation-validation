@@ -37,10 +37,10 @@ public interface Test {
     }
 
     interface Modify extends Test.Fields<Test.Modify>, BaseModifier<Test.Modify, Test> {
-        Modify list(List<Long> list);
         CodeList<Long, Test.Modify> list();
+        Modify list(List<Long> list);
 
-        Modify set(Set<Long> set);
         CodeSet<Long, Test.Modify> set();
+        Modify set(Set<Long> set);
     }
 }

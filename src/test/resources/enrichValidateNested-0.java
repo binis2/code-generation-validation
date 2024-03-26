@@ -17,7 +17,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
     protected List<Test.Item> list;
 
     // region constructor & initializer
-    {
+    static {
         CodeFactory.registerType(Test.class, TestImpl::new, null);
     }
 
@@ -42,7 +42,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
         protected String value;
 
         // region constructor & initializer
-        {
+        static {
             CodeFactory.registerType(Test.Item.class, ItemImpl::new, null);
         }
 

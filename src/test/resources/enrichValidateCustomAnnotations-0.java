@@ -108,11 +108,6 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return this;
         }
 
-        public Test.Modify list(List<Long> list) {
-            Validation.start(this.getClass(), "list", list).validate(NullValidator.class, "({field}) Value can't be null").perform(v -> TestImpl.this.list = v);
-            return this;
-        }
-
         public CodeList list() {
             if (TestImpl.this.list == null) {
                 TestImpl.this.list = new java.util.ArrayList<>();
@@ -120,8 +115,8 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             return new CodeListImpl<>(this, TestImpl.this.list);
         }
 
-        public Test.Modify set(Set<Long> set) {
-            Validation.start(this.getClass(), "set", set).validate(RegExValidator.class, "Test", "^$").perform(v -> TestImpl.this.set = v);
+        public Test.Modify list(List<Long> list) {
+            Validation.start(this.getClass(), "list", list).validate(NullValidator.class, "({field}) Value can't be null").perform(v -> TestImpl.this.list = v);
             return this;
         }
 
@@ -130,6 +125,11 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
                 TestImpl.this.set = new java.util.HashSet<>();
             }
             return new CodeSetImpl<>(this, TestImpl.this.set);
+        }
+
+        public Test.Modify set(Set<Long> set) {
+            Validation.start(this.getClass(), "set", set).validate(RegExValidator.class, "Test", "^$").perform(v -> TestImpl.this.set = v);
+            return this;
         }
 
         public Test.Modify title(String title) {

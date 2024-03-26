@@ -17,9 +17,9 @@ public interface Test {
     Test.Modify with();
 
     interface Modify extends BaseModifier<Test.Modify, Test> {
-        Modify list(List<String> list);
         CodeList<String, Test.Modify> list();
-        Modify list2(List<String> list2);
+        Modify list(List<String> list);
         CodeList<String, Test.Modify> list2();
+        Modify list2(List<String> list2);
     }
 }

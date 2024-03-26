@@ -29,12 +29,12 @@ public interface Test {
     }
 
     interface Modify extends Test.Fields<Test.Modify>, BaseModifier<Test.Modify, Test> {
-        Modify list(List<Long> list);
         CodeList<Long, Test.Modify> list();
-        Modify map(Map<Long, String> map);
+        Modify list(List<Long> list);
         CodeMap<Long, String, Test.Modify> map();
+        Modify map(Map<Long, String> map);
 
-        Modify set(Set<Long> set);
         CodeSet<Long, Test.Modify> set();
+        Modify set(Set<Long> set);
     }
 }

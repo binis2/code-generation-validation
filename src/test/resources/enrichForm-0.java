@@ -26,7 +26,7 @@ public class TestImpl implements Test, Validatable {
     protected String title = "asd";
 
     // region constructor & initializer
-    {
+    static {
         CodeFactory.registerType(Test.class, TestImpl::new, null);
     }
 

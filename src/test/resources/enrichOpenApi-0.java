@@ -41,7 +41,7 @@ public class TestImpl implements Test, Validatable {
     protected Test.OpenApiEnum type;
 
     // region constructor & initializer
-    {
+    static {
         CodeFactory.registerType(Test.class, TestImpl::new, null);
     }
 
@@ -113,7 +113,7 @@ public class TestImpl implements Test, Validatable {
         protected String value;
 
         // region constructor & initializer
-        {
+        static {
             CodeFactory.registerType(Test.Sub.class, SubImpl::new, null);
         }
 

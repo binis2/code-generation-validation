@@ -90,11 +90,6 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
             return TestModifyImpl.this;
         }
 
-        public TestModify.Modify items(List<Long> items) {
-            TestModifyImpl.this.items = items;
-            return this;
-        }
-
         public CodeList items() {
             if (TestModifyImpl.this.items == null) {
                 TestModifyImpl.this.items = new java.util.ArrayList<>();
@@ -102,8 +97,8 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
             return new CodeListImpl<>(this, TestModifyImpl.this.items);
         }
 
-        public TestModify.Modify prototype(SubModify prototype) {
-            TestModifyImpl.this.prototype = prototype;
+        public TestModify.Modify items(List<Long> items) {
+            TestModifyImpl.this.items = items;
             return this;
         }
 
@@ -114,6 +109,11 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
             return CodeFactory.modify(this, TestModifyImpl.this.prototype, SubModify.class);
         }
 
+        public TestModify.Modify prototype(SubModify prototype) {
+            TestModifyImpl.this.prototype = prototype;
+            return this;
+        }
+
         public TestModify.Modify prototype$(Consumer<SubModify.Modify> init) {
             if (TestModifyImpl.this.prototype == null) {
                 TestModifyImpl.this.prototype = CodeFactory.create(SubModify.class);
@@ -122,16 +122,16 @@ public class TestModifyImpl implements TestModify, Modifiable<TestModify.Modify>
             return this;
         }
 
-        public TestModify.Modify subs(Set<SubModify> subs) {
-            TestModifyImpl.this.subs = subs;
-            return this;
-        }
-
         public EmbeddedCodeCollection subs() {
             if (TestModifyImpl.this.subs == null) {
                 TestModifyImpl.this.subs = new java.util.HashSet<>();
             }
             return new EmbeddedCodeSetImpl<>(this, TestModifyImpl.this.subs, SubModify.class);
+        }
+
+        public TestModify.Modify subs(Set<SubModify> subs) {
+            TestModifyImpl.this.subs = subs;
+            return this;
         }
 
         public TestModify.Modify title(String title) {
