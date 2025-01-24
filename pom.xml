@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>dev.binis</groupId>
     <artifactId>code-generator-validation</artifactId>
-    <version>1.2.22</version>
+    <version>1.2.23</version>
     <name>code-generator-validation</name>
     <description>Validation and Sanitization extension for Binis Code Generation library</description>
     <url>https://github.com/binis2/code-generation</url>
@@ -53,7 +53,7 @@
 
     <properties>
         <java.version>17</java.version>
-        <dev.binis>1.2.22</dev.binis>
+        <dev.binis>1.2.23</dev.binis>
         <license.licenseName>apache_v2</license.licenseName>
         <resource.delimiter>@</resource.delimiter>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -93,7 +93,7 @@
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
-            <version>2.2.25</version>
+            <version>2.2.28</version>
             <scope>test</scope>
         </dependency>
 
@@ -115,7 +115,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>license-maven-plugin</artifactId>
-                    <version>2.4.0</version>
+                    <version>2.5.0</version>
 
                     <configuration>
                         <verbose>false</verbose>
@@ -147,7 +147,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.5.1</version>
+                    <version>3.5.2</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-deploy-plugin</artifactId>
@@ -200,7 +200,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.10.1</version>
+                    <version>3.11.2</version>
                     <executions>
                         <execution>
                             <id>attach-javadocs</id>
@@ -284,7 +284,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>2.17.1</version>
+                <version>2.18.0</version>
                 <reportSets>
                     <reportSet>
                         <reports>
