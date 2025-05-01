@@ -90,6 +90,10 @@ class ValidationTest extends BaseCodeGenTest {
         testSingleExecute("enrichValidateExecuteWithModifier.java", "enrichValidateExecuteWithModifier-0.java", "enrichValidateExecuteWithModifier-1.java", "enrichValidateExecuteWithModifier-2.java");
     }
 
+    @Test
+    void enrichValidateExecutorAllBut() {
+        testSingleExecute("enrichValidateExecuteAllBut.java", "enrichValidateExecuteAllBut-0.java", "enrichValidateExecuteAllBut-1.java", "enrichValidateExecuteAllBut-2.java");
+    }
 
 
 }

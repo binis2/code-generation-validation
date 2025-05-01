@@ -71,7 +71,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             if (TestImpl.this.list == null) {
                 TestImpl.this.list = new java.util.ArrayList<>();
             }
-            return new EmbeddedCodeListImpl<>(this, TestImpl.this.list, Test.class, value -> Validation.start(this.getClass(), "list", value).validate(NullValidator.class, "({field}) Value can't be null"));
+            return new EmbeddedCodeListImpl<>(this, TestImpl.this.list, Test.class, value -> Validation.start(this.getClass(), "list[value]", value).validate(NullValidator.class, "({field}) Value can't be null"));
         }
 
         public T list(List<Test> list) {

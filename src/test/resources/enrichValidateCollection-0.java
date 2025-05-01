@@ -58,7 +58,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             if (TestImpl.this.list == null) {
                 TestImpl.this.list = new java.util.ArrayList<>();
             }
-            return new CodeListImpl<>(this, TestImpl.this.list, value -> Validation.start(this.getClass(), "list", value).validate(LambdaValidator.class, "({field}) Value can't be blank!", ((java.util.function.Predicate<String>) org.apache.commons.lang3.StringUtils::isNotBlank)));
+            return new CodeListImpl<>(this, TestImpl.this.list, value -> Validation.start(this.getClass(), "list[value]", value).validate(LambdaValidator.class, "({field}) Value can't be blank!", ((java.util.function.Predicate<String>) org.apache.commons.lang3.StringUtils::isNotBlank)));
         }
 
         public Test.Modify list(List<String> list) {
@@ -70,7 +70,7 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
             if (TestImpl.this.list2 == null) {
                 TestImpl.this.list2 = new java.util.ArrayList<>();
             }
-            return new CodeListImpl<>(this, TestImpl.this.list2, value -> Validation.start(this.getClass(), "list2", value).validate(NullValidator.class, "({field}) Value can't be null").validate(LambdaValidator.class, "({field}) Value can't be blank!", ((java.util.function.Predicate<String>) org.apache.commons.lang3.StringUtils::isNotBlank)));
+            return new CodeListImpl<>(this, TestImpl.this.list2, value -> Validation.start(this.getClass(), "list2[value]", value).validate(NullValidator.class, "({field}) Value can't be null").validate(LambdaValidator.class, "({field}) Value can't be blank!", ((java.util.function.Predicate<String>) org.apache.commons.lang3.StringUtils::isNotBlank)));
         }
 
         public Test.Modify list2(List<String> list2) {
