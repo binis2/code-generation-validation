@@ -43,7 +43,7 @@ public interface Test {
     Test.OpenApiEnum getType();
 
     // region inner classes
-    @Default("net.binis.codegen.OpenApiEnumImpl")
+    @Default("net.binis.codegen.TestImpl$OpenApiEnumImpl")
     public interface OpenApiEnum extends CodeEnum {
 
         static final OpenApiEnum ONE = CodeFactory.initializeEnumValue(OpenApiEnum.class, "ONE", 0);
