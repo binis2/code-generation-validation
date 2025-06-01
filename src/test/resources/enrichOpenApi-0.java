@@ -92,6 +92,7 @@ public class TestImpl implements Test, Validatable {
     // endregion
 
     // region inner classes
+    @net.binis.codegen.annotation.Generated(by = "net.binis.codegen.TestPrototype.OpenApiEnumPrototype")
     public static class OpenApiEnumImpl extends CodeEnumImpl implements OpenApiEnum {
 
         public OpenApiEnumImpl(int $ordinal, String $name) {

@@ -43,6 +43,7 @@ public interface Test {
     Test.OpenApiEnum getType();
 
     // region inner classes
+    @net.binis.codegen.annotation.Generated(by = "net.binis.codegen.TestPrototype.OpenApiEnumPrototype")
     @Default("net.binis.codegen.TestImpl$OpenApiEnumImpl")
     public interface OpenApiEnum extends CodeEnum {
 
