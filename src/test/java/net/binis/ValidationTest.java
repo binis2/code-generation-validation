@@ -95,5 +95,15 @@ class ValidationTest extends BaseCodeGenTest {
         testSingleExecute("enrichValidateExecuteAllBut.java", "enrichValidateExecuteAllBut-0.java", "enrichValidateExecuteAllBut-1.java", "enrichValidateExecuteAllBut-2.java");
     }
 
+    @Test
+    void enrichValidateIgnores() {
+        testSingleExecute("enrichValidateIgnores.java", "enrichValidateIgnores-0.java", "enrichValidateIgnores-1.java", "enrichValidateIgnores-2.java");
+    }
+
+    @Test
+    void enrichNotEmpty() {
+        testSingleExecute("enrichValidateNotEmpty.java", "enrichValidateNotEmpty-0.java", "enrichValidateNotEmpty-1.java", "enrichValidateNotEmpty-2.java");
+    }
+
 
 }

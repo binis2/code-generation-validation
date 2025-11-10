@@ -24,8 +24,11 @@ import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.validation.Validator;
 import org.apache.commons.lang3.StringUtils;
 
+import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Map;
+
+import static java.util.Objects.nonNull;
 
 public class NotEmptyValidator implements Validator {
 
@@ -45,6 +48,10 @@ public class NotEmptyValidator implements Validator {
         if (value instanceof String s) {
             return !StringUtils.isEmpty(s);
         }
+        if (nonNull(value) && value.getClass().isArray()) {
+            return Array.getLength(value) > 0;
+        }
+
         return true;
     }
 

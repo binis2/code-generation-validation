@@ -36,7 +36,6 @@ import java.util.Map;
 import java.util.Set;
 
 import static net.binis.codegen.mock.CodeGenMock.mockCreate;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class NotEmptyValidatorTest extends BaseCodeGenTest {
@@ -55,6 +54,7 @@ class NotEmptyValidatorTest extends BaseCodeGenTest {
         Validation.start(this.getClass(), "test", Map.of("asd", "asd")).validate(NotEmptyValidator.class, null).perform();
         Validation.start(this.getClass(), "test", List.of("asd")).validate(NotEmptyValidator.class, null).perform();
         Validation.start(this.getClass(), "test", Set.of("asd")).validate(NotEmptyValidator.class, null).perform();
+        Validation.start(this.getClass(), "test", new int[] {1}).validate(NotEmptyValidator.class, null).perform();
         Validation.start(this.getClass(), "test", "asd").validate(NotEmptyValidator.class, null).perform();
         assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", Collections.emptyMap()).validate(NotEmptyValidator.class, null));
         assertThrows(ValidationException.class, () -> Validation.start(this.getClass(), "test", Collections.emptyList()).validate(NotEmptyValidator.class, null));

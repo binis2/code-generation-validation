@@ -24,6 +24,11 @@ import net.binis.codegen.factory.CodeFactory;
 import net.binis.codegen.validation.ValidatorWithMessages;
 import net.binis.codegen.validation.flow.impl.ValidationResultImpl;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Map;
+
 import static java.util.Objects.nonNull;
 
 public class LengthValidator implements ValidatorWithMessages {
@@ -37,13 +42,22 @@ public class LengthValidator implements ValidatorWithMessages {
     @Override
     public ValidationResult validate(Object value, Object... params) {
         if (nonNull(value) && params.length == 2 && params[0] instanceof Integer && params[1] instanceof Integer) {
-            var str = value.toString();
+            var len = -1;
+            if (value instanceof Collection collection) {
+                len = collection.size();
+            } else if (value instanceof Map map) {
+                len = map.size();
+            } else if (value.getClass().isArray()) {
+                len = Array.getLength(value);
+            } else {
+                len = value.toString().length();
+            }
             var min = (int) params[0];
-            if (min > 0 && str.length() < min) {
+            if (min > 0 && len < min) {
                 return ValidationResultImpl.of(false);
             } else {
                 var max = (int) params[1];
-                if (max > -1 && str.length() > max) {
+                if (max > -1 && len > max) {
                     return ValidationResultImpl.of(false, 1);
                 }
             }
