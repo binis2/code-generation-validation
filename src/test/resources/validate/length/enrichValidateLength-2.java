@@ -31,6 +31,15 @@ public class Execute extends TestExecutor {
             assertEquals("Value (10010) for field 'value' is longer than 4!", e.getMessage());
         }
 
+        try {
+            Test.create().value3("3999").done();
+            Test.create().value3("123456").done();
+            throw new UnsupportedOperationException("1");
+        } catch (ValidationException e) {
+            assertEquals("too long", e.getMessage());
+        }
+
+
         return true;
     }
 }

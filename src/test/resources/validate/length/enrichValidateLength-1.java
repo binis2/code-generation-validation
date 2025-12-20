@@ -19,6 +19,7 @@ public interface Test {
 
     int getValue();
     int getValue2();
+    String getValue3();
 
     Test.Modify with();
 
@@ -26,6 +27,7 @@ public interface Test {
     interface Fields<T> {
         T value(int value);
         T value2(int value2);
+        T value3(String value3);
     }
 
     interface Modify extends Test.Fields<Test.Modify>, BaseModifier<Test.Modify, Test> {

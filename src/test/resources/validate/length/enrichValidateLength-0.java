@@ -15,6 +15,8 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     protected int value2;
 
+    protected String value3;
+
     // region constructor & initializer
     static {
         CodeFactory.registerType(Test.class, TestImpl::new, null);
@@ -31,6 +33,10 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
 
     public int getValue2() {
         return value2;
+    }
+
+    public String getValue3() {
+        return value3;
     }
 
     public Test.Modify with() {
@@ -58,6 +64,11 @@ public class TestImpl implements Test, Modifiable<Test.Modify> {
 
         public Test.Modify value2(int value2) {
             Validation.start(this.getClass(), "value2", value2).validateWithMessages(LengthValidator.class, new String[] { "Value ({value}) for field '{field}' is shorter than {param[0]}!", "Value ({value}) for field '{field}' is longer than {param[1]}!" }, 3, 4).perform(v -> TestImpl.this.value2 = v);
+            return this;
+        }
+
+        public Test.Modify value3(String value3) {
+            Validation.start(this.getClass(), "value3", value3).validateWithMessages(LengthValidator.class, new String[] { "Value ({value}) for field '{field}' is shorter than {param[0]}!", "too long" }, -1, 5).perform(v -> TestImpl.this.value3 = v);
             return this;
         }
     }

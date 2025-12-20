@@ -53,7 +53,7 @@ public class TestImpl implements Test {
     }
 
     public void setCalculated(String calculated) {
-        Validation.start(this.getClass(), "calculated", calculated).validateWithMessages(LengthValidator.class, new String[] { Constants.STATIC_TEXT + "!", "Value ({value}) for field '{field}' is longer than {param[1]}!" }, -1, 10 * 10).perform(v -> this.calculated = v);
+        Validation.start(this.getClass(), "calculated", calculated).validateWithMessages(LengthValidator.class, new String[] { "Value ({value}) for field '{field}' is shorter than {param[0]}!", Constants.STATIC_TEXT + "!" }, -1, 10 * 10).perform(v -> this.calculated = v);
     }
 
     public void setCompiledSubtitle(String compiledSubtitle) {

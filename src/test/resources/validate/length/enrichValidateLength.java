@@ -17,4 +17,8 @@ public interface TestPrototype {
     @ValidateLength(min = 3, value = 4)
     int value2();
 
+    @ValidateLength(max = 5, maxMessage = "too long")
+    String value3();
+
+
 }
